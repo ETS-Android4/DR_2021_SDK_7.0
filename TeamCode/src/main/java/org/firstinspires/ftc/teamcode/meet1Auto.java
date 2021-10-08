@@ -55,16 +55,16 @@ public class meet1Auto extends LinearOpMode
         robot.motorRM.setPower(0);
         robot.motorRF.setPower(0 * 3/4);
 
-        while (robot.angles.firstAngle > -90) {
-            robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+       while (robot.angles.firstAngle > -90) {
+           robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-            robot.motorLB.setPower(0.5  * 3/4);
-            robot.motorLM.setPower(0.5);
-            robot.motorLF.setPower(0.5 * 3/4);
+           robot.motorLB.setPower(0.5  * 3/4);
+           robot.motorLM.setPower(0.5);
+           robot.motorLF.setPower(0.5 * 3/4);
 
-            telemetry.addData("heading", robot.angles.firstAngle);
-            telemetry.update();
-        }
+           telemetry.addData("heading", robot.angles.firstAngle);
+           telemetry.update();
+       }
         robot.motorLB.setPower(0.5  * 3/4);
         robot.motorLM.setPower(0.5);
         robot.motorLF.setPower(0.5 * 3/4);
@@ -81,16 +81,16 @@ public class meet1Auto extends LinearOpMode
         robot.motorRM.setPower(0);
         robot.motorRF.setPower(0 * 3/4);
 
-        while (robot.angles.firstAngle > -110) {
-            robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+       while (robot.angles.firstAngle > -110) {
+           robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-            robot.motorRB.setPower(-0.5  * 3/4);
-            robot.motorRM.setPower(-0.5);
-            robot.motorRF.setPower(-0.5 * 3/4);
+           robot.motorRB.setPower(-0.5  * 3/4);
+           robot.motorRM.setPower(-0.5);
+           robot.motorRF.setPower(-0.5 * 3/4);
 
-            telemetry.addData("heading", robot.angles.firstAngle);
-            telemetry.update();
-        }
+           telemetry.addData("heading", robot.angles.firstAngle);
+           telemetry.update();
+       }
 
         robot.motorLB.setPower(-0.5  * 3/4);
         robot.motorLM.setPower(-0.5);

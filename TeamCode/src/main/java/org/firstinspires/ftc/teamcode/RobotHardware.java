@@ -108,8 +108,12 @@ public class RobotHardware
         motorRM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
 
         motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
