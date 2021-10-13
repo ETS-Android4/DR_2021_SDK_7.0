@@ -5,6 +5,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -32,7 +33,7 @@ public class RobotHardware
     //mechanism motors
     public DcMotor motorRM = null;
     public DcMotor motorLM = null;
-    //public DcMotor motor3 = null;
+    public DcMotor arm = null;
     //public DcMotor motor4 = null;
 
     //odometry encoders
@@ -41,8 +42,8 @@ public class RobotHardware
     //public DcMotor horizontal = null;
 
     //servos
-    //public Servo servo = null;
-    //public Servo servo2 = null;
+    public Servo servo = null;
+    public Servo servo2 = null;
     //public Servo servo3 = null;
     //public Servo servo4 = null;
     //public Servo servo5 = null;
@@ -87,8 +88,8 @@ public class RobotHardware
 
 
         //servos
-//        servo = ahwMap.servo.get("servo");
-//        servo2 = ahwMap.servo.get("servo2");
+        servo = ahwMap.servo.get("servo");
+        servo2 = ahwMap.servo.get("servo2");
 //        servo3 = ahwMap.servo.get("servo3");
 //        servo4 = ahwMap.servo.get("servo4");
 //        servo5 = ahwMap.servo.get("servo5");
@@ -131,8 +132,8 @@ public class RobotHardware
 
 
         //servos
-//        servo.setPosition(0);
-//        servo2.setPosition(0);
+        servo.setPosition(0);
+        servo2.setPosition(0);
 //        servo3.setPosition(0);
 //        servo4.setPosition(0);
 //        servo5.setPosition(0);
@@ -146,19 +147,19 @@ public class RobotHardware
 
         //IMU
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
-        parameters.loggingEnabled      = true;
-        parameters.loggingTag          = "IMU";
-        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+        //BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        //parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        //parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        //parameters.calibrationDataFile = "BNO055IMUCalibration.json"; // see the calibration sample opmode
+        //parameters.loggingEnabled      = true;
+        //parameters.loggingTag          = "IMU";
+        //parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
 
-        imu = ahwMap.get(BNO055IMU.class, "imu");
-        imu.initialize(parameters);
+        //imu = ahwMap.get(BNO055IMU.class, "imu");
+        //imu.initialize(parameters);
 
-        angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        gravity  = imu.getGravity();
+        //angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //gravity  = imu.getGravity();
 
 
 
