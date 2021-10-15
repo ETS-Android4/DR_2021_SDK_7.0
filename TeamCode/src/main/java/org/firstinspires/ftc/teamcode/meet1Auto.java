@@ -38,6 +38,9 @@ public class meet1Auto extends LinearOpMode
 
         //ElapsedTime whatever = new ElapsedTime();
 
+
+        //Imu startUp
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
@@ -49,17 +52,26 @@ public class meet1Auto extends LinearOpMode
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
+
+        //creates two variables for ramp motor speed
+
         double turnPowerM = 0;
         double turnPowerO = 0;
 
 
         waitForStart();
 
+        //more imu stuff
+
         imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+        //drives the robot backwards at half speed
+
         encoderDrive(-750, -0.5);
+
+        //turn right
 
         while (angles.firstAngle > -85) {
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -79,9 +91,13 @@ public class meet1Auto extends LinearOpMode
             telemetry.update();
         }
 
+        //move backward
+
         encoderDrive(-2000, -.75);
 
-        //spin ducks
+        //put code to spin ducks HERE ^^^
+
+        //drive forward alot
 
         encoderDrive(3000, .75);
 

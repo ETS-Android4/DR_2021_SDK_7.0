@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -44,7 +45,7 @@ public class RobotHardware
     //servos
     public Servo servo = null;
     public Servo servo2 = null;
-    //public Servo servo3 = null;
+    public Servo servo3 = null;
     //public Servo servo4 = null;
     //public Servo servo5 = null;
     //public Servo servo6 = null;
@@ -54,6 +55,9 @@ public class RobotHardware
     //public Servo servo10 = null;
     //public Servo servo11 = null;
     //public Servo servo12 = null;
+    public CRServo INservo1 = null;
+    public CRServo INservo2 = null;
+
 
     BNO055IMU imu;
     Orientation angles;
@@ -73,6 +77,7 @@ public class RobotHardware
         motorLB = ahwMap.dcMotor.get("motorLB");
         motorRM = ahwMap.dcMotor.get("motorRM");
         motorLM = ahwMap.dcMotor.get("motorLM");
+        arm = ahwMap.dcMotor.get("arm");
 
         //leftEncoder = motorRB;
         //rightEncoder = motorLB;
@@ -90,7 +95,7 @@ public class RobotHardware
         //servos
         servo = ahwMap.servo.get("servo");
         servo2 = ahwMap.servo.get("servo2");
-//        servo3 = ahwMap.servo.get("servo3");
+        servo3 = ahwMap.servo.get("servo3");
 //        servo4 = ahwMap.servo.get("servo4");
 //        servo5 = ahwMap.servo.get("servo5");
 //        servo6 = ahwMap.servo.get("servo6");
@@ -100,6 +105,8 @@ public class RobotHardware
 //        servo10 = ahwMap.servo.get("servo10");
 //        servo11 = ahwMap.servo.get("servo11");
 //        servo12 = ahwMap.servo.get("servo12");
+        INservo1 = ahwMap.crservo.get("INservo1");
+        INservo2 = ahwMap.crservo.get("INservo2");
 
         //drive motors and odometry encoders
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -108,6 +115,7 @@ public class RobotHardware
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -115,7 +123,7 @@ public class RobotHardware
         motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
+        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
         motorLB.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -127,6 +135,8 @@ public class RobotHardware
         motorLB.setPower(0);
         motorRM.setPower(0);
         motorLM.setPower(0);
+        arm.setPower(0);
+
 
         //mechanism motors
 
@@ -134,7 +144,7 @@ public class RobotHardware
         //servos
         servo.setPosition(0);
         servo2.setPosition(0);
-//        servo3.setPosition(0);
+        servo3.setPosition(0);
 //        servo4.setPosition(0);
 //        servo5.setPosition(0);
 //        servo6.setPosition(0);
@@ -144,6 +154,9 @@ public class RobotHardware
 //        servo10.setPosition(0);
 //        servo11.setPosition(0);
 //        servo12.setPosition(0);
+        INservo1.setPower(0);
+        INservo2.setPower(0);
+
 
         //IMU
 
