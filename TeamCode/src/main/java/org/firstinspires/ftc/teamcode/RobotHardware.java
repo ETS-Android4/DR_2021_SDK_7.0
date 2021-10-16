@@ -143,8 +143,8 @@ public class RobotHardware
 
         //servos
         servo.setPosition(0);
-        servo2.setPosition(0);
-        servo3.setPosition(0);
+        servo2.setPosition(1);
+        servo3.setPosition(0.325);
 //        servo4.setPosition(0);
 //        servo5.setPosition(0);
 //        servo6.setPosition(0);
