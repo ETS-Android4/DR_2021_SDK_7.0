@@ -23,7 +23,7 @@ public class SixMotorTankDrive extends LinearOpMode
     boolean DpadUpToggle2 = true;
     boolean DpadDownToggle = true;
 
-    int armSetPos = 0;
+    int armSetPos = 1;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -47,12 +47,12 @@ public class SixMotorTankDrive extends LinearOpMode
         while (opModeIsActive())
         {
            // robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            robot.motorRF.setPower(gamepad1.right_stick_y * 3/4);
-            robot.motorRM.setPower(gamepad1.right_stick_y);
-            robot.motorRB.setPower(gamepad1.right_stick_y * 3/4);
-            robot.motorLB.setPower(gamepad1.left_stick_y * 3/4);
-            robot.motorLM.setPower(gamepad1.left_stick_y);
-            robot.motorLF.setPower(gamepad1.left_stick_y * 3/4);
+            robot.motorRF.setPower(-gamepad1.right_stick_y * 3/4);
+            robot.motorRM.setPower(-gamepad1.right_stick_y);
+            robot.motorRB.setPower(-gamepad1.right_stick_y * 3/4);
+            robot.motorLB.setPower(-gamepad1.left_stick_y * 3/4);
+            robot.motorLM.setPower(-gamepad1.left_stick_y);
+            robot.motorLF.setPower(-gamepad1.left_stick_y * 3/4);
 
             if (gamepad2.dpad_down && DpadDownToggle){
                 armSetPos = armSetPos - 1;
@@ -78,58 +78,48 @@ public class SixMotorTankDrive extends LinearOpMode
 
             if (armSetPos == 1){
                 armPos = 0;
-                robot.servo2.setPosition(1);
+                servo2Pos = 1;
             }
 
             else if (armSetPos == 2){
-                armPos = 400;
-                robot.servo2.setPosition(.7);
+                armPos = 600;
+                servo2Pos = .33;
             }
 
             else if (armSetPos == 3){
-                armPos = 700;
-                robot.servo2.setPosition(.4);
+                armPos = 750;
+                servo2Pos = .23;
             }
 
             else if (armSetPos == 4){
-                armPos = 1000;
-                robot.servo2.setPosition(0);
+                armPos = 950;
+                servo2Pos = .05;
             }
 
-            if (gamepad2.left_bumper && leftBumperToggle){
-                armPos = armPos - 50;
-
-                leftBumperToggle = false;
+            else if (armSetPos == 5){
+                armPos = 1025;
+                servo2Pos = .03;
             }
 
-            else if (!gamepad2.left_bumper && !leftBumperToggle) {
-                leftBumperToggle = true;
+
+            if (gamepad2.start) {
+                robot.arm.setTargetPosition(armPos);
+
+                robot.arm.setPower(1);
+
+                robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+                robot.servo2.setPosition(servo2Pos);
             }
 
-            if (gamepad2.right_bumper && rightBumperToggle2){
-                armPos = armPos + 50;
+            robot.servo3.setPosition(((gamepad2.left_stick_x + 1)/2 ) * .65);
 
-                rightBumperToggle2 = false;
-            }
-
-            else if (!gamepad2.right_bumper && !rightBumperToggle2) {
-                rightBumperToggle2 = true;
-            }
-
-                    robot.arm.setTargetPosition(armPos);
-
-                    robot.arm.setPower(1);
-
-                    robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-                robot.servo3.setPosition(((gamepad2.left_stick_x + 1)/2 ) * .65);
-
-                //robot.servo2.setPosition(gamepad2.right_stick_y);
+            //robot.servo2.setPosition(gamepad2.right_stick_y);
 
 
 
-            robot.servo2.setPosition(servo2Pos);
+
+            //robot.servo2.setPosition(gamepad2.left_stick_y);
 
 
            if (gamepad2.a) {
@@ -159,6 +149,26 @@ public class SixMotorTankDrive extends LinearOpMode
             }
 
 
+                if (gamepad2.left_bumper && leftBumperToggle)
+                {
+                    armPos = armPos - 50;
+
+                    leftBumperToggle = false;
+                } else if (!gamepad2.left_bumper && !leftBumperToggle)
+                {
+                    leftBumperToggle = true;
+                }
+
+                if (gamepad2.right_bumper && rightBumperToggle2)
+                {
+                    armPos = armPos + 50;
+
+                    rightBumperToggle2 = false;
+                } else if (!gamepad2.right_bumper && !rightBumperToggle2)
+                {
+                    rightBumperToggle2 = true;
+                }
+
 
 
 
@@ -169,8 +179,9 @@ public class SixMotorTankDrive extends LinearOpMode
             telemetry.addData("servo3", robot.servo3.getPosition());
             telemetry.addData("INservo1", robot.INservo1.getPower());
             telemetry.addData("arm", robot.arm.getPower());
-            telemetry.addData("armPos", robot.arm.getCurrentPosition());
+            telemetry.addData("armPos", armPos);
             telemetry.addData("armSetPos", armSetPos);
+            //telemetry.addData("wrist pos", gamepad2.left_stick_y);
             telemetry.update();
         }
     }
