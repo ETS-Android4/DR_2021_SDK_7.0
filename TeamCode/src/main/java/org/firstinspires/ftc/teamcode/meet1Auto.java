@@ -20,7 +20,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 @Autonomous(name="meet1Auto")
 
 
-public class meet1Auto extends LinearOpMode
+public class
+meet1Auto extends LinearOpMode
 {
 
     BNO055IMU imu;

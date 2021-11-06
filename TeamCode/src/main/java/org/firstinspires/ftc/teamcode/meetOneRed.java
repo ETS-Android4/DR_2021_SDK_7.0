@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -19,10 +20,10 @@ public class meetOneRed extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
-        //FtcDashboard dashboard = FtcDashboard.getInstance();
-        //telemetry = dashboard.getTelemetry();
+        FtcDashboard dashboard = FtcDashboard.getInstance();
+        telemetry = dashboard.getTelemetry();
 
-        int loopCount = 0;
+       int loopCount = 0;
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
@@ -30,42 +31,62 @@ public class meetOneRed extends LinearOpMode
 
         ElapsedTime whatever = new ElapsedTime();
 
-        robot.motorLB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorRF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorRM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorRB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorLM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorLF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
         waitForStart();
 
+            forward(600,.9);
+
+        robot.arm.setTargetPosition(575);
+
+        robot.arm.setPower(0.75);
+
+        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        robot.servo2.setPosition(.33);
+
+        telemetry.addData("gate one opened",loopCount);
+        telemetry.update();
+
+            sleep(2000);
+
+           // pivot(1000, -1000, .5, -.5);
 
 
-            pivot(-1000, 1000, -.5, .5);
+        robot.servo.setPosition(1);
+
+        telemetry.addData("gate two opened", loopCount);
+        telemetry.update();
+
+        sleep(2000);
+
+        robot.servo2.setPosition(.75);
+
+        robot.arm.setTargetPosition(-400);
+
+        robot.arm.setPower(-0.25);
+
+        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        telemetry.addData("gate three opened", loopCount);
+        telemetry.update();
 
         sleep();
 
-            forward(1000,.5);
 
-        sleep();
 
-        robot.motorLB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorRF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorRM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorRB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorLM.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        robot.motorLF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       //robot.servo3.setPosition(.25);
 
-            while(loopCount < 500)
-            {
-                robot.INservo1.setPower(.5);
-                robot.INservo2.setPower(.5);
-                loopCount++;
-            }
 
-            robot.INservo1.setPower(0);
-            robot.INservo2.setPower(0);
-            loopCount = 0;
+
+//            while(loopCount < 500)
+//            {
+//                robot.INservo1.setPower(.5);
+//                robot.INservo2.setPower(.5);
+//                loopCount++;
+//            }
+//
+//            robot.INservo1.setPower(0);
+//            robot.INservo2.setPower(0);
+//            loopCount = 0;
 
            // forward(2000,.7);
 

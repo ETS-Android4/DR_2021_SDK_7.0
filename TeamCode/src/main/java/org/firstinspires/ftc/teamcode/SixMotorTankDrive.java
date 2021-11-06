@@ -6,6 +6,11 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.openftc.easyopencv.OpenCvCamera;
+import org.openftc.easyopencv.OpenCvCameraFactory;
+import org.openftc.easyopencv.OpenCvInternalCamera;
+
 
 @TeleOp(name="SixMotorTankDrive")
 
@@ -16,6 +21,8 @@ public class SixMotorTankDrive extends LinearOpMode
     int armPos;
 
     double servo2Pos = 1;
+
+    boolean camera_Active = false;
 
     boolean rightBumperToggle2 = true;
     boolean leftBumperToggle = true;
@@ -33,8 +40,7 @@ public class SixMotorTankDrive extends LinearOpMode
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
-        robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);;
-
+        robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -46,6 +52,8 @@ public class SixMotorTankDrive extends LinearOpMode
 
         while (opModeIsActive())
         {
+
+
            // robot.angles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             robot.motorRF.setPower(-gamepad1.right_stick_y * 3/4);
             robot.motorRM.setPower(-gamepad1.right_stick_y);
@@ -96,7 +104,7 @@ public class SixMotorTankDrive extends LinearOpMode
                     servo2Pos = .04;
                 } else if (armSetPos == 5)
                 {
-                    armPos = 1025;
+                    armPos = 1075;
                     servo2Pos = .02;
                 }
             }
@@ -139,8 +147,8 @@ public class SixMotorTankDrive extends LinearOpMode
            }
 
            if (gamepad2.y){
-               robot.INservo1.setPower(.9);
-               robot.INservo2.setPower(.9);
+               robot.INservo1.setPower(.7);
+               robot.INservo2.setPower(.7);
            }
             if(!gamepad2.y){
                robot.INservo1.setPower(0);
