@@ -3,18 +3,16 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="meetOneRed")
+@Autonomous(name="meetOneRedLeft")
 //@Disabled
 
 
-public class meetOneRed extends LinearOpMode
+public class meetOneRedLeft extends LinearOpMode
 {
 
     @Override
@@ -33,79 +31,23 @@ public class meetOneRed extends LinearOpMode
 
         waitForStart();
 
-            forward(800,.9);
+        forward(800,.9);
 
-        robot.arm.setTargetPosition(750);
+        sleep();
+
+        robot.arm.setTargetPosition(575);
 
         robot.arm.setPower(0.75);
 
         robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        robot.servo2.setPosition(.33);
+        robot.servo2.setPosition(.21);
 
-        telemetry.addData("gate one opened",loopCount);
-        telemetry.update();
+        sleep(500);
 
-            sleep(2000);
-
-           // pivot(1000, -1000, .5, -.5);
-
-
-        robot.servo.setPosition(1);
-
-        telemetry.addData("gate two opened", loopCount);
-        telemetry.update();
-
-        sleep(2000);
-
-        robot.servo2.setPosition(.75);
-
-        robot.arm.setTargetPosition(-400);
-
-        robot.arm.setPower(-0.25);
-
-        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        telemetry.addData("gate three opened", loopCount);
-        telemetry.update();
+        robot.servo3.setPosition(.25);
 
         sleep();
-
-        forward(100,.7);
-
-        sleep();
-
-        pivot(-950,-.5);
-
-        sleep(2500);
-
-        forward(8000,1);
-
-        sleep(4000);
-
-
-
-
-       //robot.servo3.setPosition(.25);
-
-
-
-//            while(loopCount < 500)
-//            {
-//                robot.INservo1.setPower(.5);
-//                robot.INservo2.setPower(.5);
-//                loopCount++;
-//            }
-//
-//            robot.INservo1.setPower(0);
-//            robot.INservo2.setPower(0);
-//            loopCount = 0;
-
-           // forward(2000,.7);
-
-
-
-
 
         }
 
