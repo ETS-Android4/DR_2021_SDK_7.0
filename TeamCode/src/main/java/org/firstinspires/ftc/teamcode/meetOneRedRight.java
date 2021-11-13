@@ -3,16 +3,18 @@ package org.firstinspires.ftc.teamcode;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="meetOneBlueLeft")
+@Autonomous(name="meetOneRed")
 //@Disabled
 
 
-public class meetOneBlueLeft extends LinearOpMode
+public class meetOneRedRight extends LinearOpMode
 {
 
     @Override
@@ -31,9 +33,9 @@ public class meetOneBlueLeft extends LinearOpMode
 
         waitForStart();
 
-            forward(750,.9);
+            forward(800,.9);
 
-        robot.arm.setTargetPosition(600);
+        robot.arm.setTargetPosition(650);
 
         robot.arm.setPower(0.75);
 
@@ -75,13 +77,13 @@ public class meetOneBlueLeft extends LinearOpMode
 
         sleep();
 
-        pivot(850,.5);
+        pivot(-950,-.5);
 
         sleep(2500);
 
-        forward(6000,1);
+        forward(8000,1);
 
-        sleep(3000);
+        sleep(3500);
 
 
 

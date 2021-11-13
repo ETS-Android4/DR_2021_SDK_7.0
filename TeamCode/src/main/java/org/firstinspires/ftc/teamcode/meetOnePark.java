@@ -1,20 +1,19 @@
 package org.firstinspires.ftc.teamcode;
 
 
+
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="meetOneRed")
+@Autonomous(name="meetOnePark")
 //@Disabled
 
 
-public class meetOneRed extends LinearOpMode
+public class meetOnePark extends LinearOpMode
 {
 
     @Override
@@ -23,7 +22,6 @@ public class meetOneRed extends LinearOpMode
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
 
-       int loopCount = 0;
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
@@ -33,81 +31,20 @@ public class meetOneRed extends LinearOpMode
 
         waitForStart();
 
-            forward(800,.9);
-
-        robot.arm.setTargetPosition(750);
-
-        robot.arm.setPower(0.75);
-
-        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        robot.servo2.setPosition(.33);
-
-        telemetry.addData("gate one opened",loopCount);
-        telemetry.update();
-
-            sleep(2000);
-
-           // pivot(1000, -1000, .5, -.5);
-
-
-        robot.servo.setPosition(1);
-
-        telemetry.addData("gate two opened", loopCount);
-        telemetry.update();
-
-        sleep(2000);
-
-        robot.servo2.setPosition(.75);
-
-        robot.arm.setTargetPosition(-400);
-
-        robot.arm.setPower(-0.25);
-
-        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        telemetry.addData("gate three opened", loopCount);
-        telemetry.update();
-
-        sleep();
-
-        forward(100,.7);
-
-        sleep();
-
-        pivot(-950,-.5);
+        forward(1600,.9);
 
         sleep(2500);
 
-        forward(8000,1);
+        pivot(800,0.75);
 
-        sleep(4000);
+        sleep(2000);
 
+        forward(1000,.2);
 
-
-
-       //robot.servo3.setPosition(.25);
-
+        sleep();
 
 
-//            while(loopCount < 500)
-//            {
-//                robot.INservo1.setPower(.5);
-//                robot.INservo2.setPower(.5);
-//                loopCount++;
-//            }
-//
-//            robot.INservo1.setPower(0);
-//            robot.INservo2.setPower(0);
-//            loopCount = 0;
-
-           // forward(2000,.7);
-
-
-
-
-
-        }
+    }
 
 
     void forward (int distance, double power) {
@@ -169,6 +106,3 @@ public class meetOneRed extends LinearOpMode
         sleep(1000);
     }
 }
-//robot.wobble.setTargetPosition(upPosition);
-//                robot.wobble.setPower(0.7);
-//                robot.wobble.setMode(DcMotor.RunMode.RUN_TO_POSITION);
