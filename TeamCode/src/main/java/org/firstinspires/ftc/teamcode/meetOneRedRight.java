@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="meetOneRed")
+@Autonomous(name="meetOneRedRight")
 //@Disabled
 
 
@@ -33,17 +33,21 @@ public class meetOneRedRight extends LinearOpMode
 
         waitForStart();
 
-            forward(800,.9);
+        forward(800,.9);
 
-        robot.arm.setTargetPosition(650);
+        sleep();
+
+        robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.servo2.setPosition(.33);
+
+        sleep(100);
+
+        robot.arm.setTargetPosition(525);
 
         robot.arm.setPower(0.75);
 
         robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        sleep(300);
-
-        robot.servo2.setPosition(.33);
 
         telemetry.addData("gate one opened",loopCount);
         telemetry.update();
@@ -60,28 +64,30 @@ public class meetOneRedRight extends LinearOpMode
 
         sleep(2000);
 
-        robot.servo2.setPosition(.75);
+        robot.arm.setTargetPosition(-350);
 
-        robot.arm.setTargetPosition(-400);
-
-        robot.arm.setPower(-0.25);
+        robot.arm.setPower(-0.3);
 
         robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        sleep(300);
+
+        robot.servo2.setPosition(.85);
 
         telemetry.addData("gate three opened", loopCount);
         telemetry.update();
 
-        sleep();
+        sleep(3500);
 
         forward(100,.7);
 
         sleep();
 
-        pivot(-950,-.5);
+        pivot(-825,-.6);
 
         sleep(2500);
 
-        forward(8000,1);
+        forward(7000,1);
 
         sleep(3500);
 

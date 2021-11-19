@@ -40,7 +40,7 @@ public class SixMotorTankDrive extends LinearOpMode
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
-        robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -92,7 +92,7 @@ public class SixMotorTankDrive extends LinearOpMode
                     servo2Pos = 1;
                 } else if (armSetPos == 2)
                 {
-                    armPos = 625;
+                    armPos = 525;
                     servo2Pos = .33;
                 } else if (armSetPos == 3)
                 {
@@ -147,8 +147,8 @@ public class SixMotorTankDrive extends LinearOpMode
            }
 
            if (gamepad2.y){
-               robot.INservo1.setPower(.7);
-               robot.INservo2.setPower(.7);
+               robot.INservo1.setPower(-.7);
+               robot.INservo2.setPower(-.7);
            }
             if(!gamepad2.y){
                robot.INservo1.setPower(0);

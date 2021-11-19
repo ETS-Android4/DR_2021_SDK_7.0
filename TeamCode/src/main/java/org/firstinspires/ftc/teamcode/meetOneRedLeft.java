@@ -18,10 +18,10 @@ public class meetOneRedLeft extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
-        FtcDashboard dashboard = FtcDashboard.getInstance();
-        telemetry = dashboard.getTelemetry();
+       // FtcDashboard dashboard = FtcDashboard.getInstance();
+       // telemetry = dashboard.getTelemetry();
 
-       int loopCount = 0;
+       double loopCount = 0;
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
@@ -31,21 +31,48 @@ public class meetOneRedLeft extends LinearOpMode
 
         waitForStart();
 
-        forward(800,.9);
+        pivot(-150,-.5);
+
+        telemetry.addData("1",loopCount);
+        telemetry.update();
 
         sleep();
 
-        robot.arm.setTargetPosition(575);
+        forward(-1500,-.5);
 
-        robot.arm.setPower(0.75);
+        telemetry.addData("2",loopCount);
+        telemetry.update();
 
-        robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        sleep();
 
-        robot.servo2.setPosition(.21);
 
-        sleep(500);
+        robot.INservo1.setPower(.7);
+        robot.INservo2.setPower(.7);
 
-        robot.servo3.setPosition(.25);
+
+        telemetry.addData("",loopCount);
+        telemetry.update();
+
+        sleep();
+        sleep();
+        sleep();
+
+        telemetry.addData("hshshshshshshhssh",loopCount);
+        telemetry.update();
+
+        loopCount = 1;
+        robot.INservo1.setPower(0);
+        robot.INservo2.setPower(0);
+
+
+        sleep();
+        sleep();
+
+        pivot(-500, -.5);
+
+        sleep();
+
+        forward(-500,-.5);
 
         sleep();
 
