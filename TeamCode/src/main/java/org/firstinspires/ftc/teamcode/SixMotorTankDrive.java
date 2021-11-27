@@ -105,7 +105,7 @@ public class SixMotorTankDrive extends LinearOpMode
                 } else if (armSetPos == 5)
                 {
                     armPos = 925;
-                    servo2Pos = .02;
+                    servo2Pos = 0;
                 }
             }
 
@@ -119,15 +119,8 @@ public class SixMotorTankDrive extends LinearOpMode
                 robot.servo2.setPosition(servo2Pos);
             }
 
-            robot.servo3.setPosition(((gamepad2.left_stick_x + 1)/2 ) * .65);
-
             //robot.servo2.setPosition(gamepad2.right_stick_y);
-
-
-
-
             //robot.servo2.setPosition(gamepad2.left_stick_y);
-
 
            if (gamepad2.a) {
                robot.servo.setPosition(0);
@@ -187,7 +180,6 @@ public class SixMotorTankDrive extends LinearOpMode
            // telemetry.addData("heading", robot.angles.firstAngle);
             telemetry.addData("servo", robot.servo.getPosition());
             telemetry.addData("servo2", robot.servo2.getPosition());
-            telemetry.addData("servo3", robot.servo3.getPosition());
             telemetry.addData("INservo1", robot.INservo1.getPower());
             telemetry.addData("INservo2", robot.INservo2.getPower());
             telemetry.addData("arm", robot.arm.getPower());

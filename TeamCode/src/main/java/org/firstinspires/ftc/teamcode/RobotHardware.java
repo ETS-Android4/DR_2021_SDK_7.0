@@ -45,7 +45,7 @@ public class RobotHardware
     //servos
     public Servo servo = null;
     public Servo servo2 = null;
-    public Servo servo3 = null;
+    //public Servo servo3 = null;
     //public Servo servo4 = null;
     //public Servo servo5 = null;
     //public Servo servo6 = null;
@@ -95,7 +95,7 @@ public class RobotHardware
         //servos
         servo = ahwMap.servo.get("servo");
         servo2 = ahwMap.servo.get("servo2");
-        servo3 = ahwMap.servo.get("servo3");
+        //servo3 = ahwMap.servo.get("servo3");
 //        servo4 = ahwMap.servo.get("servo4");
 //        servo5 = ahwMap.servo.get("servo5");
 //        servo6 = ahwMap.servo.get("servo6");
@@ -144,7 +144,7 @@ public class RobotHardware
         //servos
         servo.setPosition(0);
         servo2.setPosition(1);
-        servo3.setPosition(0.325);
+        //servo3.setPosition(0.325);
 //        servo4.setPosition(0);
 //        servo5.setPosition(0);
 //        servo6.setPosition(0);
