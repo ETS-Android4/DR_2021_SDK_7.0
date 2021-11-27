@@ -41,7 +41,7 @@ public class meetOneRedRight extends LinearOpMode
 
         robot.servo2.setPosition(.33);
 
-        sleep(100);
+        sleep(300);
 
         robot.arm.setTargetPosition(525);
 
@@ -87,7 +87,7 @@ public class meetOneRedRight extends LinearOpMode
 
         sleep(2500);
 
-        forward(7000,1);
+        forward(6500,1);
 
         sleep(3500);
 

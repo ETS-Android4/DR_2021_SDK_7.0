@@ -1,4 +1,4 @@
-package pinkCode;
+package org.firstinspires.ftc.teamcode.pinkCode;
 
 import org.opencv.core.Core;
 import org.opencv.core.Mat;

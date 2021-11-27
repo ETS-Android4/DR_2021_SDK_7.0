@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@Autonomous(name="meetOneRedLeft")
+@Autonomous(name="meetOneRedDucks")
 //@Disabled
 
 
@@ -31,7 +31,7 @@ public class meetOneRedLeft extends LinearOpMode
 
         waitForStart();
 
-        pivot(-150,-.5);
+        pivot(-200,-.5);
 
         telemetry.addData("1",loopCount);
         telemetry.update();
@@ -68,14 +68,18 @@ public class meetOneRedLeft extends LinearOpMode
         sleep();
         sleep();
 
-        pivot(-500, -.5);
+        pivot(-650, -.5);
 
         sleep();
 
-        forward(-500,-.5);
+        forward(-1900,-.5);
 
         sleep();
+        sleep();
 
+        pivot(-50, -.5);
+
+        sleep();
         }
 
 
