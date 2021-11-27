@@ -27,21 +27,32 @@ public class meetOneBlueLeft extends LinearOpMode
 
         //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
+        //need changes to push to git
+
         ElapsedTime whatever = new ElapsedTime();
 
         waitForStart();
 
-            forward(750,.9);
 
-        robot.arm.setTargetPosition(600);
+        forward(800,.9);
+
+        sleep();
+
+        pivot(50,.5);
+
+        sleep();
+
+        robot.arm.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        robot.servo2.setPosition(.33);
+
+        sleep(300);
+
+        robot.arm.setTargetPosition(525);
 
         robot.arm.setPower(0.75);
 
         robot.arm.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-        sleep(300);
-
-        robot.servo2.setPosition(.33);
 
         telemetry.addData("gate one opened",loopCount);
         telemetry.update();
