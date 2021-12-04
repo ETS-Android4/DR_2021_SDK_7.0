@@ -75,6 +75,11 @@ public class meetOneBlueDucks extends LinearOpMode
 
         sleep();
         sleep();
+
+        pivot(50, .5);
+
+        sleep();
+        sleep();
         }
 
 

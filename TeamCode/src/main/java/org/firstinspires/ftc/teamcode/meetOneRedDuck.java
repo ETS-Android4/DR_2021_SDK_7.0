@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 //@Disabled
 
 
-public class meetOneRedLeft extends LinearOpMode
+public class meetOneRedDuck extends LinearOpMode
 {
 
     @Override

@@ -104,7 +104,7 @@ public class SixMotorTankDrive extends LinearOpMode
                     servo2Pos = .05;
                 } else if (armSetPos == 5)
                 {
-                    armPos = 925;
+                    armPos = 950;
                     servo2Pos = 0;
                 }
             }
