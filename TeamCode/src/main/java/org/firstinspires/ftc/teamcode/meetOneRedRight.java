@@ -23,7 +23,7 @@ public class meetOneRedRight extends LinearOpMode
         FtcDashboard dashboard = FtcDashboard.getInstance();
         telemetry = dashboard.getTelemetry();
 
-       int loopCount = 0;
+        int loopCount = 0;
 
         RobotHardware robot = new RobotHardware(hardwareMap);
 
@@ -52,9 +52,9 @@ public class meetOneRedRight extends LinearOpMode
         telemetry.addData("gate one opened",loopCount);
         telemetry.update();
 
-            sleep(2000);
+        sleep(2000);
 
-           // pivot(1000, -1000, .5, -.5);
+        // pivot(1000, -1000, .5, -.5);
 
 
         robot.servo.setPosition(1);
@@ -94,7 +94,7 @@ public class meetOneRedRight extends LinearOpMode
 
 
 
-       //robot.servo3.setPosition(.25);
+        //robot.servo3.setPosition(.25);
 
 
 
@@ -109,13 +109,13 @@ public class meetOneRedRight extends LinearOpMode
 //            robot.INservo2.setPower(0);
 //            loopCount = 0;
 
-           // forward(2000,.7);
+        // forward(2000,.7);
 
 
 
 
 
-        }
+    }
 
 
     void forward (int distance, double power) {
@@ -180,3 +180,4 @@ public class meetOneRedRight extends LinearOpMode
 //robot.wobble.setTargetPosition(upPosition);
 //                robot.wobble.setPower(0.7);
 //                robot.wobble.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+

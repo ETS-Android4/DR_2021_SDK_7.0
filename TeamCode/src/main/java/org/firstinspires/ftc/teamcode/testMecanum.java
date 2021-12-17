@@ -20,6 +20,9 @@ public class testMecanum extends LinearOpMode
     public DcMotor motorRB = null;
     public DcMotor motorLB = null;
 
+    double speed = .55;
+    double zScale = 1;
+
     @Override
     public void runOpMode() throws InterruptedException
     {
@@ -48,16 +51,24 @@ public class testMecanum extends LinearOpMode
         motorRF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorLB.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 
         while (opModeIsActive())
         {
-            motorLF.setPower(-gamepad1.right_stick_y - gamepad1.left_stick_x);
-            motorLB.setPower(-gamepad1.right_stick_y - gamepad1.left_stick_x);
-            motorRF.setPower(-gamepad1.right_stick_y + gamepad1.left_stick_x);
-            motorRB.setPower(-gamepad1.right_stick_y + gamepad1.left_stick_x);
+
+            motorRF.setPower(speed*((-gamepad1.left_stick_y - gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
+            motorRB.setPower(speed*(-(-gamepad1.left_stick_x + gamepad1.left_stick_y) - (zScale * gamepad1.right_stick_x)));
+            motorLB.setPower(speed*((gamepad1.left_stick_y + gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
+            motorLF.setPower(speed*((-gamepad1.left_stick_x + gamepad1.left_stick_y)) - (zScale * gamepad1.right_stick_x));
+
+            telemetry.addData("motorRF",motorRF.getPower());
+            telemetry.addData("motorRB",motorRB.getPower());
+            telemetry.addData("motorLB",motorLB.getPower());
+            telemetry.addData("motorLF",motorLF.getPower());
+
+            telemetry.update();
 
         }
     }
