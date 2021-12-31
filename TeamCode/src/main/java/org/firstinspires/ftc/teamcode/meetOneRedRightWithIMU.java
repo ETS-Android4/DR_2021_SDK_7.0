@@ -163,7 +163,7 @@ public class meetOneRedRightWithIMU extends LinearOpMode
         motorLF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         double I = 0;
-        double turnPower = 0;
+        double turnPower;
 
 
         while (angle > 180)
@@ -180,72 +180,74 @@ public class meetOneRedRightWithIMU extends LinearOpMode
 
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-            while ( angles.firstAngle < angle + 2 && I == 0)
+            while ( angles.firstAngle < angle + 10 && I == 0)
             {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-                turnPower = ((90 + angles.firstAngle) /90)*.75 + .15 ;
+                turnPower = ((angle - angles.firstAngle) /angle)+ .1;
 
                 motorRF.setPower(-turnPower);
                 motorRB.setPower(-turnPower);
                 motorLB.setPower(turnPower);
                 motorLF.setPower(turnPower);
 
-                telemetry.addData("right", I);
+                telemetry.addData("Left", I);
                 telemetry.addData("current angle" , angles.firstAngle);
                 telemetry.addData("target angle" , angle);
                 telemetry.update();
+
+                if(angles.firstAngle > angle - 2 && I == 0)
+                {
+                    angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+                    motorRF.setPower(0);
+                    motorRB.setPower(0);
+                    motorLB.setPower(0);
+                    motorLF.setPower(0);
+
+                    I = 3;
+
+                    telemetry.addData("Dead", I);
+                    telemetry.addData("current angle" ,angles.firstAngle);
+                    telemetry.addData("target angle" , angle);
+                    telemetry.update();
+                }
             }
 
-            while(angles.firstAngle < angle - 3 && angles.firstAngle > angle + 3 && I == 0)
+            while(angles.firstAngle > angle -  10 && I == 0)
             {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-                motorRF.setPower(0);
-                motorRB.setPower(0);
-                motorLB.setPower(0);
-                motorLF.setPower(0);
-
-                I = 3;
-
-                telemetry.addData("Dead", I);
-                telemetry.addData("current angle" ,angles.firstAngle);
-                telemetry.addData("target angle" , angle);
-                telemetry.update();
-            }
-
-            while(angles.firstAngle > angle - 2 && I == 0)
-            {
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-                turnPower = ((90 + angles.firstAngle) /90)*.75 + .15 ;
+                turnPower = ((angle - angles.firstAngle) /angle)+ .1;
 
                 motorRF.setPower(turnPower);
                 motorRB.setPower(turnPower);
                 motorLB.setPower(-turnPower);
                 motorLF.setPower(-turnPower);
 
-                telemetry.addData("Left", I);
+                telemetry.addData("right", I);
                 telemetry.addData("current angle" ,angles.firstAngle);
                 telemetry.addData("target angle" , angle);
                 telemetry.update();
+
+                if(angles.firstAngle < angle + 2 && I == 0)
+                {
+                    angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+                    motorRF.setPower(0);
+                    motorRB.setPower(0);
+                    motorLB.setPower(0);
+                    motorLF.setPower(0);
+
+                    I = 3;
+
+                    telemetry.addData("Dead", I);
+                    telemetry.addData("current angle" ,angles.firstAngle);
+                    telemetry.addData("target angle" , angle);
+                    telemetry.update();
+                }
             }
-            while(angles.firstAngle < angle - 3 && angles.firstAngle > angle + 3 && I == 0)
-            {
-                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-                motorRF.setPower(0);
-                motorRB.setPower(0);
-                motorLB.setPower(0);
-                motorLF.setPower(0);
-
-                I = 3;
-
-                telemetry.addData("Dead", I);
-                telemetry.addData("current angle" ,angles.firstAngle);
-                telemetry.addData("target angle" , angle);
-                telemetry.update();
-            }
 
         }
 

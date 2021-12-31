@@ -20,7 +20,7 @@ public class testMecanum extends LinearOpMode
     public DcMotor motorRB = null;
     public DcMotor motorLB = null;
 
-    double speed = .55;
+    double speed = .75;
     double zScale = 1;
 
     @Override
@@ -50,8 +50,8 @@ public class testMecanum extends LinearOpMode
         motorLB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorRF.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorLB.setDirection(DcMotorSimple.Direction.REVERSE);
+        motorRB.setDirection(DcMotorSimple.Direction.REVERSE);
 
         waitForStart();
 

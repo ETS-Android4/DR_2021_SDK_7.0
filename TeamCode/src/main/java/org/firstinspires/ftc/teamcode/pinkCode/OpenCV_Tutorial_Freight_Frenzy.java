@@ -64,14 +64,6 @@ public class OpenCV_Tutorial_Freight_Frenzy extends LinearOpMode {
                  }
              });
 
-
-
-
-
-
-
-
-
         //webcam.openCameraDeviceAsync(() -> webcam.startStreaming(CAMERA_WIDTH, CAMERA_HEIGHT, OpenCvCameraRotation.UPRIGHT));
 
 
