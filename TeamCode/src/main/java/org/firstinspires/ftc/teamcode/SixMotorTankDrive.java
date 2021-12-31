@@ -130,20 +130,20 @@ public class SixMotorTankDrive extends LinearOpMode
                robot.servo.setPosition(1);
            }
 
-           if (gamepad2.x){
+           if (gamepad2.y){
            robot.INservo1.setPower(.7);
            robot.INservo2.setPower(.7);
            }
-            if (!gamepad2.x) {
+            if (!gamepad2.y) {
                robot.INservo1.setPower(0);
                robot.INservo2.setPower(0);
            }
 
-           if (gamepad2.y){
+           if (gamepad2.x){
                robot.INservo1.setPower(-.7);
                robot.INservo2.setPower(-.7);
            }
-            if(!gamepad2.y){
+            if(!gamepad2.x){
                robot.INservo1.setPower(0);
                robot.INservo2.setPower(0);
             }

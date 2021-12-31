@@ -71,7 +71,7 @@ public class meetOneBlueDucks extends LinearOpMode
 
         sleep();
 
-        forward(-1900,-.5);
+        forward(-1700,-.5);
 
         sleep();
         sleep();

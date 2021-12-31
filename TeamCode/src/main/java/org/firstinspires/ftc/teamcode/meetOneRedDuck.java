@@ -72,7 +72,7 @@ public class meetOneRedDuck extends LinearOpMode
 
         sleep();
 
-        forward(-1900,-.5);
+        forward(-1750,-.5);
 
         sleep();
         sleep();

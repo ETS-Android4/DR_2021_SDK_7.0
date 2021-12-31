@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="testMecanum")
+@TeleOp(name="MecanumTeleOp")
 //@Disabled
 
 public class testMecanum extends LinearOpMode
