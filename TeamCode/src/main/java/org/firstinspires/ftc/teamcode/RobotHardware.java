@@ -75,9 +75,9 @@ public class RobotHardware
         motorLF = ahwMap.dcMotor.get("motorLF");
         motorRB = ahwMap.dcMotor.get("motorRB");
         motorLB = ahwMap.dcMotor.get("motorLB");
-        motorRM = ahwMap.dcMotor.get("motorRM");
-        motorLM = ahwMap.dcMotor.get("motorLM");
-        arm = ahwMap.dcMotor.get("arm");
+        //motorRM = ahwMap.dcMotor.get("motorRM");
+        //motorLM = ahwMap.dcMotor.get("motorLM");
+        //arm = ahwMap.dcMotor.get("arm");
 
         //leftEncoder = motorRB;
         //rightEncoder = motorLB;
@@ -93,8 +93,8 @@ public class RobotHardware
 
 
         //servos
-        servo = ahwMap.servo.get("servo");
-        servo2 = ahwMap.servo.get("servo2");
+        //servo = ahwMap.servo.get("servo");
+        //servo2 = ahwMap.servo.get("servo2");
         //servo3 = ahwMap.servo.get("servo3");
 //        servo4 = ahwMap.servo.get("servo4");
 //        servo5 = ahwMap.servo.get("servo5");
@@ -105,45 +105,45 @@ public class RobotHardware
 //        servo10 = ahwMap.servo.get("servo10");
 //        servo11 = ahwMap.servo.get("servo11");
 //        servo12 = ahwMap.servo.get("servo12");
-        INservo1 = ahwMap.crservo.get("INservo1");
-        INservo2 = ahwMap.crservo.get("INservo2");
+        //INservo1 = ahwMap.crservo.get("INservo1");
+        //INservo2 = ahwMap.crservo.get("INservo2");
 
         //drive motors and odometry encoders
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorRB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorRM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorLM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //motorRM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //motorLM.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        //arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorLM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //motorLM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorLB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRF.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorRM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //motorRM.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorRB.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //arm.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         motorLF.setDirection(DcMotorSimple.Direction.REVERSE);
         motorLB.setDirection(DcMotorSimple.Direction.REVERSE);
-        motorLM.setDirection(DcMotorSimple.Direction.REVERSE);
+        //motorLM.setDirection(DcMotorSimple.Direction.REVERSE);
 
         motorRF.setPower(0);
         motorLF.setPower(0);
         motorRB.setPower(0);
         motorLB.setPower(0);
-        motorRM.setPower(0);
-        motorLM.setPower(0);
-        arm.setPower(0);
+       // motorRM.setPower(0);
+        //motorLM.setPower(0);
+        //arm.setPower(0);
 
 
         //mechanism motors
 
 
         //servos
-        servo.setPosition(0);
-        servo2.setPosition(1);
+        //servo.setPosition(0);
+        //servo2.setPosition(1);
         //servo3.setPosition(0.325);
 //        servo4.setPosition(0);
 //        servo5.setPosition(0);
@@ -154,8 +154,8 @@ public class RobotHardware
 //        servo10.setPosition(0);
 //        servo11.setPosition(0);
 //        servo12.setPosition(0);
-        INservo1.setPower(0);
-        INservo2.setPower(0);
+        //INservo1.setPower(0);
+        //INservo2.setPower(0);
 
 
         //IMU

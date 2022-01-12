@@ -46,10 +46,10 @@ public class DemoBotDriveMecanum extends LinearOpMode
     {
         //Array is used to store motors so they can be easily accessed in the method call based on the return value
         double[] motorPowers = new double[4];
-        motorPowers[0] = -(dirY + dirX) - pivot;//robot.motorRF.setPower(speed*((-gamepad1.left_stick_y - gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
-        motorPowers[1] = -(dirX - dirY) + pivot;//robot.motorRB.setPower(speed*(-(-gamepad1.left_stick_x + gamepad1.left_stick_y) - (zScale * gamepad1.right_stick_x)));
-        motorPowers[2] = -(dirY + dirX) + pivot;//robot.motorLB.setPower(speed*((gamepad1.left_stick_y + gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
-        motorPowers[3] = (-dirX + dirY) - pivot;//robot.motorLF.setPower(speed*((-gamepad1.left_stick_x + gamepad1.left_stick_y)) - (zScale * gamepad1.right_stick_x));
+        motorPowers[0] = (-dirY + dirX) + pivot;//motorRF.setPower(speed*((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
+        motorPowers[1] = -(dirX + dirY) + pivot;//motorRB.setPower(speed*(-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
+        motorPowers[2] = (-dirY - dirX) - pivot;//motorLB.setPower(speed*((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
+        motorPowers[3] = (dirX - dirY) - pivot;//motorLF.setPower(speed*((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
 
         //References
             //motorPowers[0] = motorRF
@@ -83,7 +83,7 @@ public class DemoBotDriveMecanum extends LinearOpMode
             case FORWARD:
             {
                 //Declares a sets a variable for the starting encoder value on a specific motor
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 //Calculates desired encoder value by adding/subtracting the reading taken above by the desired encoder delta
                 double target = (encoderReadingLB + encoderDelta);
 
@@ -94,7 +94,7 @@ public class DemoBotDriveMecanum extends LinearOpMode
                 Loop that haults the code from progressing till the desired encoder count is met.
                 This desired encoder value could either be positive or negative, so the appropriate logic is applied.
                 */
-                while (motors[2].getCurrentPosition() <= target)
+                while (motors[3].getCurrentPosition() <= target)
                 {
 
                 }
@@ -109,11 +109,11 @@ public class DemoBotDriveMecanum extends LinearOpMode
 
             case BACKWARD:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 double target = (encoderReadingLB - encoderDelta);
                 backward(motorPower, motors);
 
-                while (motors[2].getCurrentPosition() >= target)
+                while (motors[3].getCurrentPosition() >= target)
                 {
 
                 }
@@ -124,11 +124,11 @@ public class DemoBotDriveMecanum extends LinearOpMode
 
             case STRAFE_LEFT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
                 strafeLeft(motorPower, motors);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motors[3].getCurrentPosition() <= target)
                 {
 
                 }
@@ -139,11 +139,11 @@ public class DemoBotDriveMecanum extends LinearOpMode
 
             case STRAFE_RIGHT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
                 strafeRight(motorPower, motors);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motors[3].getCurrentPosition() <= target)
                 {
 
                 }
@@ -154,10 +154,10 @@ public class DemoBotDriveMecanum extends LinearOpMode
 
             case FORWARD_LEFT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 double target = (encoderReadingLB - encoderDelta);
                 forwardLeft(motorPower, motors);
-                while (motors[2].getCurrentPosition() >= target)
+                while (motors[3].getCurrentPosition() >= target)
                 {
 
                 }
@@ -213,11 +213,11 @@ public class DemoBotDriveMecanum extends LinearOpMode
 
             case PIVOT_LEFT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 double target = (encoderReadingLB + encoderDelta);
                 pivotLeft(motorPower, motors);
 
-                while (motors[2].getCurrentPosition() <= target)
+                while (motors[3].getCurrentPosition() <= target)
                 {
 
                 }
@@ -228,11 +228,11 @@ public class DemoBotDriveMecanum extends LinearOpMode
 
             case PIVOT_RIGHT:
             {
-                double encoderReadingLB = motors[2].getCurrentPosition();
+                double encoderReadingLB = motors[3].getCurrentPosition();
                 double target = (encoderDelta - encoderReadingLB);
                 pivotRight(motorPower, motors);
 
-                while (motors[2].getCurrentPosition() >= target)
+                while (motors[3].getCurrentPosition() >= target)
                 {
 
                 }

@@ -1,19 +1,16 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="MecanumTeleOp")
+@TeleOp(name="mecanumTeleOpSwitched")
 //@Disabled
 
-public class testMecanum extends LinearOpMode
+public class mecanumTeleOpSwitched extends LinearOpMode
 {
 
     public DcMotor motorRF = null;
@@ -34,15 +31,11 @@ public class testMecanum extends LinearOpMode
     boolean outputSide;
     boolean DpadUpToggle2 = true;
     boolean DpadDownToggle = true;
-    boolean MoveUp = false;
-    boolean MoveDown = false;
     int armSetPos = 1;
     double armPos = 2.3;
     double servoPos;
     double boop = 0;
     double boop2 = 0;
-    double ServoTime;
-    double ServoTime2;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -54,14 +47,14 @@ public class testMecanum extends LinearOpMode
 
         //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        ElapsedTime servoTime = new ElapsedTime();
+        //ElapsedTime whatever = new ElapsedTime();
 
         motorRF = hardwareMap.dcMotor.get("motorRF");
         motorLF = hardwareMap.dcMotor.get("motorLF");
         motorRB = hardwareMap.dcMotor.get("motorRB");
         motorLB = hardwareMap.dcMotor.get("motorLB");
         intake1 = hardwareMap.dcMotor.get("intake1");
-        intake2 = hardwareMap.dcMotor.get("intake2");
+        intake2 = hardwareMap.dcMotor.get("intake1");
         duckSpinnerLeft = hardwareMap.dcMotor.get("duckSpinnerLeft");
         duckSpinnerRight = hardwareMap.dcMotor.get("duckSpinnerRight");
         baseRight = hardwareMap.servo.get("baseRight");
@@ -85,7 +78,6 @@ public class testMecanum extends LinearOpMode
 
 
         waitForStart();
-        ServoTime = servoTime.milliseconds();
 
 
         while (opModeIsActive())
@@ -118,16 +110,16 @@ public class testMecanum extends LinearOpMode
             boop2 = 0;
         }
 
-            intake1.setPower(gamepad1.left_trigger);
-            intake2.setPower(gamepad1.left_trigger);
+            intake1.setPower(-gamepad1.left_trigger);
+            intake2.setPower(-gamepad1.left_trigger);
 
-            intake1.setPower(-gamepad1.right_trigger);
-            intake2.setPower(-gamepad1.right_trigger);
+            intake1.setPower(gamepad1.right_trigger);
+            intake2.setPower(gamepad1.right_trigger);
 
-            motorRF.setPower(speed*((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-            motorRB.setPower(speed*(-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
-            motorLB.setPower(speed*((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-            motorLF.setPower(speed*((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
+            motorRF.setPower(speed*((-gamepad1.left_stick_y + gamepad1.right_stick_x) - (zScale * -gamepad1.left_stick_x)));
+            motorRB.setPower(speed*(-(gamepad1.right_stick_x + gamepad1.left_stick_y) - (zScale * -gamepad1.left_stick_x)));
+            motorLB.setPower(speed*((gamepad1.left_stick_y - gamepad1.right_stick_x) - (zScale * -gamepad1.left_stick_x)));
+            motorLF.setPower(speed*((gamepad1.right_stick_x + gamepad1.left_stick_y)) - (zScale * -gamepad1.left_stick_x));
 
             if (gamepad2.dpad_down && DpadDownToggle){
                 armSetPos = armSetPos - 1;
@@ -186,18 +178,18 @@ public class testMecanum extends LinearOpMode
 
 
 
-            //if(gamepad2.dpad_right)
-            //{
-            //    //set the servos to run to position
-            //    baseRight.setPosition(armPos);
-//
-            //}
-//
-            //if(gamepad2.dpad_left)
-            //{
-            //    armSetPos = 1;
-            //    //return servos to home
-            //}
+            if(gamepad2.dpad_right)
+            {
+                //set the servos to run to position
+                baseRight.setPosition(armPos);
+
+            }
+
+            if(gamepad2.dpad_left)
+            {
+                armSetPos = 1;
+                //return servos to home
+            }
 
             if(gamepad2.right_bumper)
             {
@@ -213,70 +205,15 @@ public class testMecanum extends LinearOpMode
                 //which side of the robots output is in use
             }
 
-            if(gamepad2.dpad_right)
-            {
-                MoveUp = true;
-                servoTime.reset();
-            }
-
-            if(MoveUp)
-            {
-                armRight.setPosition(.1);
-
-
-
-                if(servoTime.milliseconds() >= 500)
-                {
-                    baseRight.setPosition(armPos);
-
-                    MoveUp = false;
-                }
-            }
-
-            if(gamepad2.dpad_left)
-            {
-                MoveDown = true;
-                servoTime.reset();
-            }
-
-            if(MoveDown)
-            {
-                armRight.setPosition(.1);
-
-
-
-                if(servoTime.milliseconds() >= 1000)
-                {
-                    baseRight.setPosition(.23);
-
-                    if(servoTime.milliseconds() >= 2000)
-                    {
-                        armRight.setPosition(0);
-
-                        MoveDown = false;
-                    }
-
-
-                }
-            }
-
-
 
             bucketRight.setPosition(.17);
 
-            telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());
-            telemetry.addData("motorRBEncoder", motorRB.getCurrentPosition());
-            telemetry.addData("motorLBEncoder", motorLB.getCurrentPosition());
-            telemetry.addData("motorLFEncoder", motorLF.getCurrentPosition());
-            telemetry.addData("motorRF", motorRF.getPower());
-            telemetry.addData("motorRB", motorRB.getPower());
-            telemetry.addData("motorLB", motorLB.getPower());
-            telemetry.addData("motorLF", motorLF.getPower());
-            telemetry.addData("armPos", armPos);
-            telemetry.addData("!!!armSetPos!!!",armSetPos);
+            telemetry.addData("motorRF",motorRF.getPower());
+            telemetry.addData("motorRB",motorRB.getPower());
+            telemetry.addData("motorLB",motorLB.getPower());
+            telemetry.addData("motorLF",motorLF.getPower());
+            telemetry.addData("armPos",armPos);
             telemetry.addData("armPos", servoPos);
-            telemetry.addData("ServoTimer", ServoTime);
-            telemetry.addData("servoTimer", servoTime.milliseconds());
 
             telemetry.update();
 
