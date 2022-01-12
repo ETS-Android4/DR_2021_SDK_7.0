@@ -39,8 +39,6 @@ public class testMecanum extends LinearOpMode
     int armSetPos = 1;
     double armPos = 2.3;
     double servoPos;
-    double boop = 0;
-    double boop2 = 0;
     double ServoTime;
     double ServoTime2;
 
@@ -96,33 +94,32 @@ public class testMecanum extends LinearOpMode
             {
                 duckSpinnerLeft.setPower(1);
                 duckSpinnerRight.setPower(1);
-                boop=1;
             }
-            else if(!gamepad1.a && boop == 1)
-            {
-                duckSpinnerLeft.setPower(0);
-                duckSpinnerRight.setPower(0);
-                boop = 0;
-            }
-
-            if(gamepad1.b)
+            else if(gamepad1.b)
             {
                 duckSpinnerLeft.setPower(-1);
                 duckSpinnerRight.setPower(-1);
-                boop2=1;
             }
-            else if(!gamepad1.b && boop == 1)
-        {
+            else
+            {
             duckSpinnerLeft.setPower(0);
             duckSpinnerRight.setPower(0);
-            boop2 = 0;
-        }
+            }
 
-            intake1.setPower(gamepad1.left_trigger);
-            intake2.setPower(gamepad1.left_trigger);
-
-            intake1.setPower(-gamepad1.right_trigger);
-            intake2.setPower(-gamepad1.right_trigger);
+            if(gamepad1.left_trigger >= .2)
+            {
+                intake1.setPower(gamepad1.left_trigger);
+                intake2.setPower(gamepad1.left_trigger);
+            }
+            else if(gamepad1.right_trigger >= .2)
+            {
+                intake1.setPower(-gamepad1.right_trigger);
+                intake2.setPower(-gamepad1.right_trigger);
+            else
+            {
+                intake1.setPower(0);
+                intake2.setPower(0);
+            }
 
             motorRF.setPower(speed*((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
             motorRB.setPower(speed*(-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
