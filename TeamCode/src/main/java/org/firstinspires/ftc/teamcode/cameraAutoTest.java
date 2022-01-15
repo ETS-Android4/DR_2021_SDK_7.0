@@ -13,14 +13,14 @@ import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
 @TeleOp(name="cameraAutotest")
-@Disabled
+//@Disabled
 
 public class cameraAutoTest extends LinearOpMode
 {
     private OpenCvCamera webcam;//find webcam statement
 
-    private static final int CAMERA_WIDTH  = 640; // width  of wanted camera resolution
-    private static final int CAMERA_HEIGHT = 360; // height of wanted camera resolution
+    private static final int CAMERA_WIDTH  = 320; // width  of wanted camera resolution
+    private static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
 
     double barPos = 0;
 
@@ -45,12 +45,12 @@ public class cameraAutoTest extends LinearOpMode
 
         // OpenCV webcam
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         //OpenCV Pipeline
         ContourPipeline myPipeline;
         webcam.setPipeline(myPipeline = new ContourPipeline());
         // Configuration of Pipeline
-        myPipeline.ConfigurePipeline(30, 30,30,30,  CAMERA_WIDTH, CAMERA_HEIGHT);
+        myPipeline.ConfigurePipeline(0, 0,50,40,  CAMERA_WIDTH, CAMERA_HEIGHT);
         myPipeline.ConfigureScalarLower(scalarLowerYCrCb.val[0],scalarLowerYCrCb.val[1],scalarLowerYCrCb.val[2]);
         myPipeline.ConfigureScalarUpper(scalarUpperYCrCb.val[0],scalarUpperYCrCb.val[1],scalarUpperYCrCb.val[2]);
         // Webcam Streaming
@@ -86,11 +86,11 @@ public class cameraAutoTest extends LinearOpMode
             telemetry.update();
 
             if(myPipeline.getRectArea() > 2000){
-                if(myPipeline.getRectMidpointX() > 400){
+                if(myPipeline.getRectMidpointX() > 200){
                     AUTONOMOUS_C();
                     barPos = 1;
                 }
-                else if(myPipeline.getRectMidpointX() > 200){
+                else if(myPipeline.getRectMidpointX() > 100){
                     AUTONOMOUS_B();
                     barPos = 2;
                 }
@@ -126,25 +126,18 @@ public class cameraAutoTest extends LinearOpMode
         RobotHardware robot = new RobotHardware(hardwareMap);
 
         robot.motorRF.setTargetPosition(distance + robot.motorRF.getCurrentPosition());
-        robot.motorRM.setTargetPosition(distance + robot.motorRM.getCurrentPosition());
         robot.motorRB.setTargetPosition(distance + robot.motorRB.getCurrentPosition());
         robot.motorLM.setTargetPosition(distance + robot.motorLM.getCurrentPosition());
-        robot.motorLF.setTargetPosition(distance + robot.motorLF.getCurrentPosition());
         robot.motorLB.setTargetPosition(distance + robot.motorLB.getCurrentPosition());
 
         robot.motorRF.setPower(power * .75);
-        robot.motorRM.setPower(power);
         robot.motorRB.setPower(power * .75);
         robot.motorLB.setPower(power * .75);
-        robot.motorLM.setPower(power);
         robot.motorLF.setPower(power * .75);
 
-        robot.motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorRF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorRM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorRB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.motorLM.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
     }

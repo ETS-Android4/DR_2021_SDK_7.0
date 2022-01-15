@@ -257,11 +257,13 @@ public class gen2TeleOpSwitched extends LinearOpMode
 
                         if (servoTime.milliseconds() >= 1000)
                         {
-                            armRight.setPosition(.2);
+                            bucketRight.setPosition(0);
+
+                            armRight.setPosition(.3);
 
                             if (servoTime.milliseconds() >= 1200)
                             {
-                                baseRight.setPosition(.3);
+                                baseRight.setPosition(.23);
 
                                 MoveUp = false;
 

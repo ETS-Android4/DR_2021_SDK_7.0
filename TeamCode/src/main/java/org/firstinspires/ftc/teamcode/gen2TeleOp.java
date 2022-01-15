@@ -234,7 +234,11 @@ public class gen2TeleOp extends LinearOpMode
                     }
                 }
 
-            } else if (armSetPos == 1)
+
+            }
+
+            /*
+             else if (armSetPos == 1)
             {
                 if (gamepad2.dpad_right)
                 {
@@ -257,11 +261,11 @@ public class gen2TeleOp extends LinearOpMode
 
                         if (servoTime.milliseconds() >= 1000)
                         {
-                            armRight.setPosition(.2);
+                            armRight.setPosition(.25);
 
                             if (servoTime.milliseconds() >= 1200)
                             {
-                                baseRight.setPosition(.3);
+                                baseRight.setPosition(.35);
 
                                 MoveUp = false;
 
@@ -271,46 +275,47 @@ public class gen2TeleOp extends LinearOpMode
                     }
                 }
             }
+            */
 
-            //else if (armSetPos == 0)
-            //{
-            //    if (gamepad2.dpad_right)
-            //    {
-            //        MoveUp = true;
-            //        servoTime.reset();
-            //    }
-//
-            //    if (MoveUp)
-            //    {
-            //        bucketRight.setPosition(.17);
-//
-            //        armRight.setPosition(.1);
-//
-//
-            //        if (servoTime.milliseconds() >= 500)
-            //        {
-            //            baseRight.setPosition(.6);
-//
-            //            //MoveUp = false;
-//
-            //            if (servoTime.milliseconds() >= 1000)
-            //            {
-            //                bucketRight.setPosition(0);
-//
-            //                armRight.setPosition(.3);
-//
-            //                if (servoTime.milliseconds() >= 1200)
-            //                {
-            //                    baseRight.setPosition(.23);
-//
-            //                    MoveUp = false;
-//
-            //                    //armReturnPos = 0;
-            //                }
-            //            }
-            //        }
-            //    }
-            //}
+            else if (armSetPos == 1)
+            {
+                if (gamepad2.dpad_right)
+                {
+                    MoveUp = true;
+                    servoTime.reset();
+                }
+
+                if (MoveUp)
+                {
+                    bucketRight.setPosition(.17);
+
+                    armRight.setPosition(.1);
+
+
+                    if (servoTime.milliseconds() >= 500)
+                    {
+                        baseRight.setPosition(.6);
+
+                        //MoveUp = false;
+
+                        if (servoTime.milliseconds() >= 1000)
+                        {
+                            bucketRight.setPosition(0);
+
+                            armRight.setPosition(.3);
+
+                            if (servoTime.milliseconds() >= 1200)
+                            {
+                                baseRight.setPosition(.23);
+
+                                MoveUp = false;
+
+                                //armReturnPos = 0;
+                            }
+                        }
+                    }
+                }
+            }
 
 
             if (gamepad2.dpad_left)
