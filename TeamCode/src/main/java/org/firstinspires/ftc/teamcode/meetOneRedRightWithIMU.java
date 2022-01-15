@@ -112,14 +112,14 @@ public class meetOneRedRightWithIMU extends LinearOpMode
 
 
         motorRF.setTargetPosition(distance + motorRF.getCurrentPosition());
-        motorRB.setTargetPosition(distance + motorRB.getCurrentPosition());
+        motorRB.setTargetPosition(-distance + motorRB.getCurrentPosition());
         motorLF.setTargetPosition(distance + motorLF.getCurrentPosition());
-        motorLB.setTargetPosition(distance + motorLB.getCurrentPosition());
+        motorLB.setTargetPosition(-distance + motorLB.getCurrentPosition());
 
         motorRF.setPower(power * .75);
-        motorRB.setPower(power * .75);
+        motorRB.setPower(-power * .75);
         motorLB.setPower(power * .75);
-        motorLF.setPower(power * .75);
+        motorLF.setPower(-power * .75);
 
 
         motorRF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -154,7 +154,7 @@ public class meetOneRedRightWithIMU extends LinearOpMode
 
     }
 
-    void betterPivot(int angle)
+    public void betterPivot(int angle)
     {
 
         motorRF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -184,12 +184,12 @@ public class meetOneRedRightWithIMU extends LinearOpMode
             {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-                turnPower = ((angle - angles.firstAngle) /angle)+ .1;
+                turnPower = ((angle - angles.firstAngle) /angle)+ .3;
 
-                motorRF.setPower(-turnPower);
+                motorRF.setPower(turnPower);
                 motorRB.setPower(-turnPower);
                 motorLB.setPower(turnPower);
-                motorLF.setPower(turnPower);
+                motorLF.setPower(-turnPower);
 
                 telemetry.addData("Left", I);
                 telemetry.addData("current angle" , angles.firstAngle);
@@ -218,12 +218,12 @@ public class meetOneRedRightWithIMU extends LinearOpMode
             {
                 angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-                turnPower = ((angle - angles.firstAngle) /angle)+ .1;
+                turnPower = ((angle - angles.firstAngle) /angle)+ .3;
 
-                motorRF.setPower(turnPower);
+                motorRF.setPower(-turnPower);
                 motorRB.setPower(turnPower);
                 motorLB.setPower(-turnPower);
-                motorLF.setPower(-turnPower);
+                motorLF.setPower(turnPower);
 
                 telemetry.addData("right", I);
                 telemetry.addData("current angle" ,angles.firstAngle);

@@ -11,6 +11,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
@@ -30,6 +33,7 @@ public class gen2AutoDuckBlue extends LinearOpMode
     public Servo baseRight = null;
     public Servo  armRight = null;
     public Servo  bucketRight = null;
+    Orientation angles;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -59,6 +63,8 @@ public class gen2AutoDuckBlue extends LinearOpMode
         imu.initialize(parameters);
 
         DemoBotDriveMecanum drive = new DemoBotDriveMecanum();
+        //meetOneRedRightWithIMU turn = new meetOneRedRightWithIMU();
+
         DcMotor[] motors = new DcMotor[4];
         {
             motors[0] = robot.motorLF;
@@ -76,59 +82,250 @@ public class gen2AutoDuckBlue extends LinearOpMode
 
         bucketRight.setPosition(.17);
 
-        drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 1, motors);
+        robot.motorLF.setPower(.75);
+        robot.motorLB.setPower(-.75);
+        robot.motorRF.setPower(-.75);
+        robot.motorRB.setPower(.75);
 
-        drive.OrientationDrive(-90, 1, motors, imu);
+        sleep(500);
 
-        drive.encoderDrive(1000, driveStyle.STRAFE_LEFT, 1, motors);
+        robot.motorLF.setPower(0);
+        robot.motorLB.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorRB.setPower(0);
 
-        drive.encoderDrive(1000, driveStyle.FORWARD, 1, motors);
+        sleep(750);
 
-        duckSpinnerLeft.setPower(1);
-        duckSpinnerRight.setPower(1);
+        betterPivot(90);
 
-        sleep(5000);
+        sleep(750);
+
+        drive.timeDrive(500, .75, driveStyle.STRAFE_LEFT, motors);
+
+        sleep(750);
+
+        duckSpinnerLeft.setPower(-.5);
+        duckSpinnerRight.setPower(-.5);
+
+        robot.motorLF.setPower(.4);
+        robot.motorLB.setPower(.4);
+        robot.motorRF.setPower(.4);
+        robot.motorRB.setPower(.4);
+
+        sleep(750);
+
+        robot.motorLF.setPower(0);
+        robot.motorLB.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorRB.setPower(0);
+
+        sleep(4500);
 
         duckSpinnerLeft.setPower(0);
         duckSpinnerRight.setPower(0);
 
-        drive.encoderDrive(1000, driveStyle.BACKWARD, 1, motors);
+        sleep(750);
+
+        //robot.motorLF.setPower(.75);
+        //robot.motorLB.setPower(-.75);
+        //robot.motorRF.setPower(-.75);
+        //robot.motorRB.setPower(.75);
+//
+        //sleep(200);
+//
+        //robot.motorLF.setPower(0);
+        //robot.motorLB.setPower(0);
+        //robot.motorRF.setPower(0);
+        //robot.motorRB.setPower(0);
+
+        drive.encoderDrive(2150, driveStyle.BACKWARD, 1, motors);
+
+        sleep(750);
+
+        robot.motorLF.setPower(.75);
+        robot.motorLB.setPower(-.75);
+        robot.motorRF.setPower(-.75);
+        robot.motorRB.setPower(.75);
+
+        sleep(400);
+
+        robot.motorLF.setPower(0);
+        robot.motorLB.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorRB.setPower(0);
+
+        sleep(750);
+
+        betterPivot(180);
+
+        sleep(750);
 
         armRight.setPosition(.1);
 
-        drive.encoderDrive(1000, driveStyle.STRAFE_RIGHT, 1, motors);
+        sleep(750);
 
-        //raise arm and place
+        robot.motorLF.setPower(.75);
+        robot.motorLB.setPower(.75);
+        robot.motorRF.setPower(.75);
+        robot.motorRB.setPower(.75);
+
+        sleep(500);
+
+        robot.motorLF.setPower(0);
+        robot.motorLB.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorRB.setPower(0);
+
+        sleep(750);
+
         baseRight.setPosition(.6);
 
-        sleep(1000);
+        sleep(750);
+
+        drive.encoderDrive(2500, driveStyle.BACKWARD, 1, motors);
+
+        sleep(750);
 
         armRight.setPosition(.55);
 
-        sleep(1000);
+        sleep(1250);
 
-        //bring arm down
         armRight.setPosition(.1);
 
-        sleep(1000);
+        robot.motorLF.setPower(.75);
+        robot.motorLB.setPower(.75);
+        robot.motorRF.setPower(.75);
+        robot.motorRB.setPower(.75);
+
+        sleep(500);
+
+        robot.motorLF.setPower(0);
+        robot.motorLB.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorRB.setPower(0);
+
+        sleep(750);
 
         baseRight.setPosition(.23);
 
-        sleep(1000);
+        sleep(750);
 
-        armRight.setPosition(0);
+        robot.motorLF.setPower(.75);
+        robot.motorLB.setPower(.75);
+        robot.motorRF.setPower(.75);
+        robot.motorRB.setPower(.75);
 
-        drive.encoderDrive(1000, driveStyle.STRAFE_RIGHT, 1, motors);
+        sleep(2000);
 
-        drive.encoderDrive(1000, driveStyle.FORWARD, 1, motors);
+        robot.motorLF.setPower(.75);
+        robot.motorLB.setPower(-.75);
+        robot.motorRF.setPower(-.75);
+        robot.motorRB.setPower(.75);
 
-        //drive.timeDrive(100,1,driveStyle.FORWARD,motors);
+        sleep(1200);
 
-        //sleep(10000);
+        robot.motorLF.setPower(0);
+        robot.motorLB.setPower(0);
+        robot.motorRF.setPower(0);
+        robot.motorRB.setPower(0);
+    }
+
+    public void betterPivot(int angle)
+    {
+        RobotHardware robot = new RobotHardware(hardwareMap);
+
+
+        double I = 0;
+        double turnPower;
+
+
+        while (angle > 180)
+        {
+            angle -= 360;
+        }
+        while (angle < -180)
+        {
+            angle += 360;
+        }
+
+        while (I == 0)
+        {
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+            while ( angles.firstAngle < angle + 10 && I == 0)
+            {
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+                turnPower = ((angle - angles.firstAngle) /angle)+ .2;
+
+                robot.motorRF.setPower(turnPower);
+                robot.motorRB.setPower(turnPower);
+                robot.motorLB.setPower(-turnPower);
+                robot.motorLF.setPower(-turnPower);
+
+                telemetry.addData("Left", I);
+                telemetry.addData("current angle" , angles.firstAngle);
+                telemetry.addData("target angle" , angle);
+                telemetry.update();
+
+                if(angles.firstAngle > angle - 2 && I == 0)
+                {
+                    angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+                    robot.motorRF.setPower(0);
+                    robot.motorRB.setPower(0);
+                    robot.motorLB.setPower(0);
+                    robot.motorLF.setPower(0);
+
+                    I = 3;
+
+                    telemetry.addData("Dead", I);
+                    telemetry.addData("current angle" ,angles.firstAngle);
+                    telemetry.addData("target angle" , angle);
+                    telemetry.update();
+                }
+            }
+
+            while(angles.firstAngle > angle -  10 && I == 0)
+            {
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+                turnPower = ((angle - angles.firstAngle) /angle)+ .2;
+
+                robot.motorRF.setPower(-turnPower);
+                robot.motorRB.setPower(-turnPower);
+                robot.motorLB.setPower(turnPower);
+                robot.motorLF.setPower(turnPower);
+
+                telemetry.addData("right", I);
+                telemetry.addData("current angle" ,angles.firstAngle);
+                telemetry.addData("target angle" , angle);
+                telemetry.update();
+
+                if(angles.firstAngle < angle + 2 && I == 0)
+                {
+                    angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+                    robot.motorRF.setPower(0);
+                    robot.motorRB.setPower(0);
+                    robot.motorLB.setPower(0);
+                    robot.motorLF.setPower(0);
+
+                    I = 3;
+
+                    telemetry.addData("Dead", I);
+                    telemetry.addData("current angle" ,angles.firstAngle);
+                    telemetry.addData("target angle" , angle);
+                    telemetry.update();
+                }
+            }
+
+
+        }
 
 
     }
-
 
 }
 //robot.wobble.setTargetPosition(upPosition);
