@@ -122,30 +122,30 @@ public class gen2TeleOp extends LinearOpMode
                 intake2.setPower(0);
             }
 
-                motorRF.setPower(speed * ((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-                motorRB.setPower(speed * (-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
-                motorLB.setPower(speed * ((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-                motorLF.setPower(speed * ((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
+            motorRF.setPower(speed * ((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
+            motorRB.setPower(speed * (-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
+            motorLB.setPower(speed * ((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
+            motorLF.setPower(speed * ((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
 
-                if (gamepad2.dpad_down && DpadDownToggle)
-                {
-                    armSetPos = armSetPos - 1;
+            if (gamepad2.dpad_down && DpadDownToggle)
+            {
+                armSetPos = armSetPos - 1;
 
-                    DpadDownToggle = false;
-                } else if (!gamepad2.dpad_down && !DpadDownToggle)
-                {
-                    DpadDownToggle = true;
-                }
+                DpadDownToggle = false;
+            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            {
+                DpadDownToggle = true;
+            }
 
-                if (gamepad2.dpad_up && DpadUpToggle2)
-                {
-                    armSetPos = armSetPos + 1;
+            if (gamepad2.dpad_up && DpadUpToggle2)
+            {
+                armSetPos = armSetPos + 1;
 
-                    DpadUpToggle2 = false;
-                } else if (!gamepad2.dpad_up && !DpadUpToggle2)
-                {
-                    DpadUpToggle2 = true;
-                }
+                DpadUpToggle2 = false;
+            } else if (!gamepad2.dpad_up && !DpadUpToggle2)
+            {
+                DpadUpToggle2 = true;
+            }
 
             /* if (gamepad2.dpad_down || gamepad2.dpad_up)
             {
@@ -167,204 +167,205 @@ public class gen2TeleOp extends LinearOpMode
                 }
             } */
 
-                if (gamepad2.a)
+            if (gamepad2.a)
+            {
+                armRight.setPosition(0);
+            }
+            if (gamepad2.b)
+            {
+                armRight.setPosition(.1);
+
+            }
+            if (gamepad2.x)
+            {
+                armRight.setPosition(.55);
+            }
+
+
+            //if(gamepad2.dpad_right)
+            //{
+            //    //set the servos to run to position
+            //    baseRight.setPosition(armPos);
+//
+            //}
+//
+            //if(gamepad2.dpad_left)
+            //{
+            //    armSetPos = 1;
+            //    //return servos to home
+            //}
+
+            if (gamepad2.right_bumper)
+            {
+                outputSide = true;
+            } else if (gamepad2.left_bumper)
+            {
+                outputSide = false;
+            }
+
+            if (outputSide)
+            {
+                //which side of the robots output is in use
+            }
+
+            if (armSetPos == 2)
+            {
+
+                if (gamepad2.dpad_right)
                 {
-                    armRight.setPosition(0);
+                    MoveUp = true;
+                    servoTime.reset();
                 }
-                if (gamepad2.b)
+
+                if (MoveUp)
                 {
+                    bucketRight.setPosition(.17);
+
                     armRight.setPosition(.1);
 
-                }
-                if (gamepad2.x)
-                {
-                    armRight.setPosition(.55);
-                }
 
-
-                //if(gamepad2.dpad_right)
-                //{
-                //    //set the servos to run to position
-                //    baseRight.setPosition(armPos);
-//
-                //}
-//
-                //if(gamepad2.dpad_left)
-                //{
-                //    armSetPos = 1;
-                //    //return servos to home
-                //}
-
-                if (gamepad2.right_bumper)
-                {
-                    outputSide = true;
-                } else if (gamepad2.left_bumper)
-                {
-                    outputSide = false;
-                }
-
-                if (outputSide)
-                {
-                    //which side of the robots output is in use
-                }
-
-                if (armSetPos == 2)
-                {
-
-                    if (gamepad2.dpad_right)
-                    {
-                        MoveUp = true;
-                        servoTime.reset();
-                    }
-
-                    if (MoveUp)
-                    {
-                        bucketRight.setPosition(.17);
-
-                        armRight.setPosition(.1);
-
-
-                        if (servoTime.milliseconds() >= 500)
-                        {
-                            baseRight.setPosition(.6);
-
-                            MoveUp = false;
-
-                            //armReturnPos = 2;
-                        }
-                    }
-
-                } else if (armSetPos == 1)
-                {
-                    if (gamepad2.dpad_right)
-                    {
-                        MoveUp = true;
-                        servoTime.reset();
-                    }
-
-                    if (MoveUp)
-                    {
-                        bucketRight.setPosition(.17);
-
-                        armRight.setPosition(.1);
-
-
-                        if (servoTime.milliseconds() >= 500)
-                        {
-                            baseRight.setPosition(.6);
-
-                            //MoveUp = false;
-
-                            if (servoTime.milliseconds() >= 1000)
-                            {
-                                armRight.setPosition(.2);
-
-                                if (servoTime.milliseconds() >= 1200)
-                                {
-                                    baseRight.setPosition(.3);
-
-                                    MoveUp = false;
-
-                                    //armReturnPos = 1;
-                                }
-                            }
-                        }
-                    }
-                }
-
-                //else if (armSetPos == 0)
-                //{
-                //    if (gamepad2.dpad_right)
-                //    {
-                //        MoveUp = true;
-                //        servoTime.reset();
-                //    }
-//
-                //    if (MoveUp)
-                //    {
-                //        bucketRight.setPosition(.17);
-//
-                //        armRight.setPosition(.1);
-//
-//
-                //        if (servoTime.milliseconds() >= 500)
-                //        {
-                //            baseRight.setPosition(.6);
-//
-                //            //MoveUp = false;
-//
-                //            if (servoTime.milliseconds() >= 1000)
-                //            {
-                //                bucketRight.setPosition(0);
-//
-                //                armRight.setPosition(.3);
-//
-                //                if (servoTime.milliseconds() >= 1200)
-                //                {
-                //                    baseRight.setPosition(.23);
-//
-                //                    MoveUp = false;
-//
-                //                    //armReturnPos = 0;
-                //                }
-                //            }
-                //        }
-                //    }
-                //}
-
-
-                    if (gamepad2.dpad_left)
-                    {
-                        MoveDown = true;
-                        servoTime.reset();
-                    }
-
-                    if (MoveDown)
+                    if (servoTime.milliseconds() >= 500)
                     {
                         baseRight.setPosition(.6);
 
+                        MoveUp = false;
 
-                        if (servoTime.milliseconds() >= 500)
+                        //armReturnPos = 2;
+                    }
+                }
+
+            } else if (armSetPos == 1)
+            {
+                if (gamepad2.dpad_right)
+                {
+                    MoveUp = true;
+                    servoTime.reset();
+                }
+
+                if (MoveUp)
+                {
+                    bucketRight.setPosition(.17);
+
+                    armRight.setPosition(.1);
+
+
+                    if (servoTime.milliseconds() >= 500)
+                    {
+                        baseRight.setPosition(.6);
+
+                        //MoveUp = false;
+
+                        if (servoTime.milliseconds() >= 1000)
                         {
-                            bucketRight.setPosition(.17);
+                            armRight.setPosition(.2);
 
-                            armRight.setPosition(.1);
-
-                            if (servoTime.milliseconds() >= 1000)
+                            if (servoTime.milliseconds() >= 1200)
                             {
-                                baseRight.setPosition(.23);
+                                baseRight.setPosition(.3);
 
-                                if (servoTime.milliseconds() >= 2000)
-                                {
-                                    armRight.setPosition(0);
+                                MoveUp = false;
 
-                                    MoveDown = false;
-                                }
+                                //armReturnPos = 1;
                             }
-
-
                         }
+                    }
+                }
+            }
+
+            //else if (armSetPos == 0)
+            //{
+            //    if (gamepad2.dpad_right)
+            //    {
+            //        MoveUp = true;
+            //        servoTime.reset();
+            //    }
+//
+            //    if (MoveUp)
+            //    {
+            //        bucketRight.setPosition(.17);
+//
+            //        armRight.setPosition(.1);
+//
+//
+            //        if (servoTime.milliseconds() >= 500)
+            //        {
+            //            baseRight.setPosition(.6);
+//
+            //            //MoveUp = false;
+//
+            //            if (servoTime.milliseconds() >= 1000)
+            //            {
+            //                bucketRight.setPosition(0);
+//
+            //                armRight.setPosition(.3);
+//
+            //                if (servoTime.milliseconds() >= 1200)
+            //                {
+            //                    baseRight.setPosition(.23);
+//
+            //                    MoveUp = false;
+//
+            //                    //armReturnPos = 0;
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+
+            if (gamepad2.dpad_left)
+            {
+                MoveDown = true;
+                servoTime.reset();
+            }
+
+            if (MoveDown)
+            {
+                baseRight.setPosition(.6);
+
+
+                if (servoTime.milliseconds() >= 500)
+                {
+                    bucketRight.setPosition(.17);
+
+                    armRight.setPosition(.1);
+
+                    if (servoTime.milliseconds() >= 1000)
+                    {
+                        baseRight.setPosition(.23);
+
+                        if (servoTime.milliseconds() >= 2000)
+                        {
+                            armRight.setPosition(0);
+
+                            MoveDown = false;
+                        }
+                    }
+
 
                 }
 
-
-                telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());
-                telemetry.addData("motorRBEncoder", motorRB.getCurrentPosition());
-                telemetry.addData("motorLBEncoder", motorLB.getCurrentPosition());
-                telemetry.addData("motorLFEncoder", motorLF.getCurrentPosition());
-                telemetry.addData("motorRF", motorRF.getPower());
-                telemetry.addData("motorRB", motorRB.getPower());
-                telemetry.addData("motorLB", motorLB.getPower());
-                telemetry.addData("motorLF", motorLF.getPower());
-                telemetry.addData("armPos", armPos);
-                telemetry.addData("!!!armSetPos!!!", armSetPos);
-                telemetry.addData("armPos", servoPos);
-                telemetry.addData("ServoTimer", ServoTime);
-                telemetry.addData("servoTimer", servoTime.milliseconds());
-
-                telemetry.update();
-
             }
+
+
+            telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());
+            telemetry.addData("motorRBEncoder", motorRB.getCurrentPosition());
+            telemetry.addData("motorLBEncoder", motorLB.getCurrentPosition());
+            telemetry.addData("motorLFEncoder", motorLF.getCurrentPosition());
+            telemetry.addData("motorRF", motorRF.getPower());
+            telemetry.addData("motorRB", motorRB.getPower());
+            telemetry.addData("motorLB", motorLB.getPower());
+            telemetry.addData("motorLF", motorLF.getPower());
+            telemetry.addData("armPos", armPos);
+            telemetry.addData("!!!armSetPos!!!", armSetPos);
+            telemetry.addData("armPos", servoPos);
+            telemetry.addData("ServoTimer", ServoTime);
+            telemetry.addData("servoTimer", servoTime.milliseconds());
+
+            telemetry.update();
+
         }
     }
+}
+
 

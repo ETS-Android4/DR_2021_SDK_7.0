@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 @TeleOp(name="MecanumTeleOp")
 //@Disabled
 
-public class testMecanum extends LinearOpMode
+public class MecanumTeleOp extends LinearOpMode
 {
 
     public DcMotor motorRF = null;
@@ -115,6 +115,7 @@ public class testMecanum extends LinearOpMode
             {
                 intake1.setPower(-gamepad1.right_trigger);
                 intake2.setPower(-gamepad1.right_trigger);
+            }
             else
             {
                 intake1.setPower(0);
