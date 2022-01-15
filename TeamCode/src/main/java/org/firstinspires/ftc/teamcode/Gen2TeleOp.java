@@ -37,6 +37,7 @@ public class testMecanum extends LinearOpMode
     boolean MoveUp = false;
     boolean MoveDown = false;
     int armSetPos = 1;
+    int armReturnPos = 1;
     double armPos = 2.3;
     double servoPos;
     double ServoTime;
@@ -146,7 +147,7 @@ public class testMecanum extends LinearOpMode
                 DpadUpToggle2 = true;
             }
 
-            if (gamepad2.dpad_down || gamepad2.dpad_up)
+            /* if (gamepad2.dpad_down || gamepad2.dpad_up)
             {
                 if (armSetPos == 1)
                 {
@@ -164,7 +165,7 @@ public class testMecanum extends LinearOpMode
                     armPos = .6;
 
                 }
-            }
+            } */
 
             if(gamepad2.a)
             {
@@ -210,56 +211,219 @@ public class testMecanum extends LinearOpMode
                 //which side of the robots output is in use
             }
 
-            if(gamepad2.dpad_right)
-            {
-                MoveUp = true;
-                servoTime.reset();
-            }
+            if(armSetPos == 2) {
 
-            if(MoveUp)
-            {
-                armRight.setPosition(.1);
-
-
-
-                if(servoTime.milliseconds() >= 500)
+                if(gamepad2.dpad_right)
                 {
-                    baseRight.setPosition(armPos);
-
-                    MoveUp = false;
+                    MoveUp = true;
+                    servoTime.reset();
                 }
-            }
 
-            if(gamepad2.dpad_left)
-            {
-                MoveDown = true;
-                servoTime.reset();
-            }
-
-            if(MoveDown)
-            {
-                armRight.setPosition(.1);
-
-
-
-                if(servoTime.milliseconds() >= 1000)
+                if(MoveUp)
                 {
-                    baseRight.setPosition(.23);
+                    bucketRight.setPosition(.17);
+                
+                    armRight.setPosition(.1);
 
-                    if(servoTime.milliseconds() >= 2000)
+
+
+                    if(servoTime.milliseconds() >= 500)
                     {
-                        armRight.setPosition(0);
+                        baseRight.setPosition(.6);
 
-                        MoveDown = false;
+                        MoveUp = false;
+                        
+                        armReturnPos = 2;
                     }
+                }
+
+            }
+            
+            else if(armSetPos == 1)
+            {
+                if(gamepad2.dpad_right)
+                {
+                    MoveUp = true;
+                    servoTime.reset();
+                }
+
+                if(MoveUp)
+                {
+                    bucketRight.setPosition(.17);
+                
+                    armRight.setPosition(.1);
 
 
+
+                    if(servoTime.milliseconds() >= 500)
+                    {
+                        baseRight.setPosition(.6);
+
+                        //MoveUp = false;
+                        
+                        if(servoTime.milliseconds() >= 1000)
+                        {
+                            armRight.setPosition(.3);
+                            
+                            if(servoTime.milliseconds() >= 1200)
+                            {
+                                baseRight.setPosition(.4);
+                                
+                                MoveUp = false;
+                                
+                                armReturnPos = 1;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            else if(armSetPos == 0)
+            {
+                if(gamepad2.dpad_right)
+                {
+                    MoveUp = true;
+                    servoTime.reset();
+                }
+
+                if(MoveUp)
+                {
+                    bucketRight.setPosition(.17);
+                
+                    armRight.setPosition(.1);
+
+
+
+                    if(servoTime.milliseconds() >= 500)
+                    {
+                        baseRight.setPosition(.6);
+
+                        //MoveUp = false;
+                        
+                        if(servoTime.milliseconds() >= 1000)
+                        {
+                            bucketRight.setPosition(0);
+                            
+                            armRight.setPosition(.3);
+                            
+                            if(servoTime.milliseconds() >= 1200)
+                            {
+                                baseRight.setPosition(.23);
+                                
+                                MoveUp = false;
+                                
+                                armReturnPos = 0;
+                            }
+                        }
+                    }
+                }
+            }
+            
+            
+            
+            
+
+            if(armReturnPos == 2)
+            {
+            
+                if(gamepad2.dpad_left)
+                {
+                    MoveDown = true;
+                    servoTime.reset();
+                }
+
+                if(MoveDown)
+                {
+                    armRight.setPosition(.1);
+
+
+
+                    if(servoTime.milliseconds() >= 1000)
+                    {
+                        baseRight.setPosition(.23);
+
+                        if(servoTime.milliseconds() >= 2000)
+                        {
+                            armRight.setPosition(0);
+
+                            MoveDown = false;
+                        }
+
+
+                    }
+                }
+            }
+            
+            else if(armReturnPos == 1)
+            {
+                if(gamepad2.dpad_left)
+                {
+                    MoveDown = true;
+                    servoTime.reset();
+                }
+
+                if(MoveDown)
+                {
+                    baseRight.setPosition(.6);
+
+
+
+                    if(servoTime.milliseconds() >= 500)
+                    {
+                        armRight.setPosition(.1);
+
+                        if(servoTime.milliseconds() >= 1000)
+                        {
+                            baseRight.setPosition(.23);
+
+                            if(servoTime.milliseconds() >= 2000)
+                            {
+                                armRight.setPosition(0);
+                            }
+                        }
+
+
+                    }
+                }
+            }
+            
+            else if(armReturnPos == 0)
+            {
+                if(gamepad2.dpad_left)
+                {
+                    MoveDown = true;
+                    servoTime.reset();
+                }
+
+                if(MoveDown)
+                {
+                    baseRight.setPosition(.6);
+
+
+
+                    if(servoTime.milliseconds() >= 500)
+                    {
+                        bucketRight.setPosition(.17);
+                    
+                        armRight.setPosition(.1);
+
+                        if(servoTime.milliseconds() >= 1000)
+                        {
+                            baseRight.setPosition(.23);
+
+                            if(servoTime.milliseconds() >= 2000)
+                            {
+                                armRight.setPosition(0);
+                            }
+                        }
+
+
+                    }
                 }
             }
 
 
-
-            bucketRight.setPosition(.17);
+            
 
             telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());
             telemetry.addData("motorRBEncoder", motorRB.getCurrentPosition());
@@ -280,4 +444,3 @@ public class testMecanum extends LinearOpMode
         }
     }
 }
-
