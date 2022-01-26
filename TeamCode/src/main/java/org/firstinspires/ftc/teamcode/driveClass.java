@@ -21,7 +21,7 @@ public class drivClass extends LinearOpMode
   
   int quadrant;
   
-  public void drive(int moveAngle, double movePower, int turnAngle, double turnPower, DcMotorEx[] motors) 
+  public void drive(int moveAngle, double movePower, int turnAngle, double turnPower, DcMotorEx[] motors, BNO055IMU imu) 
   {
       //insert drive code
       
