@@ -4,9 +4,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ServoControllerEx;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
@@ -27,6 +29,10 @@ public class gen2TeleOpSwitched extends LinearOpMode
     public Servo baseRight = null;
     public Servo armRight = null;
     public Servo bucketRight = null;
+    public Servo CapVert = null;
+    public Servo CapSides = null;
+    public CRServo CapOut = null;
+
 
     double speed = 1;
     double zScale = 1;
@@ -42,6 +48,8 @@ public class gen2TeleOpSwitched extends LinearOpMode
     double servoPos;
     double ServoTime;
     double ServoTime2;
+
+
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -66,6 +74,10 @@ public class gen2TeleOpSwitched extends LinearOpMode
         baseRight = hardwareMap.servo.get("baseRight");
         armRight = hardwareMap.servo.get("armRight");
         bucketRight = hardwareMap.servo.get("bucketRight");
+        CapVert = hardwareMap.servo.get("CapVert");
+        CapSides = hardwareMap.servo.get("CapSides");
+        CapOut = hardwareMap.crservo.get("CapOut");
+
 
 
         motorRF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -348,6 +360,13 @@ public class gen2TeleOpSwitched extends LinearOpMode
                 }
 
             }
+
+            CapVert.setPosition(-gamepad2.left_stick_y * .05);
+            CapSides.setPosition(gamepad2.left_stick_x * .05);
+            CapOut.setPower(-gamepad2.right_stick_y * .05);
+
+
+
 
 
             telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());

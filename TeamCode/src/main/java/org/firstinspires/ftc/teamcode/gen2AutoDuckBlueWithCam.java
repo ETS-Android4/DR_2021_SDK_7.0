@@ -6,6 +6,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -25,13 +26,22 @@ public class gen2AutoDuckBlueWithCam extends LinearOpMode
     public Servo  armRight = null;
     public Servo  bucketRight = null;
 
+    public DcMotorEx motorLF = null;
+    public DcMotorEx motorLB = null;
+    public DcMotorEx motorRF = null;
+    public DcMotorEx motorRB = null;
+
     @Override
     public void runOpMode() throws InterruptedException
     {
         //FtcDashboard dashboard = FtcDashboard.getInstance();
         //telemetry = dashboard.getTelemetry();
 
-        RobotHardware robot = new RobotHardware(hardwareMap);
+        motorLF = hardwareMap.get(DcMotorEx.class, "motorLF");
+        motorLB = hardwareMap.get(DcMotorEx.class, "motorLB");
+        motorRF = hardwareMap.get(DcMotorEx.class, "motorRF");
+        motorRB = hardwareMap.get(DcMotorEx.class, "motorRB");
+
 
         intake1 = hardwareMap.dcMotor.get("intake1");
         intake2 = hardwareMap.dcMotor.get("intake2");
@@ -52,13 +62,13 @@ public class gen2AutoDuckBlueWithCam extends LinearOpMode
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-        DemoBotDriveMecanum drive = new DemoBotDriveMecanum();
-        DcMotor[] motors = new DcMotor[4];
+        CopyDemoBotDriveMecanum drive = new CopyDemoBotDriveMecanum();
+        DcMotorEx[] motors = new DcMotorEx[4];
         {
-            motors[0] = robot.motorLF;
-            motors[1] = robot.motorLB;
-            motors[2] = robot.motorRF;
-            motors[3] = robot.motorRB;
+            motors[0] = motorLF;
+            motors[1] = motorLB;
+            motors[2] = motorRF;
+            motors[3] = motorRB;
 
         }
 
@@ -70,35 +80,35 @@ public class gen2AutoDuckBlueWithCam extends LinearOpMode
 
         bucketRight.setPosition(.17);
 
-        drive.timeDrive(500, 1, driveStyle.STRAFE_RIGHT, motors);
+        drive.timeDrive(500, 1, driveStyled.STRAFE_RIGHT, motors);
 
         drive.OrientationDrive(90, 1, motors, imu);
 
-        drive.timeDrive(500, 1, driveStyle.STRAFE_LEFT, motors);
+        drive.timeDrive(500, 1, driveStyled.STRAFE_LEFT, motors);
 
         duckSpinnerLeft.setPower(1);
         duckSpinnerRight.setPower(1);
 
-        drive.timeDrive(500, 1, driveStyle.FORWARD_LEFT, motors);
+        drive.timeDrive(500, 1, driveStyled.FORWARD_LEFT, motors);
 
         sleep(5000);
 
         duckSpinnerLeft.setPower(0);
         duckSpinnerRight.setPower(0);
 
-        drive.encoderDrive(1500, driveStyle.BACKWARD, 1, motors);
+        drive.encoderDrive(1500, driveStyled.BACKWARD, 1, motors);
 
-        drive.timeDrive(500, 1, driveStyle.STRAFE_RIGHT, motors);
+        drive.timeDrive(500, 1, driveStyled.STRAFE_RIGHT, motors);
 
         drive.OrientationDrive(180, 1, motors, imu);
 
         armRight.setPosition(.1);
 
-        drive.timeDrive(500, 1, driveStyle.FORWARD, motors);
+        drive.timeDrive(500, 1, driveStyled.FORWARD, motors);
 
         baseRight.setPosition(.6);
 
-        drive.encoderDrive(2000, driveStyle.BACKWARD, 1, motors);
+        drive.encoderDrive(2000, driveStyled.BACKWARD, 1, motors);
 
         armRight.setPosition(.55);
 
@@ -106,13 +116,13 @@ public class gen2AutoDuckBlueWithCam extends LinearOpMode
 
         armRight.setPosition(.1);
 
-        drive.timeDrive(500, 1, driveStyle.FORWARD, motors);
+        drive.timeDrive(500, 1, driveStyled.FORWARD, motors);
 
         baseRight.setPosition(.23);
 
         drive.OrientationDrive(150, 1, motors, imu);
 
-        drive.timeDrive(3000, 1, driveStyle.FORWARD, motors);
+        drive.timeDrive(3000, 1, driveStyled.FORWARD, motors);
     }
 
 
