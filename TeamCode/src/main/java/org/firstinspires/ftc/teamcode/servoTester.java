@@ -1,13 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="servoTester")
@@ -16,13 +12,15 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class servoTester extends LinearOpMode
 {
     //change if using different servos
-    public Servo CapVert = null;
-    public Servo CapSides = null;
+    public Servo slidesL = null;
+    public Servo armL = null;
+    public Servo clawL = null;
 
 
     //add as many as you have servos
     double increment = 0;
     double increment2 = 0;
+    double increment3 = 0;
     //double increment3 = 0;
     double distance = 0.5;
 
@@ -34,8 +32,9 @@ public class servoTester extends LinearOpMode
     {
 
         //change to servos that you are using
-        CapVert = hardwareMap.servo.get("CapVert");
-        CapSides = hardwareMap.servo.get("CapSides");
+        armL = hardwareMap.servo.get("armL");
+        slidesL = hardwareMap.servo.get("slidesL");
+        clawL = hardwareMap.servo.get("clawL");
 
 
         waitForStart();
@@ -43,8 +42,9 @@ public class servoTester extends LinearOpMode
         while (opModeIsActive())
         {
 
-            CapVert.setPosition(increment);
-            CapSides.setPosition(increment2);
+            slidesL.setPosition(increment);
+            armL.setPosition(increment2);
+            clawL.setPosition(increment3);
 
             if(gamepad1.back)
             {
@@ -84,15 +84,32 @@ public class servoTester extends LinearOpMode
                 loopCount = 0;
             }
 
+            //if the down depad button is pressed then it adds to the first servos position
+            if(gamepad1.dpad_down && loopCount > 10000)
+            {
+                increment3 += distance;
+                loopCount = 0;
+
+            }
+
+            //if the right depad button is pressed then it subtract from the first servos position
+            if(gamepad1.dpad_right && loopCount > 10000)
+            {
+                increment3 -= distance;
+                loopCount = 0;
+            }
+
 
 
             loopCount++;
 
-            telemetry.addData("up and down in code",increment);
-            telemetry.addData("up and down real",CapVert.getPosition());
-            telemetry.addData("left and right in code",increment2);
-            telemetry.addData("up and down real",CapSides.getPosition());
-            telemetry.addData("we are changig by :",distance);
+            telemetry.addData("slidesL",increment);
+            telemetry.addData("armL",increment2);
+            telemetry.addData("clawL",increment3);
+            telemetry.addData("slidesL real",slidesL.getPosition());
+            telemetry.addData("armL real",armL.getPosition());
+            telemetry.addData("clawL real", clawL.getPosition());
+            telemetry.addData("we are changing by :",distance);
             telemetry.addData("loopcount:",loopCount);
             telemetry.update();
 

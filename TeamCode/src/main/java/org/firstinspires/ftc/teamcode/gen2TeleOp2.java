@@ -1,20 +1,18 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="gen2TeleOp")
+@TeleOp(name="gen2TeleOp2")
 //@Disabled
 
-public class gen2TeleOp extends LinearOpMode
+public class gen2TeleOp2 extends LinearOpMode
 {
 
     public DcMotor motorRF = null;
@@ -28,6 +26,9 @@ public class gen2TeleOp extends LinearOpMode
     public Servo baseRight = null;
     public Servo armRight = null;
     public Servo bucketRight = null;
+    public Servo slidesL = null;
+    public Servo armL = null;
+    public Servo clawL = null;
     //public Servo CapVert = null;
     //public Servo CapSides = null;
     //public CRServo CapOut = null;
@@ -70,9 +71,12 @@ public class gen2TeleOp extends LinearOpMode
         baseRight = hardwareMap.servo.get("baseRight");
         armRight = hardwareMap.servo.get("armRight");
         bucketRight = hardwareMap.servo.get("bucketRight");
-        //CapVert = hardwareMap.servo.get("CapVert");
-        //CapSides = hardwareMap.servo.get("CapSides");
-        //CapOut = hardwareMap.crservo.get("CapOut");
+        slidesL = hardwareMap.servo.get("slidesL");
+        armL = hardwareMap.servo.get("armL");
+        clawL = hardwareMap.servo.get("clawL");
+       // CapVert = hardwareMap.servo.get("CapVert");
+       // CapSides = hardwareMap.servo.get("CapSides");
+       // CapOut = hardwareMap.crservo.get("CapOut");
 
 
 
@@ -116,13 +120,13 @@ public class gen2TeleOp extends LinearOpMode
 
             if (gamepad1.left_trigger >= .2)
             {
-                intake1.setPower(gamepad1.left_trigger);
-                intake2.setPower(gamepad1.left_trigger);
+                intake1.setPower(gamepad1.left_trigger * .5);
+                intake2.setPower(gamepad1.left_trigger * .5);
             }
             else if (gamepad1.right_trigger >= .2)
             {
-                intake1.setPower(-gamepad1.right_trigger);
-                intake2.setPower(-gamepad1.right_trigger);
+                intake1.setPower(-gamepad1.right_trigger * .5);
+                intake2.setPower(-gamepad1.right_trigger * .5);
             }
             else
             {
@@ -135,6 +139,47 @@ public class gen2TeleOp extends LinearOpMode
             motorLB.setPower(speed * ((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
             motorLF.setPower(speed * ((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
 
+            if(gamepad2.a)
+            {
+                clawL.setPosition(0);
+            }
+            if(gamepad2.b)
+            {
+                clawL.setPosition(.15);
+            }
+            if(gamepad2.left_bumper)
+            {
+                clawL.setPosition(.07);
+            }
+            if(gamepad2.x)
+            {
+                slidesL.setPosition(0);
+            }
+            if(gamepad2.y)
+            {
+                slidesL.setPosition(.45);
+            }
+            if(gamepad2.dpad_down)
+            {
+                slidesL.setPosition(.25);
+            }
+            if(gamepad2.dpad_up)
+            {
+                armL.setPosition(0);
+            }
+            if(gamepad2.dpad_right)
+            {
+                armL.setPosition(.75);
+            }
+            if(gamepad2.dpad_left)
+            {
+                armL.setPosition(.5);
+            }
+
+
+
+
+            /*
             if (gamepad2.dpad_down && DpadDownToggle)
             {
                 armSetPos = armSetPos - 1;
@@ -154,6 +199,8 @@ public class gen2TeleOp extends LinearOpMode
             {
                 DpadUpToggle2 = true;
             }
+            */
+
 
             /* if (gamepad2.dpad_down || gamepad2.dpad_up)
             {
@@ -175,6 +222,7 @@ public class gen2TeleOp extends LinearOpMode
                 }
             } */
 
+            /*
             if (gamepad2.a)
             {
                 armRight.setPosition(0);
@@ -188,7 +236,7 @@ public class gen2TeleOp extends LinearOpMode
             {
                 armRight.setPosition(.55);
             }
-
+*/
 
             //if(gamepad2.dpad_right)
             //{
@@ -203,6 +251,7 @@ public class gen2TeleOp extends LinearOpMode
             //    //return servos to home
             //}
 
+            /*
             if (gamepad2.right_bumper)
             {
                 outputSide = true;
@@ -227,9 +276,9 @@ public class gen2TeleOp extends LinearOpMode
 
                 if (MoveUp)
                 {
-                    bucketRight.setPosition(.17);
+                   // bucketRight.setPosition(.17);
 
-                    armRight.setPosition(.1);
+                   // armRight.setPosition(.1);
 
 
                     if (servoTime.milliseconds() >= 500)
@@ -244,7 +293,7 @@ public class gen2TeleOp extends LinearOpMode
 
 
             }
-
+*/
             /*
              else if (armSetPos == 1)
             {
@@ -285,6 +334,8 @@ public class gen2TeleOp extends LinearOpMode
             }
             */
 
+
+            /*
             else if (armSetPos == 1)
             {
                 if (gamepad2.dpad_right)
@@ -360,7 +411,7 @@ public class gen2TeleOp extends LinearOpMode
 
             }
 
-
+*/
             telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());
             telemetry.addData("motorRBEncoder", motorRB.getCurrentPosition());
             telemetry.addData("motorLBEncoder", motorLB.getCurrentPosition());

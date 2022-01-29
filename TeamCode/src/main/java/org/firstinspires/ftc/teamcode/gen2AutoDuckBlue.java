@@ -20,6 +20,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 
 @Autonomous(name="gen2AutoDuckBlue")
+@Disabled
 
 
 public class gen2AutoDuckBlue extends LinearOpMode

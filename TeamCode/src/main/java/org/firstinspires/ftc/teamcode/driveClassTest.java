@@ -29,6 +29,11 @@ public class driveClassTest extends LinearOpMode
     BNO055IMU imu;
     
     int i = 0;
+
+    public DcMotorEx motorLF = null;
+    public DcMotorEx motorLB = null;
+    public DcMotorEx motorRF = null;
+    public DcMotorEx motorRB = null;
     
     Orientation angles;
 
@@ -36,6 +41,11 @@ public class driveClassTest extends LinearOpMode
     public void runOpMode() throws InterruptedException
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
+
+        motorLF = hardwareMap.get(DcMotorEx.class, "motorLF");
+        motorLB = hardwareMap.get(DcMotorEx.class, "motorLB");
+        motorRF = hardwareMap.get(DcMotorEx.class, "motorRF");
+        motorRB = hardwareMap.get(DcMotorEx.class, "motorRB");
         
         driveClass drive = new driveClass();
 
@@ -50,12 +60,12 @@ public class driveClassTest extends LinearOpMode
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-        DcMotorEx[] motors = new DcMotor[4];
+        DcMotorEx[] motors = new DcMotorEx[4];
         {
-            motors[0] = robot.motorLF;
-            motors[1] = robot.motorLB;
-            motors[2] = robot.motorRF;
-            motors[3] = robot.motorRB;
+            motors[0] = motorLF;
+            motors[1] = motorLB;
+            motors[2] = motorRF;
+            motors[3] = motorRB;
 
         }
 
@@ -63,10 +73,10 @@ public class driveClassTest extends LinearOpMode
         
         drive.drive(0, 1, 0, 0, motors, imu);
             
-        sleep(1000) 
+        sleep(1000);
         
         while(i < 1000)
-        i++
+        i++;
         drive.drive(90, 1, 270, .5, motors, imu);
     }
 }

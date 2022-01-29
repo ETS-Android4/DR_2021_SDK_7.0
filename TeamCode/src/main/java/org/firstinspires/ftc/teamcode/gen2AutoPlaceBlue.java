@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @Autonomous(name="gen2AutoPlaceBlue")
+@Disabled
 
 
 public class gen2AutoPlaceBlue extends LinearOpMode

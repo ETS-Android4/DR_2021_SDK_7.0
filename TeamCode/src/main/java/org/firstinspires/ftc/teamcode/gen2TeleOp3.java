@@ -1,20 +1,17 @@
 package org.firstinspires.ftc.teamcode;
 
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 
-@TeleOp(name="gen2TeleOp")
+@TeleOp(name="gen2TeleOp3")
 //@Disabled
 
-public class gen2TeleOp extends LinearOpMode
+public class gen2TeleOp3 extends LinearOpMode
 {
 
     public DcMotor motorRF = null;
@@ -28,6 +25,9 @@ public class gen2TeleOp extends LinearOpMode
     public Servo baseRight = null;
     public Servo armRight = null;
     public Servo bucketRight = null;
+    public Servo slidesL = null;
+    public Servo armL = null;
+    public Servo clawL = null;
     //public Servo CapVert = null;
     //public Servo CapSides = null;
     //public CRServo CapOut = null;
@@ -40,7 +40,7 @@ public class gen2TeleOp extends LinearOpMode
     boolean DpadDownToggle = true;
     boolean MoveUp = false;
     boolean MoveDown = false;
-    int armSetPos = 2;
+    int armSetPos = 0;
     int armReturnPos = 1;
     double armPos = 2.3;
     double servoPos;
@@ -70,9 +70,12 @@ public class gen2TeleOp extends LinearOpMode
         baseRight = hardwareMap.servo.get("baseRight");
         armRight = hardwareMap.servo.get("armRight");
         bucketRight = hardwareMap.servo.get("bucketRight");
-        //CapVert = hardwareMap.servo.get("CapVert");
-        //CapSides = hardwareMap.servo.get("CapSides");
-        //CapOut = hardwareMap.crservo.get("CapOut");
+        slidesL = hardwareMap.servo.get("slidesL");
+        armL = hardwareMap.servo.get("armL");
+        clawL = hardwareMap.servo.get("clawL");
+       // CapVert = hardwareMap.servo.get("CapVert");
+       // CapSides = hardwareMap.servo.get("CapSides");
+       // CapOut = hardwareMap.crservo.get("CapOut");
 
 
 
@@ -116,13 +119,13 @@ public class gen2TeleOp extends LinearOpMode
 
             if (gamepad1.left_trigger >= .2)
             {
-                intake1.setPower(gamepad1.left_trigger);
-                intake2.setPower(gamepad1.left_trigger);
+                intake1.setPower(gamepad1.left_trigger * .5);
+                intake2.setPower(gamepad1.left_trigger * .5);
             }
             else if (gamepad1.right_trigger >= .2)
             {
-                intake1.setPower(-gamepad1.right_trigger);
-                intake2.setPower(-gamepad1.right_trigger);
+                intake1.setPower(-gamepad1.right_trigger * .5);
+                intake2.setPower(-gamepad1.right_trigger * .5);
             }
             else
             {
@@ -134,6 +137,46 @@ public class gen2TeleOp extends LinearOpMode
             motorRB.setPower(speed * (-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
             motorLB.setPower(speed * ((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
             motorLF.setPower(speed * ((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
+
+            //if(gamepad2.a)
+            //{
+            //    clawL.setPosition(0);
+            //}
+            //if(gamepad2.b)
+            //{
+            //    clawL.setPosition(.15);
+            //}
+            //if(gamepad2.left_bumper)
+            //{
+            //    clawL.setPosition(.05);
+            //}
+            //if(gamepad2.x)
+            //{
+            //    slidesL.setPosition(0);
+            //}
+            //if(gamepad2.y)
+            //{
+            //    slidesL.setPosition(.45);
+            //}
+            //if(gamepad2.dpad_down)
+            //{
+            //    slidesL.setPosition(.25);
+            //}
+            //if(gamepad2.dpad_up)
+            //{
+            //    armL.setPosition(0);
+            //}
+            //if(gamepad2.dpad_right)
+            //{
+            //    armL.setPosition(.75);
+            //}
+            //if(gamepad2.dpad_left)
+            //{
+            //    armL.setPosition(.5);
+            //}
+
+
+
 
             if (gamepad2.dpad_down && DpadDownToggle)
             {
@@ -155,173 +198,104 @@ public class gen2TeleOp extends LinearOpMode
                 DpadUpToggle2 = true;
             }
 
-            /* if (gamepad2.dpad_down || gamepad2.dpad_up)
-            {
-                if (armSetPos == 1)
-                {
-                    armPos = .23;
 
-                }
 
-                else if (armSetPos == 2)
-                {
-                    armPos = .4;
 
-                }
-                else if (armSetPos == 3)
-                {
-                    armPos = .6;
 
-                }
-            } */
 
             if (gamepad2.a)
             {
-                armRight.setPosition(0);
+                clawL.setPosition(0);
             }
             if (gamepad2.b)
             {
-                armRight.setPosition(.1);
+                clawL.setPosition(.15);
 
             }
             if (gamepad2.x)
             {
-                armRight.setPosition(.55);
+                clawL.setPosition(.07);
             }
 
 
-            //if(gamepad2.dpad_right)
+            //if (gamepad2.right_bumper)
             //{
-            //    //set the servos to run to position
-            //    baseRight.setPosition(armPos);
-//
-            //}
-//
-            //if(gamepad2.dpad_left)
+            //    outputSide = true;
+            //} else if (gamepad2.left_bumper)
             //{
-            //    armSetPos = 1;
-            //    //return servos to home
+            //    outputSide = false;
             //}
 
-            if (gamepad2.right_bumper)
-            {
-                outputSide = true;
-            } else if (gamepad2.left_bumper)
-            {
-                outputSide = false;
-            }
+            //if (outputSide)
+            //{
+            //    //which side of the robots output is in use
+            //}
 
-            if (outputSide)
-            {
-                //which side of the robots output is in use
-            }
-
-            if (armSetPos == 2)
+            if (armSetPos == 0)
             {
 
                 if (gamepad2.dpad_right)
                 {
                     MoveUp = true;
-                    servoTime.reset();
+
                 }
 
                 if (MoveUp)
                 {
-                    bucketRight.setPosition(.17);
-
-                    armRight.setPosition(.1);
-
-
-                    if (servoTime.milliseconds() >= 500)
-                    {
-                        baseRight.setPosition(.6);
-
-                        MoveUp = false;
-
-                        //armReturnPos = 2;
-                    }
+                    slidesL.setPosition(0);
+                    armL.setPosition(.75);
+                    MoveUp = false;
                 }
 
 
             }
 
-            /*
+
              else if (armSetPos == 1)
             {
                 if (gamepad2.dpad_right)
                 {
                     MoveUp = true;
-                    servoTime.reset();
                 }
 
                 if (MoveUp)
                 {
-                    bucketRight.setPosition(.17);
-
-                    armRight.setPosition(.1);
-
-
-                    if (servoTime.milliseconds() >= 500)
-                    {
-                        baseRight.setPosition(.6);
-
-                        //MoveUp = false;
-
-                        if (servoTime.milliseconds() >= 1000)
-                        {
-                            armRight.setPosition(.25);
-
-                            if (servoTime.milliseconds() >= 1200)
-                            {
-                                baseRight.setPosition(.35);
-
-                                MoveUp = false;
-
-                                //armReturnPos = 1;
-                            }
-                        }
-                    }
+                    slidesL.setPosition(0);
+                    armL.setPosition(.65);
+                    MoveUp = false;
                 }
             }
-            */
 
-            else if (armSetPos == 1)
+
+
+
+            else if (armSetPos == 2)
             {
                 if (gamepad2.dpad_right)
                 {
                     MoveUp = true;
-                    servoTime.reset();
                 }
 
                 if (MoveUp)
                 {
-                    bucketRight.setPosition(.17);
+                    slidesL.setPosition(0);
+                    armL.setPosition(.5);
+                    MoveUp = false;
+                }
+            }
 
-                    armRight.setPosition(.1);
+            else if (armSetPos == 3)
+            {
+                if (gamepad2.dpad_right)
+                {
+                    MoveUp = true;
+                }
 
-
-                    if (servoTime.milliseconds() >= 500)
-                    {
-                        baseRight.setPosition(.6);
-
-                        //MoveUp = false;
-
-                        if (servoTime.milliseconds() >= 1000)
-                        {
-                            bucketRight.setPosition(0);
-
-                            armRight.setPosition(.3);
-
-                            if (servoTime.milliseconds() >= 1200)
-                            {
-                                baseRight.setPosition(.23);
-
-                                MoveUp = false;
-
-                                //armReturnPos = 0;
-                            }
-                        }
-                    }
+                if (MoveUp)
+                {
+                    slidesL.setPosition(0.45);
+                    armL.setPosition(.5);
+                    MoveUp = false;
                 }
             }
 
@@ -329,35 +303,14 @@ public class gen2TeleOp extends LinearOpMode
             if (gamepad2.dpad_left)
             {
                 MoveDown = true;
-                servoTime.reset();
             }
 
             if (MoveDown)
             {
-                baseRight.setPosition(.6);
-
-
-                if (servoTime.milliseconds() >= 500)
-                {
-                    bucketRight.setPosition(.17);
-
-                    armRight.setPosition(.1);
-
-                    if (servoTime.milliseconds() >= 1000)
-                    {
-                        baseRight.setPosition(.23);
-
-                        if (servoTime.milliseconds() >= 2000)
-                        {
-                            armRight.setPosition(0);
-
-                            MoveDown = false;
-                        }
-                    }
-
-
-                }
-
+                slidesL.setPosition(0);
+                armL.setPosition(0);
+                clawL.setPosition(.07);
+                MoveDown = false;
             }
 
 

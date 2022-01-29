@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @Autonomous(name="meetOneRedRight")
-//@Disabled
+@Disabled
 
 
 public class meetOneRedRight extends LinearOpMode

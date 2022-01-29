@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="MecanumTeleOp")
-//@Disabled
+@Disabled
 
 public class MecanumTeleOp extends LinearOpMode
 {

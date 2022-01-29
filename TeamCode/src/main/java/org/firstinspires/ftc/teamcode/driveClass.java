@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class drivClass extends LinearOpMode
+public class driveClass extends LinearOpMode
 {
   
   //variables
@@ -18,13 +18,22 @@ public class drivClass extends LinearOpMode
   double pivot = 0;
   double dirX = 0;
   double dirY = 0;
+
+    public DcMotorEx motorLF = null;
+    public DcMotorEx motorLB = null;
+    public DcMotorEx motorRF = null;
+    public DcMotorEx motorRB = null;
   
   int quadrant;
   
-  Orientation angles
+  Orientation angles;
   
-  public void drive(int moveAngle, double movePower, int turnAngle, double turnPower, DcMotorEx[] motors, BNO055IMU imu) 
+  public void drive(int moveAngle, double movePower, int turnAngle, double turnPower, DcMotorEx[] motors, BNO055IMU imu)
   {
+      motorLF = hardwareMap.get(DcMotorEx.class, "motorLF");
+      motorLB = hardwareMap.get(DcMotorEx.class, "motorLB");
+      motorRF = hardwareMap.get(DcMotorEx.class, "motorRF");
+      motorRB = hardwareMap.get(DcMotorEx.class, "motorRB");
       //insert drive code
       
       //angle wrap
@@ -89,8 +98,8 @@ public class drivClass extends LinearOpMode
       }
       
       //drive claculations
-      dirY = Math.cosine(moveAngle);
-      dirX = Math.sine(moveAngle);
+      dirY = Math.cos(moveAngle);
+      dirX = Math.sin(moveAngle);
       
       if (quadrant == 1)
       {
@@ -113,12 +122,19 @@ public class drivClass extends LinearOpMode
         dirX = dirX;
       }
       
-      //drive set powers (velocities)
-      motors[0] /* .set velocity */ (((-dirY + dirX) * movePower) + (pivot * turnPower)) * 2987;
-      motors[1] /* .set velocity */ ((-(dirX + dirY) * movePower) + (pivot * turnPower)) * 2987;
-      motors[2] /* .set velocity */ (((-dirY - dirX) * movePower) - (pivot * turnPower)) * 2987;
-      motors[3] /* .set velocity */ (((dirX -  dirY) * movePower) - (pivot * turnPower)) * 2987;
+     // drive set powers (velocities)
+      motors[0].setPower(((-dirY + dirX) * movePower) + (pivot * turnPower));
+      motors[1].setPower((-(dirX + dirY) * movePower) + (pivot * turnPower));
+      motors[2].setPower(((-dirY - dirX) * movePower) - (pivot * turnPower));
+      motors[3].setPower(((dirX -  dirY) * movePower) - (pivot * turnPower));
       
       
+    }
+
+
+    @Override
+    public void runOpMode() throws InterruptedException
+    {
+
     }
 }
