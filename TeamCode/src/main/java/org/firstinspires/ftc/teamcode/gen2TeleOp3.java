@@ -119,13 +119,13 @@ public class gen2TeleOp3 extends LinearOpMode
 
             if (gamepad1.left_trigger >= .2)
             {
-                intake1.setPower(gamepad1.left_trigger * .5);
-                intake2.setPower(gamepad1.left_trigger * .5);
+                intake1.setPower(gamepad1.left_trigger);
+                intake2.setPower(gamepad1.left_trigger);
             }
             else if (gamepad1.right_trigger >= .2)
             {
-                intake1.setPower(-gamepad1.right_trigger * .5);
-                intake2.setPower(-gamepad1.right_trigger * .5);
+                intake1.setPower(-gamepad1.right_trigger);
+                intake2.setPower(-gamepad1.right_trigger);
             }
             else
             {
