@@ -124,8 +124,8 @@ public class gen2TeleOp3 extends LinearOpMode
             }
             else if (gamepad1.right_trigger >= .2)
             {
-                intake1.setPower(-gamepad1.right_trigger);
-                intake2.setPower(-gamepad1.right_trigger);
+                intake1.setPower(-gamepad1.right_trigger * .6);
+                intake2.setPower(-gamepad1.right_trigger * .6);
             }
             else
             {
@@ -133,10 +133,10 @@ public class gen2TeleOp3 extends LinearOpMode
                 intake2.setPower(0);
             }
 
-            motorRF.setPower(speed * ((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-            motorRB.setPower(speed * (-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
-            motorLB.setPower(speed * ((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-            motorLF.setPower(speed * ((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
+            motorRF.setPower(speed * ((-gamepad1.left_stick_y - gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
+            motorRB.setPower(speed * (-(-gamepad1.left_stick_x + gamepad1.left_stick_y) - (zScale * gamepad1.right_stick_x)));
+            motorLB.setPower(speed * ((gamepad1.left_stick_y + gamepad1.left_stick_x) - (zScale * gamepad1.right_stick_x)));
+            motorLF.setPower(speed * ((-gamepad1.left_stick_x + gamepad1.left_stick_y)) - (zScale * gamepad1.right_stick_x));
 
             //if(gamepad2.a)
             //{
@@ -243,7 +243,7 @@ public class gen2TeleOp3 extends LinearOpMode
                 if (MoveUp)
                 {
                     slidesL.setPosition(0);
-                    armL.setPosition(.75);
+                    armL.setPosition(.78);
                     MoveUp = false;
                 }
 
@@ -279,7 +279,7 @@ public class gen2TeleOp3 extends LinearOpMode
                 if (MoveUp)
                 {
                     slidesL.setPosition(0);
-                    armL.setPosition(.5);
+                    armL.setPosition(.55);
                     MoveUp = false;
                 }
             }

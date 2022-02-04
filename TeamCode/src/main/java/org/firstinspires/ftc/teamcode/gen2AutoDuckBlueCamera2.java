@@ -213,6 +213,9 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
                 //robot.motorRF.setPower(0);
                 //robot.motorRB.setPower(0);
 
+                //armL.setPosition(.5);
+                //slidesL.setPosition(.45);
+
                 drive.encoderDrive(2150, driveStyle.BACKWARD, 1, motors);
 
                 sleep(750);
@@ -231,14 +234,21 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 sleep(750);
 
-                betterPivot(180);
+                betterPivot(10);
 
                 sleep(750);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(.75);
-                robot.motorRF.setPower(.75);
-                robot.motorRB.setPower(.75);
+                clawL.setPosition(.15);
+
+                sleep(100);
+
+                armL.setPosition(.5);
+                slidesL.setPosition(.45);
+
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
 
                 sleep(500);
 
@@ -247,33 +257,49 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
                 robot.motorRF.setPower(0);
                 robot.motorRB.setPower(0);
 
-                armL.setPosition(.5);
-                slidesL.setPosition(.45);
-
                 sleep(750);
 
-                drive.encoderDrive(2500, driveStyle.BACKWARD, 1, motors);
-
-                sleep(750);
+                drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
 
                 clawL.setPosition(.15);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(.75);
-                robot.motorRF.setPower(.75);
-                robot.motorRB.setPower(.75);
+                sleep(750);
 
-                armL.setPosition(0);
-                slidesL.setPosition(0);
+                clawL.setPosition(0);
 
-                sleep(2500);
+                sleep(100);
 
-                robot.motorLF.setPower(.75);
+
+
+                /*
+                robot.motorLF.setPower(-.75);
                 robot.motorLB.setPower(-.75);
                 robot.motorRF.setPower(-.75);
-                robot.motorRB.setPower(.75);
+                robot.motorRB.setPower(-.75);
 
-                sleep(1200);
+                 */
+
+                armL.setPosition(0);
+
+                drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
+
+                sleep(200);
+
+                slidesL.setPosition(0);
+
+                robot.motorLF.setPower(-.6);
+                robot.motorLB.setPower(-.6);
+                robot.motorRF.setPower(-.6);
+                robot.motorRB.setPower(-.6);
+
+                sleep(2000);
+
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(.75);
+                robot.motorRF.setPower(.75);
+                robot.motorRB.setPower(-.75);
+
+                sleep(1700);
 
                 robot.motorLF.setPower(0);
                 robot.motorLB.setPower(0);
@@ -284,7 +310,7 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
             if(barPos == 2)
             {
-                clawL.setPosition(.0);
+                clawL.setPosition(.15);
 
                 robot.motorLF.setPower(.75);
                 robot.motorLB.setPower(-.75);
@@ -360,16 +386,20 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 sleep(750);
 
-                betterPivot(180);
+                betterPivot(10);
 
                 sleep(750);
 
-                armL.setPosition(.5);
+                clawL.setPosition(.15);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(.75);
-                robot.motorRF.setPower(.75);
-                robot.motorRB.setPower(.75);
+                sleep(10);
+
+                armL.setPosition(.55);
+
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
 
                 sleep(500);
 
@@ -380,32 +410,52 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 sleep(750);
 
-                drive.encoderDrive(2500, driveStyle.BACKWARD, 1, motors);
+                drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
 
                 clawL.setPosition(.15);
 
                 sleep(750);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(.75);
-                robot.motorRF.setPower(.75);
-                robot.motorRB.setPower(.75);
+                clawL.setPosition(0);
+
+                sleep(100);
+
+
+
+                /*
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
+
+                 */
 
                 armL.setPosition(0);
 
-                sleep(2500);
+                drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(-.75);
-                robot.motorRF.setPower(-.75);
-                robot.motorRB.setPower(.75);
+                sleep(200);
 
-                sleep(1200);
+                robot.motorLF.setPower(-.6);
+                robot.motorLB.setPower(-.6);
+                robot.motorRF.setPower(-.6);
+                robot.motorRB.setPower(-.6);
+
+                sleep(2000);
+
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(.75);
+                robot.motorRF.setPower(.75);
+                robot.motorRB.setPower(-.75);
+
+                sleep(1700);
 
                 robot.motorLF.setPower(0);
                 robot.motorLB.setPower(0);
                 robot.motorRF.setPower(0);
                 robot.motorRB.setPower(0);
+
+
             }
 
             if(barPos == 3)
@@ -486,14 +536,20 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 sleep(750);
 
-                betterPivot(180);
+                betterPivot(10);
 
                 sleep(750);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(.75);
-                robot.motorRF.setPower(.75);
-                robot.motorRB.setPower(.75);
+                clawL.setPosition(.15);
+
+                sleep(10);
+
+                armL.setPosition(.55);
+
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
 
                 sleep(500);
 
@@ -502,31 +558,47 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
                 robot.motorRF.setPower(0);
                 robot.motorRB.setPower(0);
 
-                armL.setPosition(.75);
-
                 sleep(750);
 
-                drive.encoderDrive(2500, driveStyle.BACKWARD, 1, motors);
+                drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
 
                 clawL.setPosition(.15);
 
                 sleep(750);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(.75);
-                robot.motorRF.setPower(.75);
-                robot.motorRB.setPower(.75);
+                clawL.setPosition(0);
+
+                sleep(100);
+
+
+
+                /*
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
+
+                 */
 
                 armL.setPosition(0);
 
-                sleep(2500);
+                drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
 
-                robot.motorLF.setPower(.75);
-                robot.motorLB.setPower(-.75);
-                robot.motorRF.setPower(-.75);
-                robot.motorRB.setPower(.75);
+                sleep(200);
 
-                sleep(1200);
+                robot.motorLF.setPower(-.6);
+                robot.motorLB.setPower(-.6);
+                robot.motorRF.setPower(-.6);
+                robot.motorRB.setPower(-.6);
+
+                sleep(2000);
+
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(.75);
+                robot.motorRF.setPower(.75);
+                robot.motorRB.setPower(-.75);
+
+                sleep(1700);
 
                 robot.motorLF.setPower(0);
                 robot.motorLB.setPower(0);
@@ -600,10 +672,10 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 turnPower = ((angle - angles.firstAngle) /angle)+ .2;
 
-                robot.motorRF.setPower(-turnPower);
-                robot.motorRB.setPower(-turnPower);
-                robot.motorLB.setPower(turnPower);
-                robot.motorLF.setPower(turnPower);
+                robot.motorRF.setPower(turnPower);
+                robot.motorRB.setPower(turnPower);
+                robot.motorLB.setPower(-turnPower);
+                robot.motorLF.setPower(-turnPower);
 
                 telemetry.addData("right", I);
                 telemetry.addData("current angle" ,angles.firstAngle);

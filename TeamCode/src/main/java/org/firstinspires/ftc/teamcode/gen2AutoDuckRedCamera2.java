@@ -51,6 +51,9 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
     double lowerruntime = 0;
     double upperruntime = 0;
 
+    double encoderReadingLB = 0;
+    double target = 0;
+
     // Pink Range                                      Y      Cr     Cb
     public static Scalar scalarLowerYCrCb = new Scalar(  0.0, 200, 0);
     public static Scalar scalarUpperYCrCb = new Scalar(255.0, 255.0, 100);
@@ -93,7 +96,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
         // OpenCV webcam
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         //OpenCV Pipeline
         ContourPipeline myPipeline;
         webcam.setPipeline(myPipeline = new ContourPipeline());
@@ -157,24 +160,6 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
         {
             clawL.setPosition(0);
 
-            robot.motorLF.setPower(.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(.75);
-
-            sleep(750);
-
-            robot.motorLF.setPower(0);
-            robot.motorLB.setPower(0);
-            robot.motorRF.setPower(0);
-            robot.motorRB.setPower(0);
-
-            sleep(750);
-
-            betterPivot(90);
-
-            sleep(750);
-
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(.75);
             robot.motorRF.setPower(.75);
@@ -189,15 +174,33 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
+            betterPivot(-100);
+
+            sleep(750);
+
+            robot.motorLF.setPower(.75);
+            robot.motorLB.setPower(-.75);
+            robot.motorRF.setPower(-.75);
+            robot.motorRB.setPower(.75);
+
+            sleep(1500);
+
+            robot.motorLF.setPower(0);
+            robot.motorLB.setPower(0);
+            robot.motorRF.setPower(0);
+            robot.motorRB.setPower(0);
+
+            sleep(750);
+
             duckSpinnerLeft.setPower(.5);
             duckSpinnerRight.setPower(.5);
 
             robot.motorLF.setPower(.4);
-            robot.motorLB.setPower(.4);
-            robot.motorRF.setPower(.4);
+            robot.motorLB.setPower(.3);
+            robot.motorRF.setPower(.3);
             robot.motorRB.setPower(.4);
 
-            sleep(1000);
+            sleep(750);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
@@ -223,6 +226,9 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
             //robot.motorRF.setPower(0);
             //robot.motorRB.setPower(0);
 
+            //armL.setPosition(.5);
+            //slidesL.setPosition(.45);
+
             drive.encoderDrive(2150, driveStyle.BACKWARD, 1, motors);
 
             sleep(750);
@@ -241,16 +247,23 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
-            betterPivot(180);
+            betterPivot(190);
 
             sleep(750);
 
-            robot.motorLF.setPower(-.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(-.75);
+            clawL.setPosition(.15);
 
-            sleep(1000);
+            sleep(100);
+
+            armL.setPosition(.45);
+            slidesL.setPosition(.45);
+
+            robot.motorLF.setPower(.75);
+            robot.motorLB.setPower(.75);
+            robot.motorRF.setPower(.75);
+            robot.motorRB.setPower(.75);
+
+            sleep(500);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
@@ -259,31 +272,86 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
-            armL.setPosition(.5);
-            slidesL.setPosition(.45);
+            //drive.encoderDrive(2600, driveStyle.BACKWARD, 1, motors);
 
-            drive.encoderDrive(2500, driveStyle.FORWARD, 1, motors);
+            encoderReadingLB = robot.motorLF.getCurrentPosition();
+            target = (encoderReadingLB - 2150);
+            robot.motorLF.setPower(-.7);
+            robot.motorLB.setPower(-.7);
+            robot.motorRF.setPower(-.7);
+            robot.motorRB.setPower(-.7);
 
-            sleep(750);
+            while (robot.motorLF.getCurrentPosition() >= target)
+            {
+
+                telemetry.addData("target", target);
+                telemetry.addData("encoder", encoderReadingLB);
+                telemetry.update();
+
+            }
 
             clawL.setPosition(.15);
 
-            robot.motorLF.setPower(-.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(-.75);
+            sleep(750);
+
+            clawL.setPosition(0);
+
+            sleep(100);
+
+
+
+                /*
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
+
+                 */
 
             armL.setPosition(0);
+
+            //drive.encoderDrive(2300, driveStyle.FORWARD, 1, motors);
+
+            encoderReadingLB = robot.motorLF.getCurrentPosition();
+            target = (encoderReadingLB + 2150);
+            robot.motorLF.setPower(.7);
+            robot.motorLB.setPower(.7);
+            robot.motorRF.setPower(.7);
+            robot.motorRB.setPower(.7);
+
+            while (robot.motorLF.getCurrentPosition() >= target)
+            {
+
+                telemetry.addData("target", target);
+                telemetry.addData("encoder", encoderReadingLB);
+                telemetry.update();
+
+            }
+
+            sleep(200);
+
             slidesL.setPosition(0);
 
-            sleep(2500);
+            robot.motorLF.setPower(.6);
+            robot.motorLB.setPower(.6);
+            robot.motorRF.setPower(.6);
+            robot.motorRB.setPower(.6);
 
-            robot.motorLF.setPower(.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(.75);
+            sleep(2000);
 
-            sleep(1200);
+            robot.motorLF.setPower(.5);
+            robot.motorLB.setPower(.5);
+            robot.motorRF.setPower(.5);
+            robot.motorRB.setPower(.5);
+
+            sleep(100);
+
+            robot.motorLF.setPower(-.75);
+            robot.motorLB.setPower(.75);
+            robot.motorRF.setPower(.75);
+            robot.motorRB.setPower(-.75);
+
+            sleep(1700);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
@@ -294,25 +362,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
         if(barPos == 2)
         {
-            clawL.setPosition(.0);
-
-            robot.motorLF.setPower(.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(.75);
-
-            sleep(750);
-
-            robot.motorLF.setPower(0);
-            robot.motorLB.setPower(0);
-            robot.motorRF.setPower(0);
-            robot.motorRB.setPower(0);
-
-            sleep(750);
-
-            betterPivot(90);
-
-            sleep(750);
+            clawL.setPosition(0);
 
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(.75);
@@ -328,15 +378,33 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
+            betterPivot(-100);
+
+            sleep(750);
+
+            robot.motorLF.setPower(.75);
+            robot.motorLB.setPower(-.75);
+            robot.motorRF.setPower(-.75);
+            robot.motorRB.setPower(.75);
+
+            sleep(1500);
+
+            robot.motorLF.setPower(0);
+            robot.motorLB.setPower(0);
+            robot.motorRF.setPower(0);
+            robot.motorRB.setPower(0);
+
+            sleep(750);
+
             duckSpinnerLeft.setPower(.5);
             duckSpinnerRight.setPower(.5);
 
             robot.motorLF.setPower(.4);
-            robot.motorLB.setPower(.4);
-            robot.motorRF.setPower(.4);
+            robot.motorLB.setPower(.3);
+            robot.motorRF.setPower(.3);
             robot.motorRB.setPower(.4);
 
-            sleep(1000);
+            sleep(750);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
@@ -362,6 +430,9 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
             //robot.motorRF.setPower(0);
             //robot.motorRB.setPower(0);
 
+            //armL.setPosition(.5);
+            //slidesL.setPosition(.45);
+
             drive.encoderDrive(2150, driveStyle.BACKWARD, 1, motors);
 
             sleep(750);
@@ -380,47 +451,77 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
-            betterPivot(180);
+            betterPivot(190);
 
             sleep(750);
 
-            armL.setPosition(.5);
+            clawL.setPosition(.15);
 
-            robot.motorLF.setPower(-.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(-.75);
+            sleep(10);
 
-            sleep(1000);
+            armL.setPosition(.55);
+
+            robot.motorLF.setPower(.75);
+            robot.motorLB.setPower(.75);
+            robot.motorRF.setPower(.75);
+            robot.motorRB.setPower(.75);
+
+            sleep(500);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
             robot.motorRF.setPower(0);
             robot.motorRB.setPower(0);
 
+
             sleep(750);
 
-            drive.encoderDrive(2500, driveStyle.FORWARD, 1, motors);
+            drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
 
             clawL.setPosition(.15);
 
             sleep(750);
 
-            robot.motorLF.setPower(-.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(-.75);
+            clawL.setPosition(0);
+
+            sleep(100);
+
+
+
+                /*
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
+
+                 */
 
             armL.setPosition(0);
 
-            sleep(2500);
+            drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
 
-            robot.motorLF.setPower(.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(.75);
+            sleep(200);
 
-            sleep(1200);
+            robot.motorLF.setPower(-.6);
+            robot.motorLB.setPower(-.6);
+            robot.motorRF.setPower(-.6);
+            robot.motorRB.setPower(-.6);
+
+            sleep(2000);
+
+            robot.motorLF.setPower(.5);
+            robot.motorLB.setPower(.5);
+            robot.motorRF.setPower(.5);
+            robot.motorRB.setPower(.5);
+
+            sleep(100);
+
+            robot.motorLF.setPower(-.75);
+            robot.motorLB.setPower(.75);
+            robot.motorRF.setPower(.75);
+            robot.motorRB.setPower(-.75);
+
+            sleep(1700);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
@@ -432,24 +533,6 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
         {
             clawL.setPosition(0);
 
-            robot.motorLF.setPower(.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(.75);
-
-            sleep(750);
-
-            robot.motorLF.setPower(0);
-            robot.motorLB.setPower(0);
-            robot.motorRF.setPower(0);
-            robot.motorRB.setPower(0);
-
-            sleep(750);
-
-            betterPivot(90);
-
-            sleep(750);
-
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(.75);
             robot.motorRF.setPower(.75);
@@ -464,15 +547,33 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
+            betterPivot(-100);
+
+            sleep(750);
+
+            robot.motorLF.setPower(.75);
+            robot.motorLB.setPower(-.75);
+            robot.motorRF.setPower(-.75);
+            robot.motorRB.setPower(.75);
+
+            sleep(1500);
+
+            robot.motorLF.setPower(0);
+            robot.motorLB.setPower(0);
+            robot.motorRF.setPower(0);
+            robot.motorRB.setPower(0);
+
+            sleep(750);
+
             duckSpinnerLeft.setPower(.5);
             duckSpinnerRight.setPower(.5);
 
             robot.motorLF.setPower(.4);
-            robot.motorLB.setPower(.4);
-            robot.motorRF.setPower(.4);
+            robot.motorLB.setPower(.3);
+            robot.motorRF.setPower(.3);
             robot.motorRB.setPower(.4);
 
-            sleep(1000);
+            sleep(750);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
@@ -498,6 +599,9 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
             //robot.motorRF.setPower(0);
             //robot.motorRB.setPower(0);
 
+            //armL.setPosition(.5);
+            //slidesL.setPosition(.45);
+
             drive.encoderDrive(2150, driveStyle.BACKWARD, 1, motors);
 
             sleep(750);
@@ -516,47 +620,76 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
-            betterPivot(180);
+            betterPivot(190);
 
             sleep(750);
+
+            clawL.setPosition(.15);
+
+            sleep(100);
+
+            armL.setPosition(.78);
 
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(-.75);
             robot.motorRF.setPower(-.75);
             robot.motorRB.setPower(-.75);
 
-            sleep(1000);
+            sleep(500);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
             robot.motorRF.setPower(0);
             robot.motorRB.setPower(0);
 
-            armL.setPosition(.75);
-
             sleep(750);
 
-            drive.encoderDrive(2500, driveStyle.FORWARD, 1, motors);
+            drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
 
             clawL.setPosition(.15);
 
             sleep(750);
 
-            robot.motorLF.setPower(-.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(-.75);
+            clawL.setPosition(0);
+
+            sleep(100);
+
+
+
+                /*
+                robot.motorLF.setPower(-.75);
+                robot.motorLB.setPower(-.75);
+                robot.motorRF.setPower(-.75);
+                robot.motorRB.setPower(-.75);
+
+                 */
 
             armL.setPosition(0);
 
-            sleep(2500);
+            drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
 
-            robot.motorLF.setPower(.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(.75);
+            sleep(200);
 
-            sleep(1200);
+            robot.motorLF.setPower(-.6);
+            robot.motorLB.setPower(-.6);
+            robot.motorRF.setPower(-.6);
+            robot.motorRB.setPower(-.6);
+
+            sleep(2000);
+
+            robot.motorLF.setPower(.5);
+            robot.motorLB.setPower(.5);
+            robot.motorRF.setPower(.5);
+            robot.motorRB.setPower(.5);
+
+            sleep(100);
+
+            robot.motorLF.setPower(-.75);
+            robot.motorLB.setPower(.75);
+            robot.motorRF.setPower(.75);
+            robot.motorRB.setPower(-.75);
+
+            sleep(1700);
 
             robot.motorLF.setPower(0);
             robot.motorLB.setPower(0);
