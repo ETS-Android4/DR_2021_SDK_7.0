@@ -240,7 +240,7 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 clawL.setPosition(.15);
 
-                sleep(100);
+                sleep(150);
 
                 armL.setPosition(.5);
                 slidesL.setPosition(.45);
@@ -392,7 +392,7 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 clawL.setPosition(.15);
 
-                sleep(10);
+                sleep(150);
 
                 armL.setPosition(.55);
 
@@ -432,7 +432,7 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 armL.setPosition(0);
 
-                drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
+                drive.encoderDrive(2350, driveStyle.BACKWARD, 1, motors);
 
                 sleep(200);
 
@@ -542,9 +542,9 @@ public class gen2AutoDuckBlueCamera2 extends LinearOpMode
 
                 clawL.setPosition(.15);
 
-                sleep(10);
+                sleep(150);
 
-                armL.setPosition(.55);
+                armL.setPosition(.72);
 
                 robot.motorLF.setPower(-.75);
                 robot.motorLB.setPower(-.75);

@@ -39,7 +39,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
     private static final int CAMERA_WIDTH  = 320; // width  of wanted camera resolution
     private static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
 
-    double barPos = 1;
+    double barPos = 3;
 
 
 
@@ -101,7 +101,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
         ContourPipeline myPipeline;
         webcam.setPipeline(myPipeline = new ContourPipeline());
         // Configuration of Pipeline
-        myPipeline.ConfigurePipeline(0, 0,50,80,  CAMERA_WIDTH, CAMERA_HEIGHT);
+        myPipeline.ConfigurePipeline(0, 0,50,85,  CAMERA_WIDTH, CAMERA_HEIGHT);
         myPipeline.ConfigureScalarLower(scalarLowerYCrCb.val[0],scalarLowerYCrCb.val[1],scalarLowerYCrCb.val[2]);
         myPipeline.ConfigureScalarUpper(scalarUpperYCrCb.val[0],scalarUpperYCrCb.val[1],scalarUpperYCrCb.val[2]);
         // Webcam Streaming
@@ -150,7 +150,9 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
                     barPos = 3;
                 }
             }
-        }
+
+            clawL.setPosition(.15);
+    }
 
         waitForStart();
 
@@ -158,7 +160,6 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
         if(barPos == 1)
         {
-            clawL.setPosition(0);
 
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(.75);
@@ -253,7 +254,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             clawL.setPosition(.15);
 
-            sleep(100);
+            sleep(150);
 
             armL.setPosition(.45);
             slidesL.setPosition(.45);
@@ -274,21 +275,26 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             //drive.encoderDrive(2600, driveStyle.BACKWARD, 1, motors);
 
-            encoderReadingLB = robot.motorLF.getCurrentPosition();
-            target = (encoderReadingLB - 2150);
-            robot.motorLF.setPower(-.7);
-            robot.motorLB.setPower(-.7);
+            encoderReadingLB = robot.motorRF.getCurrentPosition();
+            target = (encoderReadingLB - 2350);
+            robot.motorLF.setPower(-.6);
+            robot.motorLB.setPower(-.6);
             robot.motorRF.setPower(-.7);
-            robot.motorRB.setPower(-.7);
+            robot.motorRB.setPower(-.75);
 
-            while (robot.motorLF.getCurrentPosition() >= target)
+            while (robot.motorRF.getCurrentPosition() >= target)
             {
 
                 telemetry.addData("target", target);
-                telemetry.addData("encoder", encoderReadingLB);
+                telemetry.addData("encoder", robot.motorRF.getCurrentPosition());
                 telemetry.update();
 
             }
+
+            robot.motorLF.setPower(0);
+            robot.motorLB.setPower(0);
+            robot.motorRF.setPower(0);
+            robot.motorRB.setPower(0);
 
             clawL.setPosition(.15);
 
@@ -314,10 +320,10 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             encoderReadingLB = robot.motorLF.getCurrentPosition();
             target = (encoderReadingLB + 2150);
-            robot.motorLF.setPower(.7);
-            robot.motorLB.setPower(.7);
-            robot.motorRF.setPower(.7);
-            robot.motorRB.setPower(.7);
+            robot.motorLF.setPower(.6);
+            robot.motorLB.setPower(.6);
+            robot.motorRF.setPower(.8);
+            robot.motorRB.setPower(.8);
 
             while (robot.motorLF.getCurrentPosition() >= target)
             {
@@ -327,6 +333,11 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
                 telemetry.update();
 
             }
+
+            robot.motorLF.setPower(0);
+            robot.motorLB.setPower(0);
+            robot.motorRF.setPower(0);
+            robot.motorRB.setPower(0);
 
             sleep(200);
 
@@ -362,7 +373,6 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
         if(barPos == 2)
         {
-            clawL.setPosition(0);
 
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(.75);
@@ -457,7 +467,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             clawL.setPosition(.15);
 
-            sleep(10);
+            sleep(150);
 
             armL.setPosition(.55);
 
@@ -473,10 +483,25 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
             robot.motorRF.setPower(0);
             robot.motorRB.setPower(0);
 
-
             sleep(750);
 
-            drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
+            //drive.encoderDrive(2600, driveStyle.BACKWARD, 1, motors);
+
+            encoderReadingLB = robot.motorRF.getCurrentPosition();
+            target = (encoderReadingLB - 1000);
+            robot.motorLF.setPower(-.6);
+            robot.motorLB.setPower(-.6);
+            robot.motorRF.setPower(-.7);
+            robot.motorRB.setPower(-.7);
+
+            while (robot.motorRF.getCurrentPosition() >= target)
+            {
+
+                telemetry.addData("target", target);
+                telemetry.addData("encoder", robot.motorRF.getCurrentPosition());
+                telemetry.update();
+
+            }
 
             clawL.setPosition(.15);
 
@@ -498,14 +523,30 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             armL.setPosition(0);
 
-            drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
+            //drive.encoderDrive(2300, driveStyle.FORWARD, 1, motors);
+
+            encoderReadingLB = robot.motorLF.getCurrentPosition();
+            target = (encoderReadingLB + 2150);
+            robot.motorLF.setPower(.6);
+            robot.motorLB.setPower(.6);
+            robot.motorRF.setPower(.8);
+            robot.motorRB.setPower(.8);
+
+            while (robot.motorLF.getCurrentPosition() >= target)
+            {
+
+                telemetry.addData("target", target);
+                telemetry.addData("encoder", encoderReadingLB);
+                telemetry.update();
+
+            }
 
             sleep(200);
 
-            robot.motorLF.setPower(-.6);
-            robot.motorLB.setPower(-.6);
-            robot.motorRF.setPower(-.6);
-            robot.motorRB.setPower(-.6);
+            robot.motorLF.setPower(.6);
+            robot.motorLB.setPower(.6);
+            robot.motorRF.setPower(.6);
+            robot.motorRB.setPower(.6);
 
             sleep(2000);
 
@@ -531,7 +572,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
         if(barPos == 3)
         {
-            clawL.setPosition(0);
+
 
             robot.motorLF.setPower(-.75);
             robot.motorLB.setPower(.75);
@@ -602,7 +643,7 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
             //armL.setPosition(.5);
             //slidesL.setPosition(.45);
 
-            drive.encoderDrive(2150, driveStyle.BACKWARD, 1, motors);
+            drive.encoderDrive(2450, driveStyle.BACKWARD, 1, motors);
 
             sleep(750);
 
@@ -626,14 +667,15 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             clawL.setPosition(.15);
 
-            sleep(100);
+            sleep(150);
 
-            armL.setPosition(.78);
+            armL.setPosition(.72);
 
-            robot.motorLF.setPower(-.75);
-            robot.motorLB.setPower(-.75);
-            robot.motorRF.setPower(-.75);
-            robot.motorRB.setPower(-.75);
+
+            robot.motorLF.setPower(.75);
+            robot.motorLB.setPower(.75);
+            robot.motorRF.setPower(.75);
+            robot.motorRB.setPower(.75);
 
             sleep(500);
 
@@ -644,7 +686,23 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             sleep(750);
 
-            drive.encoderDrive(2600, driveStyle.FORWARD, 1, motors);
+            //drive.encoderDrive(2600, driveStyle.BACKWARD, 1, motors);
+
+            encoderReadingLB = robot.motorRF.getCurrentPosition();
+            target = (encoderReadingLB - 1000);
+            robot.motorLF.setPower(-.6);
+            robot.motorLB.setPower(-.6);
+            robot.motorRF.setPower(-.7);
+            robot.motorRB.setPower(-.7);
+
+            while (robot.motorRF.getCurrentPosition() >= target)
+            {
+
+                telemetry.addData("target", target);
+                telemetry.addData("encoder", robot.motorRF.getCurrentPosition());
+                telemetry.update();
+
+            }
 
             clawL.setPosition(.15);
 
@@ -666,14 +724,32 @@ public class gen2AutoDuckRedCamera2 extends LinearOpMode
 
             armL.setPosition(0);
 
-            drive.encoderDrive(2300, driveStyle.BACKWARD, 1, motors);
+            //drive.encoderDrive(2300, driveStyle.FORWARD, 1, motors);
+
+            encoderReadingLB = robot.motorLF.getCurrentPosition();
+            target = (encoderReadingLB + 2150);
+            robot.motorLF.setPower(.6);
+            robot.motorLB.setPower(.6);
+            robot.motorRF.setPower(.8);
+            robot.motorRB.setPower(.8);
+
+            while (robot.motorLF.getCurrentPosition() >= target)
+            {
+
+                telemetry.addData("target", target);
+                telemetry.addData("encoder", encoderReadingLB);
+                telemetry.update();
+
+            }
 
             sleep(200);
 
-            robot.motorLF.setPower(-.6);
-            robot.motorLB.setPower(-.6);
-            robot.motorRF.setPower(-.6);
-            robot.motorRB.setPower(-.6);
+
+
+            robot.motorLF.setPower(.6);
+            robot.motorLB.setPower(.6);
+            robot.motorRF.setPower(.6);
+            robot.motorRB.setPower(.6);
 
             sleep(2000);
 
