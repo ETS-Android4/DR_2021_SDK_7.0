@@ -33,9 +33,15 @@ public class capTest extends LinearOpMode
 
         while (opModeIsActive())
         {
-            CapVert.setPosition(((gamepad2.left_stick_y + 1) * .125));
+            CapVert.setPosition(((gamepad2.left_stick_y + 1) * .25));
             CapSides.setPosition((((gamepad2.left_stick_x + 1) * .5) * .35) + .12);
             CapOut.setPower(gamepad2.right_stick_y * .7);
+
+
+            telemetry.addData("vert real",CapVert.getPosition());
+            telemetry.addData("sides real",CapSides.getPosition());
+            telemetry.addData("out real", CapOut.getPower());
+            telemetry.update();
         }
     }
 

@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -32,7 +33,7 @@ public class autoDriveTest extends LinearOpMode
     public Servo clawL = null;
     public Servo  slidesL = null;
     public Servo  armL = null;
-    double driveTimeVar = null;
+    double driveTimeVar = 0;
     Orientation angles;
 
     private OpenCvCamera webcam;//find webcam statement
@@ -306,7 +307,7 @@ public class autoDriveTest extends LinearOpMode
     }
     
     
-    public void betterDrive(int angle, double PowerX, double PowerY, double speed)
+    public void  betterDrive(int angle, double PowerX, double PowerY, double speed)
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
         
@@ -326,10 +327,16 @@ public class autoDriveTest extends LinearOpMode
         
         turnPower = ((angle - angles.firstAngle) /angle)+ .2;
         
-        motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
-        motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
-        motorLB.setPower(speed * ((-PowerY + PowerX) - (turnPower)));
-        motorLF.setPower(speed * ((-PowerX - PowerY)) - (turnPower));
+        robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+        robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
+        robot.motorLB.setPower(speed * ((-PowerY + PowerX) - (turnPower)));
+        robot.motorLF.setPower(speed * ((-PowerX - PowerY)) - (turnPower));
+
+        telemetry.addData("motorRF Power", robot.motorRF.getPower());
+        telemetry.addData("motorRB Power", robot.motorRB.getPower());
+        telemetry.addData("motorLB Power", robot.motorLB.getPower());
+        telemetry.addData("motorLF Power", robot.motorLF.getPower());
+        telemetry.update();
     }
 
 

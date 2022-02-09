@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -28,9 +29,9 @@ public class gen2TeleOp3 extends LinearOpMode
     public Servo slidesL = null;
     public Servo armL = null;
     public Servo clawL = null;
-    //public Servo CapVert = null;
-    //public Servo CapSides = null;
-    //public CRServo CapOut = null;
+    public Servo CapVert = null;
+    public Servo CapSides = null;
+    public CRServo CapOut = null;
 
     double speed = 1;
     double zScale = 1;
@@ -46,6 +47,8 @@ public class gen2TeleOp3 extends LinearOpMode
     double servoPos;
     double ServoTime;
     double ServoTime2;
+    boolean blue = false;
+    boolean red = true;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -73,9 +76,9 @@ public class gen2TeleOp3 extends LinearOpMode
         slidesL = hardwareMap.servo.get("slidesL");
         armL = hardwareMap.servo.get("armL");
         clawL = hardwareMap.servo.get("clawL");
-       // CapVert = hardwareMap.servo.get("CapVert");
-       // CapSides = hardwareMap.servo.get("CapSides");
-       // CapOut = hardwareMap.crservo.get("CapOut");
+        CapVert = hardwareMap.servo.get("CapVert");
+        CapSides = hardwareMap.servo.get("CapSides");
+        CapOut = hardwareMap.crservo.get("CapOut");
 
 
 
@@ -312,6 +315,32 @@ public class gen2TeleOp3 extends LinearOpMode
                 clawL.setPosition(.07);
                 MoveDown = false;
             }
+
+            if(gamepad2.left_bumper)
+            {
+                red = true;
+                blue = false;
+            }
+            if(gamepad2.right_bumper)
+            {
+                red = false;
+                blue = true;
+            }
+
+            if(red)
+            {
+                CapVert.setPosition(((gamepad2.left_stick_y + 1) * .25) + 0.05);
+                CapSides.setPosition((((gamepad2.left_stick_x + 1) * .5) * .35) + .12);
+                CapOut.setPower(gamepad2.right_stick_y * .7);
+            }
+            if(blue)
+            {
+                CapVert.setPosition(((gamepad2.left_stick_y + 1) * .25) + 0.05);
+                CapSides.setPosition((gamepad2.left_stick_x + 1) * .12);
+                CapOut.setPower(gamepad2.right_stick_y * .7);
+            }
+
+
 
 
             telemetry.addData("motorRFEncoder", motorRF.getCurrentPosition());

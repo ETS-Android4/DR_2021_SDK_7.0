@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.Servo;
 
 
@@ -12,9 +13,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class servoTester extends LinearOpMode
 {
     //change if using different servos
-    public Servo slidesL = null;
-    public Servo armL = null;
-    public Servo clawL = null;
+    public Servo CapVert = null;
+    public Servo CapSides = null;
+    public CRServo CapOut = null;
 
 
     //add as many as you have servos
@@ -32,9 +33,9 @@ public class servoTester extends LinearOpMode
     {
 
         //change to servos that you are using
-        armL = hardwareMap.servo.get("armL");
-        slidesL = hardwareMap.servo.get("slidesL");
-        clawL = hardwareMap.servo.get("clawL");
+        CapVert = hardwareMap.servo.get("CapVert");
+        CapSides = hardwareMap.servo.get("CapSides");
+        CapOut = hardwareMap.crservo.get("CapOut");
 
 
         waitForStart();
@@ -42,9 +43,9 @@ public class servoTester extends LinearOpMode
         while (opModeIsActive())
         {
 
-            slidesL.setPosition(increment);
-            armL.setPosition(increment2);
-            clawL.setPosition(increment3);
+            CapVert.setPosition(increment);
+            CapSides.setPosition(increment2);
+            CapOut.setPower(increment3);
 
             if(gamepad1.back)
             {
@@ -103,12 +104,12 @@ public class servoTester extends LinearOpMode
 
             loopCount++;
 
-            telemetry.addData("slidesL",increment);
-            telemetry.addData("armL",increment2);
-            telemetry.addData("clawL",increment3);
-            telemetry.addData("slidesL real",slidesL.getPosition());
-            telemetry.addData("armL real",armL.getPosition());
-            telemetry.addData("clawL real", clawL.getPosition());
+            telemetry.addData("vert",increment);
+            telemetry.addData("sides",increment2);
+            telemetry.addData("out",increment3);
+            telemetry.addData("vert real",CapVert.getPosition());
+            telemetry.addData("sides real",CapSides.getPosition());
+            telemetry.addData("out real", CapOut.getPower());
             telemetry.addData("we are changing by :",distance);
             telemetry.addData("loopcount:",loopCount);
             telemetry.update();
