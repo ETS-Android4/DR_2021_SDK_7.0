@@ -161,22 +161,22 @@ public class autoDriveTest extends LinearOpMode
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(0, 0, 1, .75);
+            drive(0, 0, 1, .75);
         }
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(0, 1, 0, .75);
+            drive(0, 1, 0, .75);
         }
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(0, 0, -1, .75);
+            drive(0, 0, -1, .75);
         }
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(0, -1, 0, .75);
+            drive(0, -1, 0, .75);
         }
         
         
@@ -187,22 +187,22 @@ public class autoDriveTest extends LinearOpMode
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(90, 0, 1, .75);
+            drive(90, 0, 1, .75);
         }
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(90, 1, 0, .75);
+            drive(90, 1, 0, .75);
         }
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(90, 0, -1, .75);
+            drive(90, 0, -1, .75);
         }
         
         driveTimeVar = driveTime.milliseconds();
         while ((driveTimeVar + 1000) > driveTime.milliseconds()) {
-            betterDrive(90, -1, 0, .75);
+            drive(90, -1, 0, .75);
         }
 
             
@@ -331,6 +331,22 @@ public class autoDriveTest extends LinearOpMode
         robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
         robot.motorLB.setPower(speed * ((-PowerY + PowerX) - (turnPower)));
         robot.motorLF.setPower(speed * ((-PowerX - PowerY)) - (turnPower));
+
+        telemetry.addData("motorRF Power", robot.motorRF.getPower());
+        telemetry.addData("motorRB Power", robot.motorRB.getPower());
+        telemetry.addData("motorLB Power", robot.motorLB.getPower());
+        telemetry.addData("motorLF Power", robot.motorLF.getPower());
+        telemetry.update();
+    }
+    
+    public void  drive(int angle, double PowerX, double PowerY, double speed)
+    {
+        RobotHardware robot = new RobotHardware(hardwareMap);
+        
+        robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+        robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+        robot.motorLB.setPower(speed * ((-PowerY + PowerX) - (0)));
+        robot.motorLF.setPower(speed * ((-PowerX - PowerY)) - (0));
 
         telemetry.addData("motorRF Power", robot.motorRF.getPower());
         telemetry.addData("motorRB Power", robot.motorRB.getPower());
