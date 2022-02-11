@@ -177,15 +177,30 @@ public class Gen2DuckBlue extends LinearOpMode
         sleep(250);
         
         if(barPos == 1) {
-            
+            clawL.setPosition(.15);
+
+            sleep(150);
+
+            armL.setPosition(.5);
+            slidesL.setPosition(.45);
         }
         
         else if(barPos == 2) {
-            
+            clawL.setPosition(.15);
+
+            sleep(150);
+
+            armL.setPosition(.55);
+            slidesL.setPosition(0);
         }
         
         else if(barPos == 3) {
-            
+            clawL.setPosition(.15);
+
+            sleep(150);
+
+            armL.setPosition(.72);
+            slidesL.setPosition(0);
         }
         
         sleep(250);
@@ -199,6 +214,9 @@ public class Gen2DuckBlue extends LinearOpMode
         sleep(1000);
         
         betterSensorDrive(90, -1, 0, 1, 6);
+        
+        armL.setPosition(0);
+        slidesL.setPosition(0);
         
         sleep(250);
         
