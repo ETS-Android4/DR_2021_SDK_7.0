@@ -158,15 +158,30 @@ public class Gen2WarehouseBlue extends LinearOpMode
         sleep(750);
         
         if(barPos == 1) {
+            clawL.setPosition(.15);
 
+            sleep(150);
+
+            armL.setPosition(.5);
+            slidesL.setPosition(.45);
         }
 
         else if(barPos == 2) {
+            clawL.setPosition(.15);
 
+            sleep(150);
+
+            armL.setPosition(.55);
+            slidesL.setPosition(0);
         }
 
         else if(barPos == 3) {
+            clawL.setPosition(.15);
 
+            sleep(150);
+
+            armL.setPosition(.72);
+            slidesL.setPosition(0);
         }
         
         betterEncoderDrive(180, 0, 1, 1, 1500);
@@ -182,6 +197,9 @@ public class Gen2WarehouseBlue extends LinearOpMode
         sleep(1000);
         
         betterTimeDrive(180, 1, 0, 1, 500);
+        
+        armL.setPosition(0);
+        slidesL.setPosition(0);
         
         sleep(250);
         
