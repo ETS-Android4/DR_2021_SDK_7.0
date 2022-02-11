@@ -42,6 +42,11 @@ public class Gen2WarehouseRed extends LinearOpMode
 
     double barPos = 3;
     double driveTimeVar;
+    boolean DpadUpToggle = true;
+    boolean DpadDownToggle = true;
+    int parkPos = 1;
+    int parkDriveTime;
+    int TSEColor = 1;
 
 
 
@@ -83,6 +88,183 @@ public class Gen2WarehouseRed extends LinearOpMode
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
+        
+        //auto settings
+        //parking path
+        while(!gamepad1.a) {
+            if (gamepad2.dpad_down && DpadDownToggle)
+            {
+                if(parkPos < 2) {
+                    parkPos += 1;
+                }
+
+                DpadDownToggle = false;
+            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            {
+                DpadDownToggle = true;
+            }
+
+            if (gamepad2.dpad_up && DpadUpToggle)
+            {
+                if(parkPos > 1) {
+                    parkPos -= 1;
+                }
+
+                DpadUpToggle = false;
+            } else if (!gamepad2.dpad_up && !DpadUpToggle)
+            {
+                DpadUpToggle = true;
+            }
+            
+            if (parkPos == 1) {
+                telemetry.addLine("barrier");
+                
+                parkDriveTime = 500;
+            }
+            
+            else if (parkPos == 2) {
+                telemetry.addLine("gap");
+                
+                parkDriveTime = 1250;
+            }
+        }
+        
+        //TSE color 
+        while(!gamepad1.a) {
+            if (gamepad2.dpad_down && DpadDownToggle)
+            {
+                if(TSEColor < 9) {
+                    TSEColor += 1;
+                }
+
+                DpadDownToggle = false;
+            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            {
+                DpadDownToggle = true;
+            }
+
+            if (gamepad2.dpad_up && DpadUpToggle)
+            {
+                if(TSEColor > 1) {
+                    TSEColor -= 1;
+                }
+
+                DpadUpToggle = false;
+            } else if (!gamepad2.dpad_up && !DpadUpToggle)
+            {
+                DpadUpToggle = true;
+            }
+            
+            
+            
+            if (TSEColor == 1) {
+                telemetry.addLine("Red");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 196//Cr
+                scalarLowerYCrCb.val[2] = 16//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 240//Cr
+                scalarUpperYCrCb.val[2] = 150//Cb
+            }
+            
+            else if (TSEColor == 2) {
+                telemetry.addLine("Orange");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 195//Cr
+                scalarLowerYCrCb.val[2] = 0//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 240//Cr
+                scalarUpperYCrCb.val[2] = 79//Cb
+            }
+            
+            else if (TSEColor == 3) {
+                telemetry.addLine("Yellow");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 140//Cr
+                scalarLowerYCrCb.val[2] = 16//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 195//Cr
+                scalarUpperYCrCb.val[2] = 90//Cb
+            }
+            
+            else if (TSEColor == 4) {
+                telemetry.addLine("Green");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 16//Cr
+                scalarLowerYCrCb.val[2] = 16//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 150//Cr
+                scalarUpperYCrCb.val[2] = 130//Cb
+            }
+            
+            else if (TSEColor == 5) {
+                telemetry.addLine("Blue");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 16//Cr
+                scalarLowerYCrCb.val[2] = 130//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 130//Cr
+                scalarUpperYCrCb.val[2] = 240//Cb
+            }
+            
+            else if (TSEColor == 6) {
+                telemetry.addLine("Purple");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 120//Cr
+                scalarLowerYCrCb.val[2] = 120//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 196//Cr
+                scalarUpperYCrCb.val[2] = 240//Cb
+            }
+            
+            else if (TSEColor == 7) {
+                telemetry.addLine("Pink");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 190//Cr
+                scalarLowerYCrCb.val[2] = 120//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 240//Cr
+                scalarUpperYCrCb.val[2] = 240//Cb
+            }
+            
+            else if (TSEColor == 8) {
+                telemetry.addLine("White");
+                
+                scalarLowerYCrCb.val[0] = 16//Y
+                scalarLowerYCrCb.val[1] = 16//Cr
+                scalarLowerYCrCb.val[2] = 16//Cb
+                
+                scalarUpperYCrCb.val[0] = 125//Y
+                scalarUpperYCrCb.val[1] = 240//Cr
+                scalarUpperYCrCb.val[2] = 240//Cb
+            }
+            
+            else if (TSEColor == 9) {
+                telemetry.addLine("Black");
+                
+                scalarLowerYCrCb.val[0] = 126//Y
+                scalarLowerYCrCb.val[1] = 16//Cr
+                scalarLowerYCrCb.val[2] = 16//Cb
+                
+                scalarUpperYCrCb.val[0] = 235//Y
+                scalarUpperYCrCb.val[1] = 240//Cr
+                scalarUpperYCrCb.val[2] = 240//Cb
+            }
+        }
 
 
         // OpenCV webcam
@@ -192,7 +374,7 @@ public class Gen2WarehouseRed extends LinearOpMode
 
         sleep(1000);
 
-        betterTimeDrive(0, 1, 0, 1, 500);
+        betterTimeDrive(0, 1, 0, 1, parkDriveTime);
 
         armL.setPosition(0);
         slidesL.setPosition(0);
