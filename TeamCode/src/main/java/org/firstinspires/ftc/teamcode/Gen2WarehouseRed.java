@@ -53,7 +53,7 @@ public class Gen2WarehouseRed extends LinearOpMode
     double lowerruntime = 0;
     double upperruntime = 0;
 
-    double encoderReadingLB = 0;
+    double encoderReadingRF = 0;
     double target = 0;
 
     // Pink Range                                      Y      Cr     Cb
@@ -128,17 +128,17 @@ public class Gen2WarehouseRed extends LinearOpMode
             telemetry.update();
 
             if(myPipeline.getRectArea() > 2000){
-                if(myPipeline.getRectMidpointX() > 200){
+                if((myPipeline.getRectMidpointX() - 160) > 50){
                     AUTONOMOUS_C();
                     barPos = 1;
                 }
-                else if(myPipeline.getRectMidpointX() > 100){
-                    AUTONOMOUS_B();
-                    barPos = 2;
-                }
-                else {
+                else if((myPipeline.getRectMidpointX() - 160) < -50){
                     AUTONOMOUS_A();
                     barPos = 3;
+                }
+                else {
+                    AUTONOMOUS_B();
+                    barPos = 2;
                 }
             }
 
@@ -149,7 +149,39 @@ public class Gen2WarehouseRed extends LinearOpMode
 
         webcam.stopStreaming();
 
-        //write here
+        betterTimeDrive(0, -1, 0, 1, 750);
+
+        sleep(250);
+        
+        if(barPos == 1) {
+
+        }
+
+        else if(barPos == 2) {
+
+        }
+
+        else if(barPos == 3) {
+
+        }
+
+        betterEncoderDrive(0, 0, -1, 1, -1500);
+
+        sleep(250);
+        
+        betterSensorDrive(0, -1, 0, 1, 30);
+
+        sleep(250);
+
+        clawL.setPosition(0);
+
+        sleep(1000);
+
+        betterTimeDrive(0, 1, 0, 1, 500);
+
+        sleep(250);
+
+        betterTimeDrive(0, 0, 1, 1, 2000);
 
     }
 
@@ -291,6 +323,170 @@ public class Gen2WarehouseRed extends LinearOpMode
 
         stop(1);
     }
+    
+    
+    
+    public void  betterEncoderDrive(int angle, double PowerX, double PowerY, double speed, double distance)
+    {
+        RobotHardware robot = new RobotHardware(hardwareMap);
+        
+        encoderReadingRF = robot.motorRF.getCurrentPosition();
+        target = (encoderReadingRF + distance);
+        
+        if(distance < 0) {
+
+        while (robot.motorRF.getCurrentPosition() <= target)
+        {
+
+            double turnPower;
+
+            while (angle > 180)
+            {
+                angle -= 360;
+            }
+            while (angle < -180)
+            {
+                angle += 360;
+            }
+
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+            turnPower = ((angle - angles.firstAngle) / angle) + .2;
+
+            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
+            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
+
+            telemetry.addData("motorRF Power", robot.motorRF.getPower());
+            telemetry.addData("motorRB Power", robot.motorRB.getPower());
+            telemetry.addData("motorLB Power", robot.motorLB.getPower());
+            telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.update();
+        }
+        
+        }
+        
+        else if(distance > 0) {
+
+        while (robot.motorRF.getCurrentPosition() >= target)
+        {
+
+            double turnPower;
+
+            while (angle > 180)
+            {
+                angle -= 360;
+            }
+            while (angle < -180)
+            {
+                angle += 360;
+            }
+
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+            turnPower = ((angle - angles.firstAngle) / angle) + .2;
+
+            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
+            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
+
+            telemetry.addData("motorRF Power", robot.motorRF.getPower());
+            telemetry.addData("motorRB Power", robot.motorRB.getPower());
+            telemetry.addData("motorLB Power", robot.motorLB.getPower());
+            telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.update();
+        }
+        
+        }
+
+        stop(1);
+    }
+    
+    
+    
+    public void  betterSensorDrive(int angle, double PowerX, double PowerY, double speed, double distance)
+    {
+        RobotHardware robot = new RobotHardware(hardwareMap);
+        
+        DistanceSensor sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
+        
+        if(distance < sensorRange.getDistance(DistanceUnit.INCH)) {
+
+        while (distance <= sensorRange.getDistance(DistanceUnit.INCH))
+        {
+
+            double turnPower;
+
+            while (angle > 180)
+            {
+                angle -= 360;
+            }
+            while (angle < -180)
+            {
+                angle += 360;
+            }
+
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+            turnPower = ((angle - angles.firstAngle) / angle) + .2;
+
+            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
+            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
+
+            telemetry.addData("motorRF Power", robot.motorRF.getPower());
+            telemetry.addData("motorRB Power", robot.motorRB.getPower());
+            telemetry.addData("motorLB Power", robot.motorLB.getPower());
+            telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.update();
+        }
+        
+        }
+        
+        else if(distance > sensorRange.getDistance(DistanceUnit.INCH)) {
+
+        while (distance >= sensorRange.getDistance(DistanceUnit.INCH))
+        {
+
+            double turnPower;
+
+            while (angle > 180)
+            {
+                angle -= 360;
+            }
+            while (angle < -180)
+            {
+                angle += 360;
+            }
+
+
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+            turnPower = ((angle - angles.firstAngle) / angle) + .2;
+
+            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
+            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
+            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
+
+            telemetry.addData("motorRF Power", robot.motorRF.getPower());
+            telemetry.addData("motorRB Power", robot.motorRB.getPower());
+            telemetry.addData("motorLB Power", robot.motorLB.getPower());
+            telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.update();
+        }
+        
+        }
+
+        stop(1);
+    }
+
 
     public void  drive(int angle, double PowerX, double PowerY, double speed, double time)
     {
