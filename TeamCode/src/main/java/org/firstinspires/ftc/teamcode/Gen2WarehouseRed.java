@@ -19,10 +19,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="autoDriveTest")
+@Autonomous(name="Gen2DuckRed")
 //@Disabled
 
-public class autoDriveTest extends LinearOpMode
+public class Gen2WarehouseRed extends LinearOpMode
 {
     BNO055IMU imu;
 
@@ -31,9 +31,8 @@ public class autoDriveTest extends LinearOpMode
     public DcMotor duckSpinnerLeft = null;
     public  DcMotor duckSpinnerRight = null;
     public Servo clawL = null;
-    public Servo  slidesL = null;
     public Servo  armL = null;
-    double driveTimeVar = 0;
+    public Servo  slidesL = null;
     Orientation angles;
 
     private OpenCvCamera webcam;//find webcam statement
@@ -41,7 +40,8 @@ public class autoDriveTest extends LinearOpMode
     private static final int CAMERA_WIDTH  = 320; // width  of wanted camera resolution
     private static final int CAMERA_HEIGHT = 240; // height of wanted camera resolution
 
-    double barPos = 1;
+    double barPos = 3;
+    double driveTimeVar;
 
 
 
@@ -52,6 +52,9 @@ public class autoDriveTest extends LinearOpMode
 
     double lowerruntime = 0;
     double upperruntime = 0;
+
+    double encoderReadingLB = 0;
+    double target = 0;
 
     // Pink Range                                      Y      Cr     Cb
     public static Scalar scalarLowerYCrCb = new Scalar(  0.0, 200, 0);
@@ -81,26 +84,15 @@ public class autoDriveTest extends LinearOpMode
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-        DemoBotDriveMecanum drive = new DemoBotDriveMecanum();
-        //meetOneRedRightWithIMU turn = new meetOneRedRightWithIMU();
-
-        DcMotor[] motors = new DcMotor[4];
-        {
-            motors[0] = robot.motorLF;
-            motors[1] = robot.motorLB;
-            motors[2] = robot.motorRF;
-            motors[3] = robot.motorRB;
-
-        }
 
         // OpenCV webcam
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         //OpenCV Pipeline
         ContourPipeline myPipeline;
         webcam.setPipeline(myPipeline = new ContourPipeline());
         // Configuration of Pipeline
-        myPipeline.ConfigurePipeline(0, 0,50,40,  CAMERA_WIDTH, CAMERA_HEIGHT);
+        myPipeline.ConfigurePipeline(0, 0,50,85,  CAMERA_WIDTH, CAMERA_HEIGHT);
         myPipeline.ConfigureScalarLower(scalarLowerYCrCb.val[0],scalarLowerYCrCb.val[1],scalarLowerYCrCb.val[2]);
         myPipeline.ConfigureScalarUpper(scalarUpperYCrCb.val[0],scalarUpperYCrCb.val[1],scalarUpperYCrCb.val[2]);
         // Webcam Streaming
@@ -149,63 +141,16 @@ public class autoDriveTest extends LinearOpMode
                     barPos = 3;
                 }
             }
-        }
 
-        //ElapsedTime driveTime = new ElapsedTime();
+            clawL.setPosition(.15);
+        }
 
         waitForStart();
 
         webcam.stopStreaming();
-        
-        
 
+        //write here
 
-
-
-
-        betterPivot(90);
-
-        sleep(500);
-
-
-
-        betterDrive(90, 0, 1, .75, 1000);
-
-        sleep(500);
-
-        betterDrive(90, 1, 0, .75, 1000);
-
-        sleep(500);
-
-        betterDrive(90, 0, -1, .75, 1000);
-
-        sleep(500);
-
-        betterDrive(90, -1, 0, .75, 1000);
-
-        betterPivot(5);
-
-        betterDrive(5, 0, 1, .75, 1000);
-
-        sleep(500);
-
-        betterDrive(5, 1, 0, .75, 1000);
-
-        sleep(500);
-
-        betterDrive(5, 0, -1, .75, 1000);
-
-        sleep(500);
-
-        betterDrive(5, -1, 0, .75, 1000);
-
-        sleep(500);
-
-
-
-
-
-            
     }
 
 
@@ -272,10 +217,10 @@ public class autoDriveTest extends LinearOpMode
 
                 turnPower = ((angle - angles.firstAngle) /angle)+ .2;
 
-                robot.motorRF.setPower(turnPower);
-                robot.motorRB.setPower(turnPower);
-                robot.motorLB.setPower(-turnPower);
-                robot.motorLF.setPower(-turnPower);
+                robot.motorRF.setPower(-turnPower);
+                robot.motorRB.setPower(-turnPower);
+                robot.motorLB.setPower(turnPower);
+                robot.motorLF.setPower(turnPower);
 
                 telemetry.addData("right", I);
                 telemetry.addData("current angle" ,angles.firstAngle);
@@ -305,9 +250,8 @@ public class autoDriveTest extends LinearOpMode
 
 
     }
-    
-    
-    public void  betterDrive(int angle, double PowerX, double PowerY, double speed, double time)
+
+    public void  betterTimeDrive(int angle, double PowerX, double PowerY, double speed, double time)
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
         ElapsedTime driveTime = new ElapsedTime();
@@ -347,7 +291,7 @@ public class autoDriveTest extends LinearOpMode
 
         stop(1);
     }
-    
+
     public void  drive(int angle, double PowerX, double PowerY, double speed, double time)
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
@@ -387,19 +331,25 @@ public class autoDriveTest extends LinearOpMode
     /*
     void forward (int distance, double power) {
         RobotHardware robot = new RobotHardware(hardwareMap);
+
         robot.motorRF.setTargetPosition(distance + robot.motorRF.getCurrentPosition());
         robot.motorRB.setTargetPosition(distance + robot.motorRB.getCurrentPosition());
         robot.motorLM.setTargetPosition(distance + robot.motorLM.getCurrentPosition());
         robot.motorLB.setTargetPosition(distance + robot.motorLB.getCurrentPosition());
+
         robot.motorRF.setPower(power * .75);
         robot.motorRB.setPower(power * .75);
         robot.motorLB.setPower(power * .75);
         robot.motorLF.setPower(power * .75);
+
         robot.motorRF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorRB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorLB.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.motorLF.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
     }
+
+
      */
 
     public void AUTONOMOUS_A(){

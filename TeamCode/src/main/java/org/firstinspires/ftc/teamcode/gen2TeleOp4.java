@@ -108,13 +108,13 @@ public class gen2TeleOp4 extends LinearOpMode
 
             if (gamepad1.a)
             {
-                duckPower += .001;
+                duckPower += .005;
                 duckSpinnerLeft.setPower(duckPower);
                 duckSpinnerRight.setPower(duckPower);
             }
             else if (gamepad1.b)
             {
-                duckPower += .001;
+                duckPower += .005;
                 duckSpinnerLeft.setPower(-duckPower);
                 duckSpinnerRight.setPower(-duckPower);
             } else

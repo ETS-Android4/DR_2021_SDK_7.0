@@ -47,8 +47,8 @@ public class gen2TeleOp3 extends LinearOpMode
     double servoPos;
     double ServoTime;
     double ServoTime2;
-    boolean blue = false;
-    boolean red = true;
+    boolean blue = true;
+    boolean red = false;
 
     @Override
     public void runOpMode() throws InterruptedException
