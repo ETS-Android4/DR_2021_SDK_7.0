@@ -102,11 +102,16 @@ public class basicSensorDriveTest extends LinearOpMode
         
         DistanceSensor sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
         
-        if(distance < sensorRange.getDistance(DistanceUnit.INCH)) {
+        double range = sensorRange.getDistance(DistanceUnit.INCH);
+        
+        if(distance < range) {
 
-        while (distance <= sensorRange.getDistance(DistanceUnit.INCH))
+        while (distance <= range)
         {
-
+            if(sensorRange.getDistance(DistanceUnit.INCH) < 35)
+            {
+                range = sensorRange.getDistance(DistanceUnit.INCH);
+            }
             
 
             robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
@@ -118,15 +123,22 @@ public class basicSensorDriveTest extends LinearOpMode
             telemetry.addData("motorRB Power", robot.motorRB.getPower());
             telemetry.addData("motorLB Power", robot.motorLB.getPower());
             telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+            telemetry.addData("range", range);
             telemetry.update();
         }
         
         }
         
-        else if(distance > sensorRange.getDistance(DistanceUnit.INCH)) {
+        else if(distance > range) {
 
-        while (distance >= sensorRange.getDistance(DistanceUnit.INCH))
+        while (distance >= range)
         {
+        
+            if(sensorRange.getDistance(DistanceUnit.INCH) < 35)
+            {
+                range = sensorRange.getDistance(DistanceUnit.INCH);
+            }
 
             
 
@@ -139,6 +151,8 @@ public class basicSensorDriveTest extends LinearOpMode
             telemetry.addData("motorRB Power", robot.motorRB.getPower());
             telemetry.addData("motorLB Power", robot.motorLB.getPower());
             telemetry.addData("motorLF Power", robot.motorLF.getPower());
+            telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+            telemetry.addData("range", range);
             telemetry.update();
         }
         
