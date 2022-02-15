@@ -21,10 +21,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="Gen2DuckRed")
+@Autonomous(name="Gen2DuckBlue")
 //@Disabled
 
-public class Gen2DuckRed extends LinearOpMode
+public class Gen2DuckBlue extends LinearOpMode
 {
     BNO055IMU imu;
 
@@ -35,6 +35,7 @@ public class Gen2DuckRed extends LinearOpMode
     public Servo clawL = null;
     public Servo  armL = null;
     public Servo  slidesL = null;
+    
     Orientation angles;
 
     private OpenCvCamera webcam;//find webcam statement
@@ -94,26 +95,26 @@ public class Gen2DuckRed extends LinearOpMode
         //auto settings
         //parking path
         while(!gamepad1.a) {
-            if (gamepad2.dpad_down && DpadDownToggle)
+            if (gamepad1.dpad_down && DpadDownToggle)
             {
                 if(parkPos < 2) {
                     parkPos += 1;
                 }
 
                 DpadDownToggle = false;
-            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            } else if (!gamepad1.dpad_down && !DpadDownToggle)
             {
                 DpadDownToggle = true;
             }
 
-            if (gamepad2.dpad_up && DpadUpToggle)
+            if (gamepad1.dpad_up && DpadUpToggle)
             {
                 if(parkPos > 1) {
                     parkPos -= 1;
                 }
 
                 DpadUpToggle = false;
-            } else if (!gamepad2.dpad_up && !DpadUpToggle)
+            } else if (!gamepad1.dpad_up && !DpadUpToggle)
             {
                 DpadUpToggle = true;
             }
@@ -125,34 +126,38 @@ public class Gen2DuckRed extends LinearOpMode
             else if (parkPos == 2) {
                 telemetry.addLine("barrier");
             }
-            
+
             else if (parkPos == 3) {
                 telemetry.addLine("gap");
             }
+
+            telemetry.update();
         }
+
+        while(gamepad1.a) {}
 
         //TSE color 
         while(!gamepad1.a) {
-            if (gamepad2.dpad_down && DpadDownToggle)
+            if (gamepad1.dpad_down && DpadDownToggle)
             {
                 if(TSEColor < 9) {
                     TSEColor += 1;
                 }
 
                 DpadDownToggle = false;
-            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            } else if (!gamepad1.dpad_down && !DpadDownToggle)
             {
                 DpadDownToggle = true;
             }
 
-            if (gamepad2.dpad_up && DpadUpToggle)
+            if (gamepad1.dpad_up && DpadUpToggle)
             {
                 if(TSEColor > 1) {
                     TSEColor -= 1;
                 }
 
                 DpadUpToggle = false;
-            } else if (!gamepad2.dpad_up && !DpadUpToggle)
+            } else if (!gamepad1.dpad_up && !DpadUpToggle)
             {
                 DpadUpToggle = true;
             }
@@ -266,12 +271,14 @@ public class Gen2DuckRed extends LinearOpMode
                 scalarUpperYCrCb.val[1] = 240;//Cr
                 scalarUpperYCrCb.val[2] = 240;//Cb
             }
+
+            telemetry.update();
         }
 
 
         // OpenCV webcam
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
         //OpenCV Pipeline
         ContourPipeline myPipeline;
         webcam.setPipeline(myPipeline = new ContourPipeline());
@@ -326,14 +333,14 @@ public class Gen2DuckRed extends LinearOpMode
                 }
             }
 
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
         }
 
         waitForStart();
 
         webcam.stopStreaming();
 
-        betterTimeDrive(0, -1, 0, 1, 750);
+        drive(0, -1, 0, 1, 500);
         
         sleep(250);
         
@@ -341,26 +348,26 @@ public class Gen2DuckRed extends LinearOpMode
         
         sleep(750);
         
-        betterTimeDrive(-90, 1, 0, 1, 750);
+        drive(90, 1, 0, .5, 2000);
         
         sleep(250);
-
-        duckSpinnerLeft.setPower(.5);
-        duckSpinnerRight.setPower(.5);
-
-        betterTimeDrive(-90, 0, 1, .5, 750);
-
+        
+        duckSpinnerLeft.setPower(-.5);
+        duckSpinnerRight.setPower(-.5);
+        
+        drive(90, .5, .5, .25, 1750);
+        
         sleep(4500);
-
+        
         duckSpinnerLeft.setPower(0);
         duckSpinnerRight.setPower(0);
-
-        betterEncoderDrive(-90, 0, -1, 1, -1500);
         
+        basicEncoderDrive(90, 0, -1, 1, -1500);
+
         sleep(250);
 
         if(barPos == 1) {
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
 
             sleep(150);
 
@@ -369,7 +376,7 @@ public class Gen2DuckRed extends LinearOpMode
         }
 
         else if(barPos == 2) {
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
 
             sleep(150);
 
@@ -378,32 +385,36 @@ public class Gen2DuckRed extends LinearOpMode
         }
 
         else if(barPos == 3) {
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
 
             sleep(150);
 
-            armL.setPosition(.72);
+            armL.setPosition(.6);
             slidesL.setPosition(0);
         }
 
         sleep(250);
 
-        betterSensorDrive(-90, -1, 0, 1, 36);
+        basicSensorDrive(90, -.75, 0, 1, 20);
+
+        basicEncoderDrive(90, -.75, 0, 1, 750);
         
         sleep(250);
-
+        
         clawL.setPosition(0);
-
+        
         sleep(1000);
-
-        betterSensorDrive(-90, 1, 0, 1, 6);
+        
+        drive(90, 1, 0, .5, 2000);
         
         armL.setPosition(0);
         slidesL.setPosition(0);
-
+        
         sleep(250);
+        
+        basicEncoderDrive(90, 0, 1, 1, 300);
 
-        betterEncoderDrive(90, 0, 1, 1, 500);
+        sleep(1000);
 
     }
 
@@ -545,7 +556,6 @@ public class Gen2DuckRed extends LinearOpMode
 
         stop(1);
     }
-    
     
     
     public void  betterEncoderDrive(int angle, double PowerX, double PowerY, double speed, double distance)
@@ -708,6 +718,113 @@ public class Gen2DuckRed extends LinearOpMode
 
         stop(1);
     }
+
+
+    public void  basicEncoderDrive(int angle, double PowerX, double PowerY, double speed, double distance)
+    {
+        RobotHardware robot = new RobotHardware(hardwareMap);
+
+        encoderReadingRF = robot.motorRF.getCurrentPosition();
+        target = (encoderReadingRF + distance);
+
+        if(distance > 0) {
+
+            while (robot.motorRF.getCurrentPosition() <= target)
+            {
+
+
+
+                robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+                robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
+
+                telemetry.addData("motorRF Power", robot.motorRF.getPower());
+                telemetry.addData("motorRB Power", robot.motorRB.getPower());
+                telemetry.addData("motorLB Power", robot.motorLB.getPower());
+                telemetry.addData("motorLF Power", robot.motorLF.getPower());
+                telemetry.update();
+            }
+
+        }
+
+        else if(distance < 0) {
+
+            while (robot.motorRF.getCurrentPosition() >= target)
+            {
+
+                robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+                robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
+
+                telemetry.addData("motorRF Power", robot.motorRF.getPower());
+                telemetry.addData("motorRB Power", robot.motorRB.getPower());
+                telemetry.addData("motorLB Power", robot.motorLB.getPower());
+                telemetry.addData("motorLF Power", robot.motorLF.getPower());
+                telemetry.update();
+            }
+
+        }
+
+        stop(1);
+    }
+
+
+    public void  basicSensorDrive(int angle, double PowerX, double PowerY, double speed, double distance)
+    {
+        RobotHardware robot = new RobotHardware(hardwareMap);
+
+        DistanceSensor sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
+
+        if(distance < sensorRange.getDistance(DistanceUnit.INCH)) {
+
+            while (distance <= sensorRange.getDistance(DistanceUnit.INCH))
+            {
+
+
+
+                robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+                robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
+
+                telemetry.addData("motorRF Power", robot.motorRF.getPower());
+                telemetry.addData("motorRB Power", robot.motorRB.getPower());
+                telemetry.addData("motorLB Power", robot.motorLB.getPower());
+                telemetry.addData("motorLF Power", robot.motorLF.getPower());
+                telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+                telemetry.update();
+            }
+
+        }
+
+        else if(distance > sensorRange.getDistance(DistanceUnit.INCH)) {
+
+            while (distance >= sensorRange.getDistance(DistanceUnit.INCH))
+            {
+
+
+
+                robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+                robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+                robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
+
+                telemetry.addData("motorRF Power", robot.motorRF.getPower());
+                telemetry.addData("motorRB Power", robot.motorRB.getPower());
+                telemetry.addData("motorLB Power", robot.motorLB.getPower());
+                telemetry.addData("motorLF Power", robot.motorLF.getPower());
+                telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+                telemetry.update();
+            }
+
+        }
+
+        stop(1);
+    }
+
+
 
     public void  drive(int angle, double PowerX, double PowerY, double speed, double time)
     {
