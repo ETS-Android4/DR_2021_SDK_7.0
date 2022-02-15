@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.pinkCode.ContourPipeline;
 import org.opencv.core.Scalar;
@@ -19,7 +21,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="Gen2DuckRed")
+@Autonomous(name="Gen2WarehouseRed")
 //@Disabled
 
 public class Gen2WarehouseRed extends LinearOpMode
@@ -92,26 +94,26 @@ public class Gen2WarehouseRed extends LinearOpMode
         //auto settings
         //parking path
         while(!gamepad1.a) {
-            if (gamepad2.dpad_down && DpadDownToggle)
+            if (gamepad1.dpad_down && DpadDownToggle)
             {
                 if(parkPos < 2) {
                     parkPos += 1;
                 }
 
                 DpadDownToggle = false;
-            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            } else if (!gamepad1.dpad_down && !DpadDownToggle)
             {
                 DpadDownToggle = true;
             }
 
-            if (gamepad2.dpad_up && DpadUpToggle)
+            if (gamepad1.dpad_up && DpadUpToggle)
             {
                 if(parkPos > 1) {
                     parkPos -= 1;
                 }
 
                 DpadUpToggle = false;
-            } else if (!gamepad2.dpad_up && !DpadUpToggle)
+            } else if (!gamepad1.dpad_up && !DpadUpToggle)
             {
                 DpadUpToggle = true;
             }
@@ -119,7 +121,7 @@ public class Gen2WarehouseRed extends LinearOpMode
             if (parkPos == 1) {
                 telemetry.addLine("barrier");
                 
-                parkDriveTime = 500;
+                parkDriveTime = 300;
             }
             
             else if (parkPos == 2) {
@@ -127,30 +129,33 @@ public class Gen2WarehouseRed extends LinearOpMode
                 
                 parkDriveTime = 1250;
             }
+            telemetry.update();
         }
+
+        while(gamepad1.a) {}
         
         //TSE color 
         while(!gamepad1.a) {
-            if (gamepad2.dpad_down && DpadDownToggle)
+            if (gamepad1.dpad_down && DpadDownToggle)
             {
                 if(TSEColor < 9) {
                     TSEColor += 1;
                 }
 
                 DpadDownToggle = false;
-            } else if (!gamepad2.dpad_down && !DpadDownToggle)
+            } else if (!gamepad1.dpad_down && !DpadDownToggle)
             {
                 DpadDownToggle = true;
             }
 
-            if (gamepad2.dpad_up && DpadUpToggle)
+            if (gamepad1.dpad_up && DpadUpToggle)
             {
                 if(TSEColor > 1) {
                     TSEColor -= 1;
                 }
 
                 DpadUpToggle = false;
-            } else if (!gamepad2.dpad_up && !DpadUpToggle)
+            } else if (!gamepad1.dpad_up && !DpadUpToggle)
             {
                 DpadUpToggle = true;
             }
@@ -160,110 +165,111 @@ public class Gen2WarehouseRed extends LinearOpMode
             if (TSEColor == 1) {
                 telemetry.addLine("Red");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 196//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 196;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 150//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 150;//Cb
             }
             
             else if (TSEColor == 2) {
                 telemetry.addLine("Orange");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 195//Cr
-                scalarLowerYCrCb.val[2] = 0//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 195;//Cr
+                scalarLowerYCrCb.val[2] = 0;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 79//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 79;//Cb
             }
             
             else if (TSEColor == 3) {
                 telemetry.addLine("Yellow");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 140//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 140;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 195//Cr
-                scalarUpperYCrCb.val[2] = 90//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 195;//Cr
+                scalarUpperYCrCb.val[2] = 90;//Cb
             }
             
             else if (TSEColor == 4) {
                 telemetry.addLine("Green");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 150//Cr
-                scalarUpperYCrCb.val[2] = 130//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 150;//Cr
+                scalarUpperYCrCb.val[2] = 130;//Cb
             }
             
             else if (TSEColor == 5) {
                 telemetry.addLine("Blue");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 130//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 130;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 130//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 130;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
             
             else if (TSEColor == 6) {
                 telemetry.addLine("Purple");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 120//Cr
-                scalarLowerYCrCb.val[2] = 120//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 120;//Cr
+                scalarLowerYCrCb.val[2] = 120;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 196//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 196;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
             
             else if (TSEColor == 7) {
                 telemetry.addLine("Pink");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 190//Cr
-                scalarLowerYCrCb.val[2] = 120//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 190;//Cr
+                scalarLowerYCrCb.val[2] = 120;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
             
             else if (TSEColor == 8) {
                 telemetry.addLine("White");
                 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
                 
-                scalarUpperYCrCb.val[0] = 125//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 125;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
             
             else if (TSEColor == 9) {
                 telemetry.addLine("Black");
                 
-                scalarLowerYCrCb.val[0] = 126//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 126;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
                 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
+            telemetry.update();
         }
 
 
@@ -324,19 +330,19 @@ public class Gen2WarehouseRed extends LinearOpMode
                 }
             }
 
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
         }
 
         waitForStart();
 
         webcam.stopStreaming();
 
-        betterTimeDrive(0, -1, 0, 1, 750);
+        drive(2, -1, 0, 1, 400);
 
         sleep(250);
         
         if(barPos == 1) {
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
 
             sleep(150);
 
@@ -345,7 +351,7 @@ public class Gen2WarehouseRed extends LinearOpMode
         }
 
         else if(barPos == 2) {
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
 
             sleep(150);
 
@@ -354,7 +360,7 @@ public class Gen2WarehouseRed extends LinearOpMode
         }
 
         else if(barPos == 3) {
-            clawL.setPosition(.15);
+            clawL.setPosition(.26);
 
             sleep(150);
 
@@ -362,11 +368,13 @@ public class Gen2WarehouseRed extends LinearOpMode
             slidesL.setPosition(0);
         }
 
-        betterEncoderDrive(0, 0, -1, 1, -1500);
+        sleep(2000);
 
-        sleep(250);
+        drive(2, 0, -1, 1, 650);
+
+        sleep(1000);
         
-        betterSensorDrive(0, -1, 0, 1, 30);
+        drive(2, -1, 0, 1, 750);
 
         sleep(250);
 
@@ -374,14 +382,22 @@ public class Gen2WarehouseRed extends LinearOpMode
 
         sleep(1000);
 
-        betterTimeDrive(0, 1, 0, 1, parkDriveTime);
+        drive(2, 1, 0, 1, parkDriveTime);
 
         armL.setPosition(0);
         slidesL.setPosition(0);
 
-        sleep(250);
+        sleep(1000);
 
-        betterTimeDrive(0, 0, 1, 1, 2000);
+        if (parkPos == 1)
+        {
+            drive(2, 0, 1, 1, 2500);
+        }
+
+        else if (parkPos == 2)
+        {
+            drive(2, 0, 1, 1, 1500);
+        }
 
     }
 
@@ -631,14 +647,14 @@ public class Gen2WarehouseRed extends LinearOpMode
             }
 
 
-            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            //angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-            turnPower = ((angle - angles.firstAngle) / angle) + .2;
+            //turnPower = ((angle - angles.firstAngle) / angle) + .2;
 
-            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (turnPower)));
-            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (turnPower)));
-            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (turnPower)));
-            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (turnPower));
+            robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+            robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+            robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+            robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
 
             telemetry.addData("motorRF Power", robot.motorRF.getPower());
             telemetry.addData("motorRB Power", robot.motorRB.getPower());

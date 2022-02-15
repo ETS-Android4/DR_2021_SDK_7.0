@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.pinkCode.ContourPipeline;
 import org.opencv.core.Scalar;
@@ -160,109 +162,109 @@ public class Gen2DuckRed extends LinearOpMode
             if (TSEColor == 1) {
                 telemetry.addLine("Red");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 196//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 196;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 150//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 150;//Cb
             }
 
             else if (TSEColor == 2) {
                 telemetry.addLine("Orange");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 195//Cr
-                scalarLowerYCrCb.val[2] = 0//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 195;//Cr
+                scalarLowerYCrCb.val[2] = 0;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 79//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 79;//Cb
             }
 
             else if (TSEColor == 3) {
                 telemetry.addLine("Yellow");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 140//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 140;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 195//Cr
-                scalarUpperYCrCb.val[2] = 90//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 195;//Cr
+                scalarUpperYCrCb.val[2] = 90;//Cb
             }
 
             else if (TSEColor == 4) {
                 telemetry.addLine("Green");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 150//Cr
-                scalarUpperYCrCb.val[2] = 130//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 150;//Cr
+                scalarUpperYCrCb.val[2] = 130;//Cb
             }
 
             else if (TSEColor == 5) {
                 telemetry.addLine("Blue");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 130//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 130;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 130//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 130;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
 
             else if (TSEColor == 6) {
                 telemetry.addLine("Purple");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 120//Cr
-                scalarLowerYCrCb.val[2] = 120//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 120;//Cr
+                scalarLowerYCrCb.val[2] = 120;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 196//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 196;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
 
             else if (TSEColor == 7) {
                 telemetry.addLine("Pink");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 190//Cr
-                scalarLowerYCrCb.val[2] = 120//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 190;//Cr
+                scalarLowerYCrCb.val[2] = 120;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
 
             else if (TSEColor == 8) {
                 telemetry.addLine("White");
 
-                scalarLowerYCrCb.val[0] = 16//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 16;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
 
-                scalarUpperYCrCb.val[0] = 125//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 125;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
 
             else if (TSEColor == 9) {
                 telemetry.addLine("Black");
 
-                scalarLowerYCrCb.val[0] = 126//Y
-                scalarLowerYCrCb.val[1] = 16//Cr
-                scalarLowerYCrCb.val[2] = 16//Cb
+                scalarLowerYCrCb.val[0] = 126;//Y
+                scalarLowerYCrCb.val[1] = 16;//Cr
+                scalarLowerYCrCb.val[2] = 16;//Cb
 
-                scalarUpperYCrCb.val[0] = 235//Y
-                scalarUpperYCrCb.val[1] = 240//Cr
-                scalarUpperYCrCb.val[2] = 240//Cb
+                scalarUpperYCrCb.val[0] = 235;//Y
+                scalarUpperYCrCb.val[1] = 240;//Cr
+                scalarUpperYCrCb.val[2] = 240;//Cb
             }
         }
 
@@ -348,7 +350,7 @@ public class Gen2DuckRed extends LinearOpMode
 
         betterTimeDrive(-90, 0, 1, .5, 750);
 
-        sleep(4500)
+        sleep(4500);
 
         duckSpinnerLeft.setPower(0);
         duckSpinnerRight.setPower(0);
