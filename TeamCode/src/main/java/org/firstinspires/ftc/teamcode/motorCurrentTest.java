@@ -9,6 +9,8 @@ import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.CurrentUnit;
+
 
 @TeleOp(name="motorCurrentTest")
 //@Disabled
@@ -26,8 +28,8 @@ public class motorCurrentTest extends LinearOpMode
     public void runOpMode() throws InterruptedException
     {
         
-        intake1 = hardwareMap.dcMotorEx.get("intake1");
-        intake2 = hardwareMap.dcMotorEx.get("intake2");
+        intake1 = (DcMotorEx) hardwareMap.dcMotor.get("intake1");
+        intake2 = (DcMotorEx) hardwareMap.dcMotor.get("intake2");
 
 
         waitForStart();
@@ -37,16 +39,16 @@ public class motorCurrentTest extends LinearOpMode
 
         while (opModeIsActive())
         {
-            if(intake1.getCurrent() > max1) {
-                max1 = intake1.getCurrent();
+            if(intake1.getCurrent(CurrentUnit.AMPS) > max1) {
+                max1 = intake1.getCurrent(CurrentUnit.AMPS);
             }
 
             if(gamepad1.a) {
                 max1 = 0;
             }
             
-            if(intake2.getCurrent() > max2) {
-                max2 = intake2.getCurrent();
+            if(intake2.getCurrent(CurrentUnit.AMPS) > max2) {
+                max2 = intake2.getCurrent(CurrentUnit.AMPS);
             }
 
             if(gamepad1.a) {
@@ -54,8 +56,8 @@ public class motorCurrentTest extends LinearOpMode
             }
 
             
-            telemetry.addData("max Current intake1", intake1.getCurrent());
-            telemetry.addData("max Current intake2", intake2.getCurrent());
+            telemetry.addData("max Current intake1", intake1.getCurrent(CurrentUnit.AMPS));
+            telemetry.addData("max Current intake2", intake2.getCurrent(CurrentUnit.AMPS));
 
             telemetry.update();
 

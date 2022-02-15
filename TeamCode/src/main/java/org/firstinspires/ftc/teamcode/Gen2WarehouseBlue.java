@@ -379,7 +379,7 @@ public class Gen2WarehouseBlue extends LinearOpMode
         
         sleep(1000);
         
-        drive(182, -1, 0, 1, 750);
+        drive(182, -1, 0, 1, 650);
         
         sleep(250);
 

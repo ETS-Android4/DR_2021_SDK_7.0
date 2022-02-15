@@ -84,9 +84,9 @@ public class basicEncoderDriveTest extends LinearOpMode
 
         waitForStart();
 
-        basicEncoderDrive(0, 0, 1, 1, 1000)
+        basicEncoderDrive(0, 0, 1, 1, 1000);
         
-        basicEncoderDrive(0, 0, -1, 1, 500)
+        basicEncoderDrive(0, 0, -1, 1, -500);
 
     }
 
@@ -94,14 +94,14 @@ public class basicEncoderDriveTest extends LinearOpMode
   
     
     
-    public void  betterEncoderDrive(int angle, double PowerX, double PowerY, double speed, double distance)
+    public void  basicEncoderDrive(int angle, double PowerX, double PowerY, double speed, double distance)
     {
         RobotHardware robot = new RobotHardware(hardwareMap);
         
         encoderReadingRF = robot.motorRF.getCurrentPosition();
         target = (encoderReadingRF + distance);
         
-        if(distance < 0) {
+        if(distance > 0) {
 
         while (robot.motorRF.getCurrentPosition() <= target)
         {
@@ -122,7 +122,7 @@ public class basicEncoderDriveTest extends LinearOpMode
         
         }
         
-        else if(distance > 0) {
+        else if(distance < 0) {
 
         while (robot.motorRF.getCurrentPosition() >= target)
         {

@@ -4,6 +4,7 @@ import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -11,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.pinkCode.ContourPipeline;
 import org.opencv.core.Scalar;
@@ -19,10 +21,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="Gen2DuckRed")
+@Autonomous(name="basicSensorDriveTest")
 //@Disabled
 
-public class Gen2DuckBlue extends LinearOpMode
+public class basicSensorDriveTest extends LinearOpMode
 {
     BNO055IMU imu;
 
@@ -84,9 +86,9 @@ public class Gen2DuckBlue extends LinearOpMode
 
         waitForStart();
 
-        basicSensorDrive(0, -1, 0, 1, 30)
+        basicSensorDrive(0, -1, 0, 1, 30);
         
-        basicSensorDrive(0, 1, 0, 1, 15)
+        basicSensorDrive(0, 1, 0, 1, 15);
 
     }
 
