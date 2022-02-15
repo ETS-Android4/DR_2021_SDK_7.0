@@ -86,9 +86,9 @@ public class basicSensorDriveTest extends LinearOpMode
 
         waitForStart();
 
-        basicSensorDrive(0, -1, 0, 1, 30);
+        basicSensorDrive(0, -.1, 0, 1, 30);
         
-        basicSensorDrive(0, 1, 0, 1, 15);
+        basicSensorDrive(0, .1, 0, 1, 15);
 
     }
 
