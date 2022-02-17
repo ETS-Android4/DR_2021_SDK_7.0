@@ -50,7 +50,7 @@ public class gen2TeleOp4 extends LinearOpMode
     boolean blue = false;
     boolean red = false;
     boolean yellow = true;
-    double duckPower = .5;
+    double duckPower = 0;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -109,18 +109,18 @@ public class gen2TeleOp4 extends LinearOpMode
 
             if (gamepad1.a)
             {
-                duckPower += .005;
+                duckPower += .01;
                 duckSpinnerLeft.setPower(duckPower);
                 duckSpinnerRight.setPower(duckPower);
             }
             else if (gamepad1.b)
             {
-                duckPower += .005;
+                duckPower += .01;
                 duckSpinnerLeft.setPower(-duckPower);
                 duckSpinnerRight.setPower(-duckPower);
             } else
             {
-                duckPower = .5;
+                duckPower = 0;
                 duckSpinnerLeft.setPower(0);
                 duckSpinnerRight.setPower(0);
             }

@@ -23,10 +23,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="Gen2WarehouseBlueCycle")
+@Autonomous(name="Gen2WarehouseBlueCycle2")
 //@Disabled
 
-public class Gen2WarehouseBlueCycle extends LinearOpMode
+public class Gen2WarehouseBlueCycle2 extends LinearOpMode
 {
     BNO055IMU imu;
 
@@ -396,7 +396,7 @@ public class Gen2WarehouseBlueCycle extends LinearOpMode
 
         basicEncoderDrive(0, 0, -.75, 1, -2000);
 
-        drive(0, -.5, 0, 1, 700);
+        drive(0, .5, 0, 1, 700);
         
         while(intake1.getCurrent(CurrentUnit.AMPS) < 4)
         {
@@ -415,10 +415,6 @@ public class Gen2WarehouseBlueCycle extends LinearOpMode
         robot.motorLF.setPower(0);
         
         sleep(2000);
-        
-
-
-        drive(0, 0, .35, 1, 600);
 
         drive(0, .5, 0, 1, 1000);
 
@@ -430,7 +426,7 @@ public class Gen2WarehouseBlueCycle extends LinearOpMode
 
         sleep(2000);
         
-        basicEncoderDrive(0, .1, .5, 1, 2100);
+        basicEncoderDrive(0, .1, .5, 1, (250 + encoderReadingRB - robot.motorRB.getCurrentPosition()));
 
         intake1.setPower(0);
         

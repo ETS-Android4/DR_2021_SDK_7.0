@@ -50,7 +50,7 @@ public class gen2TeleOp4Switched extends LinearOpMode
     boolean blue = false;
     boolean red = false;
     boolean yellow = true;
-    double duckPower = .5;
+    double duckPower = 0;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -90,6 +90,8 @@ public class gen2TeleOp4Switched extends LinearOpMode
         motorLB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         intake2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        duckSpinnerLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        duckSpinnerRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         motorLF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         motorRB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -109,18 +111,18 @@ public class gen2TeleOp4Switched extends LinearOpMode
 
             if (gamepad1.a)
             {
-                duckPower += .005;
+                duckPower += .015;
                 duckSpinnerLeft.setPower(duckPower);
                 duckSpinnerRight.setPower(duckPower);
             }
             else if (gamepad1.b)
             {
-                duckPower += .005;
+                duckPower += .015;
                 duckSpinnerLeft.setPower(-duckPower);
                 duckSpinnerRight.setPower(-duckPower);
             } else
             {
-                duckPower = .5;
+                duckPower = 0;
                 duckSpinnerLeft.setPower(0);
                 duckSpinnerRight.setPower(0);
             }
@@ -132,8 +134,8 @@ public class gen2TeleOp4Switched extends LinearOpMode
             }
             else if (gamepad1.right_trigger >= .2)
             {
-                intake1.setPower(-gamepad1.right_trigger * .8);
-                intake2.setPower(-gamepad1.right_trigger * .8);
+                intake1.setPower(-gamepad1.right_trigger);
+                intake2.setPower(-gamepad1.right_trigger);
             }
             else
             {
