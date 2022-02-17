@@ -397,7 +397,7 @@ public class Gen2DuckBlue extends LinearOpMode
 
             sleep(150);
 
-            armL.setPosition(.6);
+            armL.setPosition(.72);
             slidesL.setPosition(0);
         }
 

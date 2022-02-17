@@ -141,10 +141,10 @@ public class gen2TeleOp4Switched extends LinearOpMode
                 intake2.setPower(0);
             }
 
-            motorRF.setPower(speed * ((- gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
+            motorRF.setPower(speed * ((-gamepad1.right_stick_y - gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
             motorRB.setPower(speed * (-(-gamepad1.right_stick_x + gamepad1.right_stick_y) - (zScale * gamepad1.left_stick_x)));
-            motorLB.setPower(speed * ((  gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
-            motorLF.setPower(speed * ((- gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale *gamepad1.left_stick_x));
+            motorLB.setPower(speed * ((gamepad1.right_stick_y + gamepad1.right_stick_x) - (zScale * gamepad1.left_stick_x)));
+            motorLF.setPower(speed * ((-gamepad1.right_stick_x + gamepad1.right_stick_y)) - (zScale * gamepad1.left_stick_x));
 
             //if(gamepad2.a)
             //{
@@ -217,12 +217,12 @@ public class gen2TeleOp4Switched extends LinearOpMode
             }
             if (gamepad2.b)
             {
-                clawL.setPosition(.15);
+                clawL.setPosition(.26);
 
             }
             if (gamepad2.x)
             {
-                clawL.setPosition(.07);
+                clawL.setPosition(.15);
             }
 
 
@@ -316,8 +316,8 @@ public class gen2TeleOp4Switched extends LinearOpMode
             if (MoveDown)
             {
                 slidesL.setPosition(0);
-                armL.setPosition(0);
-                clawL.setPosition(.07);
+                armL.setPosition(.05);
+                clawL.setPosition(.15);
                 MoveDown = false;
             }
 

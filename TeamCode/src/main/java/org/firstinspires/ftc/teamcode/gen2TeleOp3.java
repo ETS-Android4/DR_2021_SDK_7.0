@@ -49,6 +49,8 @@ public class gen2TeleOp3 extends LinearOpMode
     double ServoTime2;
     boolean blue = true;
     boolean red = false;
+    boolean yellow = true;
+
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -320,13 +322,25 @@ public class gen2TeleOp3 extends LinearOpMode
             {
                 red = true;
                 blue = false;
+                yellow = false;
             }
             if(gamepad2.right_bumper)
             {
                 red = false;
                 blue = true;
+                yellow = false;
+            }
+            if(gamepad2.y)
+            {
+                red = false;
+                blue = false;
+                yellow = true;
             }
 
+            if(yellow)
+            {
+                CapSides.setPosition(0);
+            }
             if(red)
             {
                 CapVert.setPosition(((gamepad2.left_stick_y + 1) * .25) + 0.05);

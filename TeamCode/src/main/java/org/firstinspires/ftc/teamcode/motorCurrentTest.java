@@ -23,6 +23,8 @@ public class motorCurrentTest extends LinearOpMode
     
     double max1 = 0;
     double max2 = 0;
+    double current1;
+    double current2;
     
     @Override
     public void runOpMode() throws InterruptedException
@@ -34,21 +36,23 @@ public class motorCurrentTest extends LinearOpMode
 
         waitForStart();
         
-        intake1.setPower(1);
-        intake2.setPower(1);
+        intake1.setPower(-1);
+        intake2.setPower(-1);
 
         while (opModeIsActive())
         {
-            if(intake1.getCurrent(CurrentUnit.AMPS) > max1) {
-                max1 = intake1.getCurrent(CurrentUnit.AMPS);
+            current1 = intake1.getCurrent(CurrentUnit.AMPS);
+            if(current1 > max1) {
+                max1 = current1;
             }
 
             if(gamepad1.a) {
                 max1 = 0;
             }
-            
-            if(intake2.getCurrent(CurrentUnit.AMPS) > max2) {
-                max2 = intake2.getCurrent(CurrentUnit.AMPS);
+
+            current2 = intake2.getCurrent(CurrentUnit.AMPS);
+            if(current2 > max2) {
+                max2 = current2;
             }
 
             if(gamepad1.a) {
@@ -56,8 +60,8 @@ public class motorCurrentTest extends LinearOpMode
             }
 
             
-            telemetry.addData("max Current intake1", intake1.getCurrent(CurrentUnit.AMPS));
-            telemetry.addData("max Current intake2", intake2.getCurrent(CurrentUnit.AMPS));
+            telemetry.addData("max Current intake1", max1);
+            telemetry.addData("max Current intake2", max2);
 
             telemetry.update();
 

@@ -21,10 +21,10 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 
 
-@Autonomous(name="Gen2DuckBlue")
+@Autonomous(name="Gen2DuckRed")
 //@Disabled
 
-public class Gen2DuckBlue extends LinearOpMode
+public class Gen2DuckRed extends LinearOpMode
 {
     BNO055IMU imu;
 
@@ -49,6 +49,7 @@ public class Gen2DuckBlue extends LinearOpMode
     boolean DpadDownToggle = true;
     int parkPos = 1;
     int TSEColor = 1;
+    boolean sensorFail = false;
 
 
 
@@ -278,7 +279,7 @@ public class Gen2DuckBlue extends LinearOpMode
 
         // OpenCV webcam
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+        webcam = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 2"), cameraMonitorViewId);
         //OpenCV Pipeline
         ContourPipeline myPipeline;
         webcam.setPipeline(myPipeline = new ContourPipeline());
@@ -340,7 +341,7 @@ public class Gen2DuckBlue extends LinearOpMode
 
         webcam.stopStreaming();
 
-        drive(0, -1, 0, 1, 500);
+        drive(0, -1, 0, 1, 600);
         
         sleep(250);
         
@@ -348,21 +349,21 @@ public class Gen2DuckBlue extends LinearOpMode
         
         sleep(750);
         
-        drive(90, 1, 0, .5, 2000);
+        drive(90, 1, 0, .5, 2500);
         
         sleep(250);
         
-        duckSpinnerLeft.setPower(-.5);
-        duckSpinnerRight.setPower(-.5);
+        duckSpinnerLeft.setPower(.5);
+        duckSpinnerRight.setPower(.5);
         
-        drive(90, .5, .5, .25, 1750);
+        drive(90, .35, .65, .25, 3000);
         
         sleep(4500);
         
         duckSpinnerLeft.setPower(0);
         duckSpinnerRight.setPower(0);
         
-        basicEncoderDrive(90, 0, -1, 1, -1500);
+        basicEncoderDrive(90, 0, -.75, 1, -1100);
 
         sleep(250);
 
@@ -389,15 +390,25 @@ public class Gen2DuckBlue extends LinearOpMode
 
             sleep(150);
 
-            armL.setPosition(.6);
+            armL.setPosition(.72);
             slidesL.setPosition(0);
         }
 
         sleep(250);
 
+        drive(90, .5, 0, 1, 500);
+
         basicSensorDrive(90, -.75, 0, 1, 20);
 
-        basicEncoderDrive(90, -.75, 0, 1, 750);
+        if (sensorFail)
+        {
+            basicEncoderDrive(90, -.75, 0, 1, 2100);
+        }
+
+        else
+        {
+            basicEncoderDrive(90, -.75, 0, 1, 750);
+        }
         
         sleep(250);
         
@@ -412,7 +423,7 @@ public class Gen2DuckBlue extends LinearOpMode
         
         sleep(250);
         
-        basicEncoderDrive(90, 0, 1, 1, 300);
+        basicEncoderDrive(90, 0, 1, 1, 600);
 
         sleep(1000);
 
@@ -777,49 +788,61 @@ public class Gen2DuckBlue extends LinearOpMode
 
         DistanceSensor sensorRange = hardwareMap.get(DistanceSensor.class, "sensor_range");
 
-        if(distance < sensorRange.getDistance(DistanceUnit.INCH)) {
-
-            while (distance <= sensorRange.getDistance(DistanceUnit.INCH))
-            {
-
-
-
-                robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
-                robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
-                robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
-                robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
-
-                telemetry.addData("motorRF Power", robot.motorRF.getPower());
-                telemetry.addData("motorRB Power", robot.motorRB.getPower());
-                telemetry.addData("motorLB Power", robot.motorLB.getPower());
-                telemetry.addData("motorLF Power", robot.motorLF.getPower());
-                telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
-                telemetry.update();
-            }
-
+        if (sensorRange.getDistance(DistanceUnit.INCH) > 250)
+        {
+            sensorFail = true;
         }
 
-        else if(distance > sensorRange.getDistance(DistanceUnit.INCH)) {
+        else
+        {
 
-            while (distance >= sensorRange.getDistance(DistanceUnit.INCH))
+            if (distance < sensorRange.getDistance(DistanceUnit.INCH))
             {
 
+                while (distance <= sensorRange.getDistance(DistanceUnit.INCH))
+                {
 
 
-                robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
-                robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
-                robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
-                robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
+                    robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+                    robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+                    robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+                    robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
 
-                telemetry.addData("motorRF Power", robot.motorRF.getPower());
-                telemetry.addData("motorRB Power", robot.motorRB.getPower());
-                telemetry.addData("motorLB Power", robot.motorLB.getPower());
-                telemetry.addData("motorLF Power", robot.motorLF.getPower());
-                telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
-                telemetry.update();
+                    telemetry.addData("motorRF Power", robot.motorRF.getPower());
+                    telemetry.addData("motorRB Power", robot.motorRB.getPower());
+                    telemetry.addData("motorLB Power", robot.motorLB.getPower());
+                    telemetry.addData("motorLF Power", robot.motorLF.getPower());
+                    telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+                    telemetry.update();
+                }
+
             }
 
+
+            if (distance > sensorRange.getDistance(DistanceUnit.INCH))
+            {
+
+                while (distance >= sensorRange.getDistance(DistanceUnit.INCH))
+                {
+
+
+                    robot.motorRF.setPower(speed * ((PowerY - PowerX) - (0)));
+                    robot.motorRB.setPower(speed * (-(-PowerX - PowerY) - (0)));
+                    robot.motorLB.setPower(speed * ((PowerY - PowerX) - (0)));
+                    robot.motorLF.setPower(speed * ((PowerX + PowerY)) - (0));
+
+                    telemetry.addData("motorRF Power", robot.motorRF.getPower());
+                    telemetry.addData("motorRB Power", robot.motorRB.getPower());
+                    telemetry.addData("motorLB Power", robot.motorLB.getPower());
+                    telemetry.addData("motorLF Power", robot.motorLF.getPower());
+                    telemetry.addData("distance", sensorRange.getDistance(DistanceUnit.INCH));
+                    telemetry.update();
+                }
+
+            }
         }
+
+
 
         stop(1);
     }
