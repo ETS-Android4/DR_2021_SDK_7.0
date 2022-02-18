@@ -396,7 +396,7 @@ public class Gen2WarehouseRedCycle2 extends LinearOpMode
 
         basicEncoderDrive(0, 0, .75, 1, 2000);
 
-        drive(0, -.5, 0, 1, 700);
+        drive(0, .5, 0, 1, 700);
         
         while(intake2.getCurrent(CurrentUnit.AMPS) < 4)
         {
@@ -426,7 +426,7 @@ public class Gen2WarehouseRedCycle2 extends LinearOpMode
 
         sleep(2000);
         
-        basicEncoderDrive(0, .1, -.5, 1, (250 + encoderReadingRB - robot.motorRB.getCurrentPosition()));
+        basicEncoderDrive(0, .1, -.5, 1, ((encoderReadingRB - 250) - robot.motorRB.getCurrentPosition()));
 
         intake2.setPower(0);
         

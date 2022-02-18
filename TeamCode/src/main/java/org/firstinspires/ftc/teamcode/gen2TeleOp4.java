@@ -51,6 +51,7 @@ public class gen2TeleOp4 extends LinearOpMode
     boolean red = false;
     boolean yellow = true;
     double duckPower = 0;
+    double CapSidesVar = .3;
 
     @Override
     public void runOpMode() throws InterruptedException
@@ -109,13 +110,13 @@ public class gen2TeleOp4 extends LinearOpMode
 
             if (gamepad1.a)
             {
-                duckPower += .01;
+                duckPower += .015;
                 duckSpinnerLeft.setPower(duckPower);
                 duckSpinnerRight.setPower(duckPower);
             }
             else if (gamepad1.b)
             {
-                duckPower += .01;
+                duckPower += .015;
                 duckSpinnerLeft.setPower(-duckPower);
                 duckSpinnerRight.setPower(-duckPower);
             } else
@@ -326,12 +327,16 @@ public class gen2TeleOp4 extends LinearOpMode
                 red = true;
                 blue = false;
                 yellow = false;
+
+                CapSidesVar = .3;
             }
             if(gamepad2.right_bumper)
             {
                 red = false;
                 blue = true;
                 yellow = false;
+
+                CapSidesVar = .12;
             }
 
             if(gamepad2.y)
@@ -346,15 +351,52 @@ public class gen2TeleOp4 extends LinearOpMode
             }
             if(red)
             {
+
+                if (gamepad2.right_stick_x >= .5)
+                {
+                    CapSidesVar += .001;
+                }
+                else if (gamepad2.right_stick_x <= -.5)
+                {
+                    CapSidesVar -= .001;
+                }
+
+                CapSides.setPosition(CapSidesVar);
+
                 CapVert.setPosition(((gamepad2.left_stick_y + 1) * .25) + 0.05);
-                CapSides.setPosition((((gamepad2.left_stick_x + 1) * .5) * .35) + .12);
-                CapOut.setPower(gamepad2.right_stick_y * .7);
+                //CapSides.setPosition((((gamepad2.right_stick_x + 1) * .5) * .35) + .12);
+                //CapOut.setPower(gamepad2.right_stick_y * .7);
             }
             if(blue)
             {
+
+                if (gamepad2.right_stick_x >= .5)
+                {
+                    CapSidesVar += .001;
+                }
+                else if (gamepad2.right_stick_x <= -.5)
+                {
+                    CapSidesVar -= .001;
+                }
+
+                CapSides.setPosition(CapSidesVar);
+
                 CapVert.setPosition(((gamepad2.left_stick_y + 1) * .25) + 0.05);
-                CapSides.setPosition((gamepad2.left_stick_x + 1) * .12);
-                CapOut.setPower(gamepad2.right_stick_y * .7);
+                //CapSides.setPosition((gamepad2.right_stick_x + 1) * .12);
+                //CapOut.setPower(gamepad2.right_stick_y * .7);
+            }
+
+            if (gamepad2.left_trigger >= .2)
+            {
+                CapOut.setPower(-gamepad2.left_trigger);
+            }
+            else if (gamepad2.right_trigger >= .2)
+            {
+                CapOut.setPower(gamepad2.right_trigger);
+            }
+            else
+            {
+                CapOut.setPower(0);
             }
 
 
